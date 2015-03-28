@@ -15,9 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.platform.rider.sprites.Hero;
 import com.platform.rider.sprites.Particle;
+import com.platform.rider.sprites.Saw;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Gayan on 3/23/2015.
@@ -30,7 +32,9 @@ public class CanyonBunnyMain implements ApplicationListener {
 
     OrthographicCamera camera;
     List<Particle> particles = new ArrayList<Particle>();
+    List<Saw> saws = new ArrayList<Saw>();
     Hero hero;
+    Saw saw;
 
     final float SPEED = 50f;
     final float COLLISION_SPEED = 100f;
@@ -39,6 +43,7 @@ public class CanyonBunnyMain implements ApplicationListener {
 
     final short SPRITE_1 = 0x1;    // 0001
     final short SPRITE_2 = 0x1 << 1; // 0010 or 0x2 in hex
+    final short SPRITE_3 = 0x1 << 2; // 0010 or 0x3 in hex
 
     private Stage stage;
     private Touchpad touchpad;
@@ -52,9 +57,15 @@ public class CanyonBunnyMain implements ApplicationListener {
         world = new World(new Vector2(0, 0), true);
         batch = new SpriteBatch();
         for (int i = 0; i < 4; i++) {
-            float x = (float) Math.random() * 500;
-            float y = (float) Math.random() * 500;
-            Vector2 position = new Vector2(x, y);
+            Random r = new Random();
+            int xLow = 66;
+            int xHigh = Gdx.graphics.getWidth() - 66;
+            int xR = r.nextInt(xHigh - xLow) + xLow;
+
+            int yLow = 66;
+            int yHigh = Gdx.graphics.getHeight() - 66;
+            int yR = r.nextInt(yHigh - yLow) + yLow;
+            Vector2 position = new Vector2(xR, yR);
             Particle particle = new Particle(position, world, i);
             particles.add(particle);
         }
@@ -62,6 +73,26 @@ public class CanyonBunnyMain implements ApplicationListener {
         float y = (float) Math.random() * 100;
         hero = new Hero(new Vector2(x, y), world);
 
+        for (int i = 0; i < (Gdx.graphics.getHeight() / 130) + 1; i++) {
+            int yscale = 2 * (i + 1);
+            Saw saw = new Saw(0, yscale, world, "R");
+            saws.add(saw);
+        }
+        for (int i = 0; i < (Gdx.graphics.getHeight() / 130) + 1; i++) {
+            int yscale = 2 * (i + 1);
+            Saw saw = new Saw(0, yscale, world, "L");
+            saws.add(saw);
+        }
+        for (int i = 0; i < (Gdx.graphics.getWidth() / 130) + 1; i++) {
+            int xscale = 2 * (i + 1);
+            Saw saw = new Saw(xscale, 0, world, "U");
+            saws.add(saw);
+        }
+        for (int i = 0; i < (Gdx.graphics.getWidth() / 130) + 1; i++) {
+            int xscale = 2 * (i + 1);
+            Saw saw = new Saw(xscale, 0, world, "D");
+            saws.add(saw);
+        }
 
         debugRenderer = new Box2DDebugRenderer();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.
@@ -116,7 +147,26 @@ public class CanyonBunnyMain implements ApplicationListener {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
+        for (Saw saw : saws) {
+            saw.getSprite().setPosition((saw.getBody().getPosition().x * PIXELS_TO_METERS) - saw.getSprite().
+                            getWidth() / 2,
+                    (saw.getBody().getPosition().y * PIXELS_TO_METERS) - saw.getSprite().getHeight() / 2
+            );
+            batch.draw(saw.getSprite(), saw.getSprite().getX(), saw.getSprite().getY(), saw.getSprite().getOriginX(),
+                    saw.getSprite().getOriginY(),
+                    saw.getSprite().getWidth(), saw.getSprite().getHeight(), saw.getSprite().getScaleX(), saw.getSprite().
+                            getScaleY(), saw.getSprite().getRotation()
+            );
+        }
+
         for (Particle particle : particles) {
+            /*Vector2 heroPos1 = hero.getBody().getWorldCenter();
+            Vector2 particlePos1 = particle.getBody().getWorldCenter();
+            Vector2 distance1 = new Vector2(0, 0);
+            distance1.add(particlePos1).sub(heroPos1);
+            Vector2 invDist = new Vector2(-distance1.x,-distance1.y);
+            particle.getBody().applyForce(invDist,particlePos1,true);*/
+
             Vector2 heroPos = hero.getBody().getPosition();
             Vector2 particlePos = particle.getBody().getPosition();
             Vector2 distance = new Vector2(0, 0);
@@ -165,6 +215,7 @@ public class CanyonBunnyMain implements ApplicationListener {
                 hero.getSprite().getWidth(), hero.getSprite().getHeight(), hero.getSprite().getScaleX(), hero.getSprite().
                         getScaleY(), hero.getSprite().getRotation()
         );
+
         batch.end();
         debugRenderer.render(world, debugMatrix);
         stage.act(Gdx.graphics.getDeltaTime());
@@ -191,6 +242,7 @@ public class CanyonBunnyMain implements ApplicationListener {
 
         world.dispose();
     }
+
     class reactorContactListener implements ContactListener {
 
         @Override
@@ -202,9 +254,30 @@ public class CanyonBunnyMain implements ApplicationListener {
         public void endContact(Contact contact) {
             if (contact.getFixtureA().getFilterData().categoryBits == SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == SPRITE_2) {
                 Particle particle = particles.get(Integer.parseInt(contact.getFixtureA().getBody().getUserData().toString()));
-                particle.setColliding(true);
                 Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * COLLISION_SPEED, -particle.getNormaliseVector().y * COLLISION_SPEED);
                 contact.getFixtureA().getBody().setLinearVelocity(inverseNormal);
+                particle.setColliding(true);
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == SPRITE_1) {
+                Particle particle = particles.get(Integer.parseInt(contact.getFixtureA().getBody().getUserData().toString()));
+                particle.setColliding(true);
+                if (particle.getCollisionCount() > 3) {
+                    Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * COLLISION_SPEED, -particle.getNormaliseVector().y * COLLISION_SPEED);
+                    contact.getFixtureA().getBody().setLinearVelocity(inverseNormal);
+                    particle.setCollisionCount(0);
+                } else {
+                    int count = particle.getCollisionCount();
+                    count++;
+                    particle.setCollisionCount(count);
+                }
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == SPRITE_3) {
+                //remove particles
+                Particle particle = particles.get(Integer.parseInt(contact.getFixtureA().getBody().getUserData().toString()));
+                particle.setRemove(true);
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == SPRITE_3) {
+                //game over
             }
         }
 
