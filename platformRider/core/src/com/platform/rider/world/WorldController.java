@@ -60,11 +60,11 @@ public class WorldController {
 
     private void createParticles() {
         for (int i = 0; i < 4; i++) {
-            createNewParticle();
+            createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
     }
 
-    private void createNewParticle() {
+    private void createNewParticle(String type) {
         Random r = new Random();
         int xLow = -(Gdx.graphics.getWidth() / 2 - 66);
         int xHigh = Gdx.graphics.getWidth() / 2 - 66;
@@ -74,7 +74,7 @@ public class WorldController {
         int yHigh = Gdx.graphics.getWidth() / 2 - 66;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
-        Particle particle = new Particle(position, world, particlesCreated, GameConstants.NORMAL_PARTICLE);
+        Particle particle = new Particle(position, world, particlesCreated, type);
         //increment the number of particles created count
         particleHashMap.put(String.valueOf(particlesCreated++), particle);
     }
@@ -141,7 +141,7 @@ public class WorldController {
                 GameConstants.SPEED++;
             }
             //create a new particle
-            createNewParticle();
+            createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
         particlesForRemoval.clear();
     }
@@ -154,9 +154,8 @@ public class WorldController {
 
     private void splitParticles() {
         for (Vector2 plarticlePosition : splitParticlePosition) {
-            Particle particle = new Particle(plarticlePosition, world, particlesCreated, GameConstants.SPLIT_PARTICLE);
             //increment the number of particles created count
-            particleHashMap.put(String.valueOf(particlesCreated++), particle);
+            createNewParticle(GameConstants.SPLIT_PARTICLE);
         }
         splitParticlePosition.clear();
     }
@@ -186,7 +185,7 @@ public class WorldController {
                 particle.setCounter(0);
             }
 
-            if (stage == 2 && particle.getSplitParticleCount() > 1000) {
+            if (stage == 2 && particle.getSplitParticleCount() > 300) {
                 //set split particle position
                 splitParticlePosition.add(particle.getBody().getPosition());
                 particle.setSplitParticleCount(0);
@@ -210,6 +209,10 @@ public class WorldController {
                     (saw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - saw.getSprite().getHeight() / 2
             );
         }
+    }
+
+    private void updateSplitParticleCount(){
+        
     }
 
     class reactorContactListener implements ContactListener {
@@ -244,6 +247,12 @@ public class WorldController {
                 //remove particles
                 if (!particlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     particlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
+                }
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
+                //remove particles
+                if (!particlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    particlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
