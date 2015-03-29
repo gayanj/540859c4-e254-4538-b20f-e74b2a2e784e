@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.platform.rider.sprites.Hero;
 import com.platform.rider.sprites.Particle;
 import com.platform.rider.sprites.Saw;
+import com.platform.rider.utils.GameConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class CanyonBunnyMain implements ApplicationListener {
             int yHigh = Gdx.graphics.getHeight() - 66;
             int yR = r.nextInt(yHigh - yLow) + yLow;
             Vector2 position = new Vector2(xR, yR);
-            Particle particle = new Particle(position, world, i);
+            Particle particle = new Particle(position, world, i, GameConstants.NORMAL_PARTICLE);
             particles.add(particle);
         }
         float x = (float) Math.random() * 100;

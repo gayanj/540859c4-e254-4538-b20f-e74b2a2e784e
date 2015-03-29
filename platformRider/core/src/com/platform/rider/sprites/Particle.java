@@ -16,20 +16,28 @@ public class Particle extends AbstractGameObject {
     Vector2 normaliseVector = new Vector2();
     Vector2 position = new Vector2();
     boolean colliding = false;
+    boolean splitParticle = false;
     boolean remove = false;
+    int splitParticleCount = 0;
     int collisionCount = 0;
     int counter = 0;
+    String type;
 
-    public Particle(Vector2 position, World world, int number) {
-        init(position, world, number);
+    public Particle(Vector2 position, World world, int number, String type) {
+        init(position, world, number, type);
     }
 
-    private void init(Vector2 position, World world, int number) {
+    private void init(Vector2 position, World world, int number, String type) {
         this.world = world;
         this.position = position;
-        textureRegion = Assets.instance.assetParticle.particle;
+        this.type = type;
+        if("split_particle".equals(type)){
+            textureRegion = Assets.instance.assetParticle.split_particle;
+        }else {
+            textureRegion = Assets.instance.assetParticle.particle;
+        }
         sprite = new Sprite(textureRegion);
-        sprite.setPosition(position.x / 2 / GameConstants.PIXELS_TO_METERS, position.y / 2 / GameConstants.PIXELS_TO_METERS);
+        sprite.setPosition(-sprite.getWidth() / 2 + position.x,-sprite.getHeight() / 2 + position.y);
 
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /
@@ -40,13 +48,13 @@ public class Particle extends AbstractGameObject {
         body = world.createBody(bodyDef);
         body.setUserData(number);
         body.setFixedRotation(true);
-        shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
-                / 2 / GameConstants.PIXELS_TO_METERS);
-        //shape.setRadius(10);
-
+        /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
+                / 2 / GameConstants.PIXELS_TO_METERS);*/
+        shape.setRadius((sprite.getWidth() / 2) /
+                GameConstants.PIXELS_TO_METERS);
         fixtureDef.shape = shape;
         fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.restitution = 0.1f;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_1;
         fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1 | GameConstants.SPRITE_3;
 
@@ -116,6 +124,30 @@ public class Particle extends AbstractGameObject {
 
     public void setRemove(boolean remove) {
         this.remove = remove;
+    }
+
+    public boolean isSplitParticle() {
+        return splitParticle;
+    }
+
+    public void setSplitParticle(boolean splitParticle) {
+        this.splitParticle = splitParticle;
+    }
+
+    public int getSplitParticleCount() {
+        return splitParticleCount;
+    }
+
+    public void setSplitParticleCount(int splitParticleCount) {
+        this.splitParticleCount = splitParticleCount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

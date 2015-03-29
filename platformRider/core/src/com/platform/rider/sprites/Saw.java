@@ -37,9 +37,11 @@ public class Saw extends AbstractGameObject{
 
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
-        shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
+        shape.setRadius((sprite.getWidth() / 2) /
+                GameConstants.PIXELS_TO_METERS);
+        /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
                 / 2 / GameConstants.PIXELS_TO_METERS);
-        //shape.setRadius(10);
+        //shape.setRadius(10);*/
 
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_3;

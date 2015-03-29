@@ -35,13 +35,15 @@ public class Hero extends AbstractGameObject {
         );
 
         body = world.createBody(bodyDef);
-        body.setUserData("Hero");
         body.setFixedRotation(true);
-        shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
-                / 2 / GameConstants.PIXELS_TO_METERS);
+        body.setLinearDamping(GameConstants.LINEAR_DAMPING);
+        shape.setRadius((sprite.getWidth() / 2) /
+                GameConstants.PIXELS_TO_METERS);
+        /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
+                / 2 / GameConstants.PIXELS_TO_METERS);*/
 
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.5f;
+        fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_2;
         fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3;

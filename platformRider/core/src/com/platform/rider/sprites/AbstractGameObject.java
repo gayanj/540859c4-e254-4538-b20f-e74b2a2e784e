@@ -15,7 +15,7 @@ public abstract class AbstractGameObject {
     TextureRegion textureRegion;
     Body body;
     BodyDef bodyDef = new BodyDef();
-    PolygonShape shape = new PolygonShape();
+    CircleShape shape = new CircleShape();
     FixtureDef fixtureDef = new FixtureDef();
     Vector2 position = new Vector2();
 

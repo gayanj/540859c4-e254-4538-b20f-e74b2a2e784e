@@ -1,0 +1,39 @@
+gameAssets.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+splitparticle
+  rotate: false
+  xy: 2, 847
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+background
+  rotate: true
+  xy: 2, 2
+  size: 480, 640
+  orig: 640, 480
+  offset: 0, 0
+  index: -1
+hero
+  rotate: false
+  xy: 2, 778
+  size: 66, 67
+  orig: 66, 67
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 2, 904
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+spike
+  rotate: false
+  xy: 2, 644
+  size: 131, 132
+  orig: 131, 132
+  offset: 0, 0
+  index: -1

@@ -73,8 +73,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetParticle {
         public final TextureAtlas.AtlasRegion particle;
+        public final TextureAtlas.AtlasRegion split_particle;
         public AssetParticle (TextureAtlas atlas) {
             particle = atlas.findRegion("particle");
+            split_particle = atlas.findRegion("splitparticle");
         }
     }
 
