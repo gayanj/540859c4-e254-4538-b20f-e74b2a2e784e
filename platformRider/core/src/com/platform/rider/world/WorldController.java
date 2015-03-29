@@ -77,6 +77,7 @@ public class WorldController {
         int yHigh = Gdx.graphics.getWidth() / 2 - 100;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
+        System.out.println("newNormalParticlePosition: " + position);
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
         //increment the number of particles created count
         particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
@@ -240,7 +241,11 @@ public class WorldController {
     private void updateSplitParticleCount(Particle particle) {
         if (stage == 2 && particle.getSplitParticleCount() > 200) {
             //set split particle position
-            splitParticlePosition.add(particle.getBody().getPosition());
+            Vector2 particlePosition = new Vector2(particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS - particle.getSprite().
+                    getWidth()/2,particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS - particle.getSprite().
+                    getHeight()/2);
+            splitParticlePosition.add(particlePosition);
+            System.out.println("splitParticlePosition: " + particlePosition);
             particle.setSplitParticleCount(0);
         } else {
             int count = particle.getSplitParticleCount();
