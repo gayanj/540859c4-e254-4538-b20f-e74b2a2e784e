@@ -22,11 +22,14 @@ public class WorldController {
     public World world;
     public Hero hero;
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
-    public List<String> particlesForRemoval = new ArrayList<String>();
+    public List<String> normalParticlesForRemoval = new ArrayList<String>();
+    public List<String> splitParticlesForRemoval = new ArrayList<String>();
     public List<Saw> saws = new ArrayList<Saw>();
     public TouchPadHelper touchPadHelper;
-    int particlesCreated = 0;
-    int particlesDestroyed = 0;
+    int totalParticlesCreated = 0;
+    int totalParticlesDestroyed = 0;
+    int splitParticlesAlive = 0;
+    int totalParticlesAlive = 0;
     int stage = 1;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -66,17 +69,25 @@ public class WorldController {
 
     private void createNewParticle(String type) {
         Random r = new Random();
-        int xLow = -(Gdx.graphics.getWidth() / 2 - 66);
-        int xHigh = Gdx.graphics.getWidth() / 2 - 66;
+        int xLow = -(Gdx.graphics.getWidth() / 2 - 100);
+        int xHigh = Gdx.graphics.getWidth() / 2 - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(Gdx.graphics.getWidth() / 2 - 66);
-        int yHigh = Gdx.graphics.getWidth() / 2 - 66;
+        int yLow = -(Gdx.graphics.getWidth() / 2 - 100);
+        int yHigh = Gdx.graphics.getWidth() / 2 - 100;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
-        Particle particle = new Particle(position, world, particlesCreated, type);
+        Particle particle = new Particle(position, world, totalParticlesCreated, type);
         //increment the number of particles created count
-        particleHashMap.put(String.valueOf(particlesCreated++), particle);
+        particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
+        totalParticlesAlive++;
+    }
+
+    private void createSplitParticle(Vector2 position) {
+        Particle particle = new Particle(position, world, totalParticlesCreated, GameConstants.SPLIT_PARTICLE);
+        //increment the number of particles created count
+        particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
+        totalParticlesAlive++;
     }
 
     private void createSpikes() {
@@ -105,6 +116,7 @@ public class WorldController {
     public void update(float deltaTime) {
         world.step(deltaTime, 8, 3);
         destroyParticles();
+        destroySplitParticles();
         checkStage();
         splitParticles();
         camera.update();
@@ -127,7 +139,7 @@ public class WorldController {
     }
 
     private void destroyParticles() {
-        for (String particleKey : particlesForRemoval) {
+        for (String particleKey : normalParticlesForRemoval) {
             particleHashMap.get(particleKey).setSprite(null);
             final Array<JointEdge> list = particleHashMap.get(particleKey).getBody().getJointList();
             while (list.size > 0) {
@@ -136,26 +148,46 @@ public class WorldController {
             world.destroyBody(particleHashMap.get(particleKey).getBody());
             particleHashMap.remove(particleKey);
             //increment the number of destroyed particles
-            particlesDestroyed++;
-            if (particlesDestroyed % 10 == 0 && GameConstants.SPEED <= 10) {
-                GameConstants.SPEED++;
-            }
+            totalParticlesDestroyed++;
+            totalParticlesAlive--;
             //create a new particle
             createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
-        particlesForRemoval.clear();
+        normalParticlesForRemoval.clear();
+    }
+
+    private void destroySplitParticles() {
+        for (String particleKey : splitParticlesForRemoval) {
+            particleHashMap.get(particleKey).setSprite(null);
+            final Array<JointEdge> list = particleHashMap.get(particleKey).getBody().getJointList();
+            while (list.size > 0) {
+                world.destroyJoint(list.get(0).joint);
+            }
+            world.destroyBody(particleHashMap.get(particleKey).getBody());
+            particleHashMap.remove(particleKey);
+            //increment the number of destroyed particles
+            totalParticlesDestroyed++;
+            splitParticlesAlive--;
+            totalParticlesAlive--;
+        }
+        splitParticlesForRemoval.clear();
     }
 
     private void checkStage() {
-        if (particlesDestroyed > 10 && stage == 1) {
+        if (totalParticlesDestroyed > 10 && stage == 1) {
             stage++;
         }
     }
 
     private void splitParticles() {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 20 == 0 && splitParticlesAlive == 0 && totalParticlesAlive < 20) {
+            createNewParticle(GameConstants.SPLIT_PARTICLE);
+            splitParticlesAlive++;
+        }
         for (Vector2 plarticlePosition : splitParticlePosition) {
             //increment the number of particles created count
-            createNewParticle(GameConstants.SPLIT_PARTICLE);
+            createSplitParticle(plarticlePosition);
+            splitParticlesAlive++;
         }
         splitParticlePosition.clear();
     }
@@ -171,7 +203,7 @@ public class WorldController {
             particle.setNormaliseVector(distance.nor());
 
             if (!particle.isColliding()) {
-                particle.getBody().setLinearVelocity(particle.getNormaliseVector().x * GameConstants.SPEED, particle.getNormaliseVector().y * GameConstants.SPEED);
+                particle.getBody().setLinearVelocity(particle.getNormaliseVector().x * particle.getSpeed(), particle.getNormaliseVector().y * particle.getSpeed());
             }
 
             if (particle.isColliding()) {
@@ -185,14 +217,8 @@ public class WorldController {
                 particle.setCounter(0);
             }
 
-            if (stage == 2 && particle.getSplitParticleCount() > 300) {
-                //set split particle position
-                splitParticlePosition.add(particle.getBody().getPosition());
-                particle.setSplitParticleCount(0);
-            } else {
-                int count = particle.getSplitParticleCount();
-                count++;
-                particle.setSplitParticleCount(count);
+            if (GameConstants.SPLIT_PARTICLE.equals(particle.getType())) {
+                updateSplitParticleCount(particle);
             }
 
             particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
@@ -211,8 +237,16 @@ public class WorldController {
         }
     }
 
-    private void updateSplitParticleCount(){
-        
+    private void updateSplitParticleCount(Particle particle) {
+        if (stage == 2 && particle.getSplitParticleCount() > 200) {
+            //set split particle position
+            splitParticlePosition.add(particle.getBody().getPosition());
+            particle.setSplitParticleCount(0);
+        } else {
+            int count = particle.getSplitParticleCount();
+            count++;
+            particle.setSplitParticleCount(count);
+        }
     }
 
     class reactorContactListener implements ContactListener {
@@ -245,14 +279,14 @@ public class WorldController {
             }*/
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
-                if (!particlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
-                    particlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
+                if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
+                    normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
-                if (!particlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
-                    particlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                if (!splitParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    splitParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {

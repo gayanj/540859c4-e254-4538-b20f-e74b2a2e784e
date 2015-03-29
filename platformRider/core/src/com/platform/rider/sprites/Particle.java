@@ -13,6 +13,7 @@ import com.platform.rider.utils.GameConstants;
  * Created by Gayan on 3/26/2015.
  */
 public class Particle extends AbstractGameObject {
+    float speed;
     Vector2 normaliseVector = new Vector2();
     Vector2 position = new Vector2();
     boolean colliding = false;
@@ -33,8 +34,10 @@ public class Particle extends AbstractGameObject {
         this.type = type;
         if("split_particle".equals(type)){
             textureRegion = Assets.instance.assetParticle.split_particle;
+            speed = GameConstants.SPLIT_PARTICAL_SPEED;
         }else {
             textureRegion = Assets.instance.assetParticle.particle;
+            speed = GameConstants.NORMAL_PARTICAL_SPEED;
         }
         sprite = new Sprite(textureRegion);
         sprite.setPosition(-sprite.getWidth() / 2 + position.x,-sprite.getHeight() / 2 + position.y);
@@ -148,6 +151,14 @@ public class Particle extends AbstractGameObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     @Override
