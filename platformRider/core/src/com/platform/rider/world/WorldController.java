@@ -1,5 +1,6 @@
 package com.platform.rider.world;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +19,7 @@ import java.util.*;
  */
 public class WorldController {
     private static final String TAG = WorldController.class.getName();
+    private Game game;
     public OrthographicCamera camera;
     public World world;
     public Hero hero;
@@ -33,7 +35,8 @@ public class WorldController {
     int stage = 1;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
-    public WorldController() {
+    public WorldController (Game game) {
+        this.game = game;
         init();
     }
 
@@ -77,7 +80,6 @@ public class WorldController {
         int yHigh = Gdx.graphics.getWidth() / 2 - 100;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
-        System.out.println("newNormalParticlePosition: " + position);
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
         //increment the number of particles created count
         particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
@@ -245,7 +247,6 @@ public class WorldController {
                     getWidth()/2,particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS - particle.getSprite().
                     getHeight()/2);
             splitParticlePosition.add(particlePosition);
-            System.out.println("splitParticlePosition: " + particlePosition);
             particle.setSplitParticleCount(0);
         } else {
             int count = particle.getSplitParticleCount();
