@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.platform.rider.utils.GameConstants;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 /**
  * Created by Gayan on 3/28/2015.
@@ -22,6 +23,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetHero assetHero;
     public AssetSpike assetSpike;
     public AssetLevelDecoration assetLevelDecoration;
+    public AssetFonts fonts;
 
     // singleton: prevent instantiation from other classes
     private Assets() {
@@ -48,6 +50,7 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        fonts = new AssetFonts();
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
         assetSpike = new AssetSpike(atlas);
@@ -57,6 +60,9 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void dispose() {
         assetManager.dispose();
+        fonts.defaultSmall.dispose();
+        fonts.defaultNormal.dispose();
+        fonts.defaultBig.dispose();
     }
 
     public void error(String filename, Class type,
@@ -74,7 +80,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetParticle {
         public final TextureAtlas.AtlasRegion particle;
         public final TextureAtlas.AtlasRegion split_particle;
-        public AssetParticle (TextureAtlas atlas) {
+
+        public AssetParticle(TextureAtlas atlas) {
             particle = atlas.findRegion("particle");
             split_particle = atlas.findRegion("splitparticle");
         }
@@ -82,6 +89,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetHero {
         public final TextureAtlas.AtlasRegion hero;
+
         public AssetHero(TextureAtlas atlas) {
             hero = atlas.findRegion("hero");
         }
@@ -89,6 +97,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetSpike {
         public final TextureAtlas.AtlasRegion spike;
+
         public AssetSpike(TextureAtlas atlas) {
             spike = atlas.findRegion("spike");
         }
@@ -97,9 +106,36 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetLevelDecoration {
         public final TextureAtlas.AtlasRegion background;
 
-        public AssetLevelDecoration (TextureAtlas atlas) {
+        public AssetLevelDecoration(TextureAtlas atlas) {
             background = atlas.findRegion("background");
 
+        }
+    }
+
+    public class AssetFonts {
+        public final BitmapFont defaultSmall;
+        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultBig;
+
+        public AssetFonts() {
+            // create three fonts for different sizes
+            defaultSmall = new BitmapFont(
+                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+            defaultNormal = new BitmapFont(
+                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+            defaultBig = new BitmapFont(
+                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+            // set font sizes
+            defaultSmall.setScale(0.75f);
+            defaultNormal.setScale(1.0f);
+            defaultBig.setScale(2.0f);
+            // enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultNormal.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
         }
     }
 }
