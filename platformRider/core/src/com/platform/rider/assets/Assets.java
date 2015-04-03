@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
@@ -24,6 +25,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetSpike assetSpike;
     public AssetLevelDecoration assetLevelDecoration;
     public AssetFonts fonts;
+    public AssetAnimations assetAnimations;
 
     // singleton: prevent instantiation from other classes
     private Assets() {
@@ -35,6 +37,9 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.setErrorListener(this);
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_OBJECTS,
+                TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_SPIKE_ANIMATION,
                 TextureAtlas.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
@@ -50,11 +55,19 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        TextureAtlas animationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_SPIKE_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : animationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
         fonts = new AssetFonts();
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
         assetSpike = new AssetSpike(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
+        assetAnimations = new AssetAnimations(animationAtlas);
     }
 
     @Override
@@ -136,6 +149,15 @@ public class Assets implements Disposable, AssetErrorListener {
                     TextureFilter.Linear, TextureFilter.Linear);
             defaultBig.getRegion().getTexture().setFilter(
                     TextureFilter.Linear, TextureFilter.Linear);
+        }
+    }
+
+    public class AssetAnimations {
+        public final Animation spikeAnimation;
+
+        public AssetAnimations(TextureAtlas atlas) {
+            spikeAnimation = new Animation(0.025f,atlas.getRegions());
+            spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
         }
     }
 }

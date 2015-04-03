@@ -70,7 +70,7 @@ public class WorldController {
     }
 
     private void createParticles() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
     }
@@ -193,7 +193,7 @@ public class WorldController {
 
     private void destroySaws() {
         for (Map.Entry<String, Saw> entry : spikeHashMap.entrySet()) {
-            entry.getValue().setSprite(null);
+            entry.getValue().setAnimatedSprite(null);
             final Array<JointEdge> sawJointList = entry.getValue().getBody().getJointList();
             while (sawJointList.size > 0) {
                 world.destroyJoint(sawJointList.get(0).joint);
@@ -220,7 +220,7 @@ public class WorldController {
     }
 
     private void checkStage() {
-        if (totalParticlesDestroyed > 10 && stage == 1) {
+        if (totalParticlesDestroyed >= 10 && stage == 1) {
             stage++;
         }
     }
@@ -275,13 +275,13 @@ public class WorldController {
     }
 
     private void updateSpikes() {
-        for (Map.Entry<String, Saw> entry : spikeHashMap.entrySet()) {
+        /*for (Map.Entry<String, Saw> entry : spikeHashMap.entrySet()) {
             Saw saw = entry.getValue();
-            saw.getSprite().setPosition((saw.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - saw.getSprite().
+            saw.getAnimatedSprite().setPosition((saw.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - saw.getAnimatedSprite().
                             getWidth() / 2,
-                    (saw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - saw.getSprite().getHeight() / 2
+                    (saw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - saw.getAnimatedSprite().getHeight() / 2
             );
-        }
+        }*/
     }
 
     private void updateSplitParticleCount(Particle particle) {

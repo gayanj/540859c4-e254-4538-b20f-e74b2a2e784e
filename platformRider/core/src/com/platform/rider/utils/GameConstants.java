@@ -23,4 +23,8 @@ public class GameConstants {
     // Location of description file for texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS =
             "gameAssets.txt";
+
+    // Location of description file for spike animation texture atlas
+    public static final String TEXTURE_ATLAS_SPIKE_ANIMATION =
+            "spikeAniimations.txt";
 }

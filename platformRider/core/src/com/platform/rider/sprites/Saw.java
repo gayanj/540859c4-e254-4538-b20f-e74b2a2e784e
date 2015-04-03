@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
+import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
  * Created by Gayan on 3/27/2015.
@@ -16,28 +18,30 @@ import com.platform.rider.utils.GameConstants;
 public class Saw extends AbstractGameObject{
     public Saw(int xscale,int yscale, World world, String side){
         this.world = world;
-        textureRegion = Assets.instance.assetSpike.spike;
-        sprite = new Sprite(textureRegion);
+        //textureRegion = Assets.instance.assetSpike.spike;
+        animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.spikeAnimation);
+        //sprite = new Sprite(textureRegion);
         if(xscale == 0 && side.equals("R")) {
-            sprite.setPosition((-sprite.getWidth() / 2) + Gdx.graphics.getWidth() / 2, (-sprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
         }else if(xscale == 0 && side.equals("L")){
-            sprite.setPosition((-sprite.getWidth() / 2) - Gdx.graphics.getWidth() / 2, (-sprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
         }
         if(yscale == 0 && side.equals("D")) {
-            sprite.setPosition((-sprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-sprite.getHeight() / 2) - Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) - Gdx.graphics.getHeight() / 2);
         }else if(yscale == 0 && side.equals("U")){
-            sprite.setPosition((-sprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-sprite.getHeight() / 2) + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) + Gdx.graphics.getHeight() / 2);
         }
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /
+        bodyDef.position.set((animatedSprite.getX() + animatedSprite.getWidth() / 2) /
                         GameConstants.PIXELS_TO_METERS,
-                (sprite.getY() + sprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
+                (animatedSprite.getY() + animatedSprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
         );
 
         body = world.createBody(bodyDef);
-        body.setFixedRotation(true);
-        shape.setRadius((sprite.getWidth() / 2) /
+        //body.setUserData(animatedBox2DSprite);
+        body.setFixedRotation(false);
+        shape.setRadius((animatedSprite.getWidth() / 2) /
                 GameConstants.PIXELS_TO_METERS);
         /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
                 / 2 / GameConstants.PIXELS_TO_METERS);
@@ -83,14 +87,27 @@ public class Saw extends AbstractGameObject{
         this.position = position;
     }
 
+    public AnimatedBox2DSprite getAnimatedSprite(){
+        return this.animatedBox2DSprite;
+    }
+
+    public void setAnimatedSprite(AnimatedBox2DSprite animatedBox2DSprite1) {
+        this.animatedBox2DSprite = animatedBox2DSprite1;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
-        batch.draw(sprite,
+        /*batch.draw(sprite,
                 sprite.getX(), sprite.getY(),
                 sprite.getOriginX(),sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(),
                 sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
-        );
+        );*/
+        //animatedBox2DSprite.draw(batch,this.getBody());
+        //box2DSprite.draw(batch, body);
+        //box2DSprite.draw(batch, fixture);
+        animatedSprite.draw(batch);
+        //AnimatedBox2DSprite.draw(batch,getWorld());
     }
 }

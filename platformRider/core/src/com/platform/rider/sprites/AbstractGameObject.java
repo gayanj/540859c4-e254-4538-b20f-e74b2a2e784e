@@ -5,11 +5,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
+import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
 /**
  * Created by Gayan on 3/28/2015.
  */
 public abstract class AbstractGameObject {
+    AnimatedSprite animatedSprite;
+    AnimatedBox2DSprite animatedBox2DSprite;
+    Box2DSprite box2DSprite;
     World world;
     Sprite sprite;
     TextureRegion textureRegion;
