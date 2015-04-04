@@ -60,13 +60,13 @@ public class WorldRenderer {
         }
     }
 
-    private void renderParticles(){
+    private void renderParticles() {
         for (Map.Entry<String, Particle> entry : worldController.particleHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }
 
-    private void renderSpikes(){
+    private void renderSpikes() {
         for (Map.Entry<String, Saw> entry : worldController.spikeHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
@@ -90,10 +90,11 @@ public class WorldRenderer {
         renderGuiScore(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);
+        renderPowerButton(batch);
         batch.end();
     }
 
-    private void renderGuiScore (SpriteBatch batch) {
+    private void renderGuiScore(SpriteBatch batch) {
         float x = -15;
         float y = -15;
         batch.draw(Assets.instance.assetParticle.particle,
@@ -103,7 +104,7 @@ public class WorldRenderer {
                 x + 75, y + 37);
     }
 
-    private void renderGuiGameOverMessage (SpriteBatch batch) {
+    private void renderGuiGameOverMessage(SpriteBatch batch) {
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
         if (worldController.isGameOver()) {
@@ -111,6 +112,15 @@ public class WorldRenderer {
             fontGameOver.drawMultiLine(batch, "GAME OVER", x, y, 0,
                     BitmapFont.HAlignment.CENTER);
             fontGameOver.setColor(1, 1, 1, 1);
+        }
+    }
+
+    private void renderPowerButton(SpriteBatch batch) {
+        float x = 15;
+        if (!worldController.isGameOver()) {
+            float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight();
+            batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
+                    x, y, 50, 50, 100, 100, 1, 1, 0);
         }
     }
 }

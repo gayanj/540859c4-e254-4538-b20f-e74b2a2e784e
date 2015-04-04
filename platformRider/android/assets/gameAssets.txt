@@ -4,9 +4,9 @@ filter: Linear,Linear
 repeat: none
 splitparticle
   rotate: false
-  xy: 2, 847
-  size: 55, 55
-  orig: 55, 55
+  xy: 108, 899
+  size: 104, 104
+  orig: 104, 104
   offset: 0, 0
   index: -1
 background
@@ -18,22 +18,36 @@ background
   index: -1
 hero
   rotate: false
-  xy: 2, 778
-  size: 66, 67
-  orig: 66, 67
+  xy: 134, 644
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+powerbutton
+  rotate: false
+  xy: 2, 777
+  size: 120, 120
+  orig: 120, 120
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 2, 904
-  size: 55, 55
-  orig: 55, 55
+  xy: 124, 777
+  size: 104, 104
+  orig: 104, 104
   offset: 0, 0
   index: -1
 spike
-  rotate: false
+  rotate: true
   xy: 2, 644
-  size: 131, 132
+  size: 130, 131
   orig: 131, 132
+  offset: 0, 1
+  index: -1
+suicideparticle
+  rotate: false
+  xy: 2, 899
+  size: 104, 104
+  orig: 104, 104
   offset: 0, 0
   index: -1

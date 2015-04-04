@@ -12,6 +12,7 @@ import com.platform.rider.screens.MenuScreen;
 import com.platform.rider.sprites.Hero;
 import com.platform.rider.sprites.Particle;
 import com.platform.rider.sprites.Saw;
+import com.platform.rider.utils.BlastRadiusCallBack;
 import com.platform.rider.utils.GameConstants;
 import com.platform.rider.utils.OverlapTester;
 import com.platform.rider.utils.TouchPadHelper;
@@ -34,9 +35,10 @@ public class WorldController {
     public TouchPadHelper touchPadHelper;
     int totalParticlesCreated = 0;
     public int totalParticlesDestroyed = 0;
+    int suicideParticlesAlive = 0;
     int splitParticlesAlive = 0;
     int totalParticlesAlive = 0;
-    int stage = 1;
+    int stage = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -70,7 +72,7 @@ public class WorldController {
     }
 
     private void createParticles() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
     }
@@ -130,6 +132,7 @@ public class WorldController {
             destroySplitParticles();
             checkStage();
             splitParticles();
+            createSuicideParticles();
             camera.update();
             //Touch pad readings
             Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * 10f, touchPadHelper.getTouchpad().getKnobPercentY() * 10f);
@@ -137,6 +140,7 @@ public class WorldController {
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
             }
+            handleHeroPowerUp();
             updateHero();
             updateParticles();
             updateSpikes();
@@ -152,6 +156,7 @@ public class WorldController {
 
     private void destroyParticles() {
         for (String particleKey : normalParticlesForRemoval) {
+            String type = particleHashMap.get(particleKey).getType();
             particleHashMap.get(particleKey).setSprite(null);
             final Array<JointEdge> list = particleHashMap.get(particleKey).getBody().getJointList();
             while (list.size > 0) {
@@ -163,7 +168,13 @@ public class WorldController {
             totalParticlesDestroyed++;
             totalParticlesAlive--;
             //create a new particle
-            createNewParticle(GameConstants.NORMAL_PARTICLE);
+            if (type.equals(GameConstants.NORMAL_PARTICLE)) {
+                createNewParticle(GameConstants.NORMAL_PARTICLE);
+            } else if (type.equals(GameConstants.SPLIT_PARTICLE)) {
+                splitParticlesAlive--;
+            } else {
+                suicideParticlesAlive--;
+            }
         }
         normalParticlesForRemoval.clear();
     }
@@ -220,8 +231,42 @@ public class WorldController {
     }
 
     private void checkStage() {
-        if (totalParticlesDestroyed >= 10 && stage == 1) {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0) {
             stage++;
+        }
+    }
+
+    private void checkSuicideParticle(Particle particle) {
+        if (particle.getBlastTimer() > 500) {
+            BlastRadiusCallBack blastRadiusCallBack = new BlastRadiusCallBack();
+            Vector2 center = particle.getBody().getPosition();
+            Vector2 aabbLowerBound = new Vector2(center);
+            Vector2 aabbUpperBound = new Vector2(center);
+            aabbLowerBound = aabbLowerBound.sub(new Vector2(GameConstants.BLAST_RADIUS, GameConstants.BLAST_RADIUS));
+            aabbUpperBound = aabbUpperBound.add(new Vector2(GameConstants.BLAST_RADIUS, GameConstants.BLAST_RADIUS));
+
+
+            world.QueryAABB(blastRadiusCallBack, aabbLowerBound.x, aabbLowerBound.y, aabbUpperBound.x, aabbUpperBound.y);
+            for (int i = 0; i < blastRadiusCallBack.getFoundBodies().size(); i++) {
+                Body body = blastRadiusCallBack.getFoundBodies().get(i);
+                Vector2 bodyWorldCenter = body.getWorldCenter();
+
+                //ignore bodies outside the blast range
+                if ((bodyWorldCenter.sub(center)).len() >= GameConstants.BLAST_RADIUS)
+                    continue;
+
+                if ("hero".equals(body.getUserData().toString())) {
+                    gameOver = true;
+                }
+                if (!normalParticlesForRemoval.contains(body.getUserData().toString())) {
+                    normalParticlesForRemoval.add(body.getUserData().toString());
+                }
+            }
+            particle.setBlastTimer(0);
+        } else {
+            int count = particle.getBlastTimer();
+            count++;
+            particle.setBlastTimer(count);
         }
     }
 
@@ -236,6 +281,15 @@ public class WorldController {
             splitParticlesAlive++;
         }
         splitParticlePosition.clear();
+    }
+
+    private void createSuicideParticles() {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && suicideParticlesAlive == 0) {
+            //for (int i = 0; i < stage; i++) {
+            createNewParticle(GameConstants.SUICIDE_PARTICLE);
+            suicideParticlesAlive++;
+            //}
+        }
     }
 
     private void updateParticles() {
@@ -265,6 +319,8 @@ public class WorldController {
 
             if (GameConstants.SPLIT_PARTICLE.equals(particle.getType())) {
                 updateSplitParticleCount(particle);
+            } else if (GameConstants.SUICIDE_PARTICLE.equals(particle.getType())) {
+                checkSuicideParticle(particle);
             }
 
             particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
@@ -285,14 +341,14 @@ public class WorldController {
     }
 
     private void updateSplitParticleCount(Particle particle) {
-        if (stage == 2 && particle.getSplitParticleCount() > 200) {
+        if (stage >= 2 && particle.getSplitParticleCount() > 200 && splitParticlesAlive < 20) {
             //set split particle position
             Vector2 particlePosition = new Vector2(particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS - particle.getSprite().
                     getWidth() / 2, particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS - particle.getSprite().
                     getHeight() / 2);
             splitParticlePosition.add(particlePosition);
             particle.setSplitParticleCount(0);
-        } else {
+        } else if (splitParticlesAlive < 20) {
             int count = particle.getSplitParticleCount();
             count++;
             particle.setSplitParticleCount(count);
@@ -368,13 +424,31 @@ public class WorldController {
         if (gameOver && Gdx.input.justTouched()) {
             Vector2 touchPoint = new Vector2(Gdx.input.getX(), Gdx.input.getY());
             Rectangle gameoverBound = new Rectangle(
-                    540-(Assets.instance.fonts.defaultBig.getCache().getBounds().width/2),
-                    960+(Assets.instance.fonts.defaultBig.getCache().getBounds().height/2),
+                    (Gdx.graphics.getWidth() / 2) - (Assets.instance.fonts.defaultBig.getCache().getBounds().width / 2),
+                    (Gdx.graphics.getHeight() / 2),
                     Assets.instance.fonts.defaultBig.getCache().getBounds().width,
                     Assets.instance.fonts.defaultBig.getCache().getBounds().height);
             if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
                 destroyAllParticles();
                 backToMenu();
+            }
+        }
+    }
+
+    public void handleHeroPowerUp() {
+        for (int i = 0; i < 2; i++) {
+            if (Gdx.input.isTouched(i)) {
+                Vector2 touchPoint = new Vector2(Gdx.input.getX(i), Gdx.input.getY(i));
+                Rectangle gameoverBound = new Rectangle(
+                        15,
+                        (Gdx.graphics.getHeight() - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight()),
+                        Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedWidth(),
+                        Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight());
+                if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
+                    GameConstants.COLLISION_SPEED = 20f;
+                }
+            } else {
+                GameConstants.COLLISION_SPEED = 10f;
             }
         }
     }

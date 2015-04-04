@@ -22,6 +22,7 @@ public class Particle extends AbstractGameObject {
     int splitParticleCount = 0;
     int collisionCount = 0;
     int counter = 0;
+    int blastTimer = 0;
     String type;
 
     public Particle(Vector2 position, World world, int number, String type) {
@@ -35,11 +36,15 @@ public class Particle extends AbstractGameObject {
         if("split_particle".equals(type)){
             textureRegion = Assets.instance.assetParticle.split_particle;
             speed = GameConstants.SPLIT_PARTICAL_SPEED;
-        }else {
+        }else if("normal_particle".equals(type)) {
             textureRegion = Assets.instance.assetParticle.particle;
             speed = GameConstants.NORMAL_PARTICAL_SPEED;
+        }else if("suicide_particle".equals(type)) {
+            textureRegion = Assets.instance.assetParticle.suicide_particle;
+            speed = GameConstants.SUICIDE_PARTICAL_SPEED;
         }
         sprite = new Sprite(textureRegion);
+        sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
         sprite.setPosition(-sprite.getWidth() / 2 + position.x,-sprite.getHeight() / 2 + position.y);
 
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -159,6 +164,14 @@ public class Particle extends AbstractGameObject {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public int getBlastTimer() {
+        return blastTimer;
+    }
+
+    public void setBlastTimer(int blastTimer) {
+        this.blastTimer = blastTimer;
     }
 
     @Override

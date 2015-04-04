@@ -99,6 +99,8 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils:0.10.0"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.10.0"
     }
 }
 

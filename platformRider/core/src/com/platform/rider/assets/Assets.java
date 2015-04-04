@@ -93,10 +93,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetParticle {
         public final TextureAtlas.AtlasRegion particle;
         public final TextureAtlas.AtlasRegion split_particle;
+        public final TextureAtlas.AtlasRegion suicide_particle;
 
         public AssetParticle(TextureAtlas atlas) {
             particle = atlas.findRegion("particle");
             split_particle = atlas.findRegion("splitparticle");
+            suicide_particle = atlas.findRegion("suicideparticle");
         }
     }
 
@@ -117,10 +119,10 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetLevelDecoration {
-        public final TextureAtlas.AtlasRegion background;
+        public final TextureAtlas.AtlasRegion powerbutton;
 
         public AssetLevelDecoration(TextureAtlas atlas) {
-            background = atlas.findRegion("background");
+            powerbutton = atlas.findRegion("powerbutton");
 
         }
     }

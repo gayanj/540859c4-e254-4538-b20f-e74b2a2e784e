@@ -26,6 +26,7 @@ public class Hero extends AbstractGameObject {
         this.position = position;
         textureRegion = Assets.instance.assetHero.hero;
         sprite = new Sprite(textureRegion);
+        sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
         sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
 
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -36,6 +37,7 @@ public class Hero extends AbstractGameObject {
 
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
+        body.setUserData("hero");
         body.setLinearDamping(GameConstants.LINEAR_DAMPING);
         shape.setRadius((sprite.getWidth() / 2) /
                 GameConstants.PIXELS_TO_METERS);

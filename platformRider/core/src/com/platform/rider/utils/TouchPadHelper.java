@@ -26,7 +26,7 @@ public class TouchPadHelper {
     private void init(){
         //Create a touchpad skin
         touchpadSkin = new Skin();
-        //Set background image
+        //Set powerButton image
         touchpadSkin.add("touchBackground", new Texture("data/touchBackground.png"));
         //Set knob image
         touchpadSkin.add("touchKnob", new Texture("data/touchKnob.png"));
