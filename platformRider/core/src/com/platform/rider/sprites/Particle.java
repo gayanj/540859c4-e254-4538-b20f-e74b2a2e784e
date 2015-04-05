@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
  * Created by Gayan on 3/26/2015.
@@ -40,26 +41,44 @@ public class Particle extends AbstractGameObject {
             textureRegion = Assets.instance.assetParticle.particle;
             speed = GameConstants.NORMAL_PARTICAL_SPEED;
         }else if("suicide_particle".equals(type)) {
-            textureRegion = Assets.instance.assetParticle.suicide_particle;
+            //textureRegion = Assets.instance.assetParticle.suicide_particle;
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.suicideParticleAnimation);
             speed = GameConstants.SUICIDE_PARTICAL_SPEED;
         }
-        sprite = new Sprite(textureRegion);
-        sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
-        sprite.setPosition(-sprite.getWidth() / 2 + position.x,-sprite.getHeight() / 2 + position.y);
+        if("suicide_particle".equals(type)){
+            animatedSprite.setSize(animatedSprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, animatedSprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
+            animatedSprite.setPosition(-animatedSprite.getWidth() / 2 + position.x, -animatedSprite.getHeight() / 2 + position.y);
+            bodyDef.type = BodyDef.BodyType.DynamicBody;
+            bodyDef.position.set((animatedSprite.getX() + animatedSprite.getWidth() / 2) /
+                            GameConstants.PIXELS_TO_METERS,
+                    (animatedSprite.getY() + animatedSprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
+            );
 
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /
-                        GameConstants.PIXELS_TO_METERS,
-                (sprite.getY() + sprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
-        );
+            body = world.createBody(bodyDef);
+            body.setUserData(number);
+            body.setFixedRotation(true);
+            shape.setRadius((animatedSprite.getWidth() / 2) /
+                    GameConstants.PIXELS_TO_METERS);
+        }else {
+            sprite = new Sprite(textureRegion);
+            sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
+            sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
 
-        body = world.createBody(bodyDef);
-        body.setUserData(number);
-        body.setFixedRotation(true);
+            bodyDef.type = BodyDef.BodyType.DynamicBody;
+            bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /
+                            GameConstants.PIXELS_TO_METERS,
+                    (sprite.getY() + sprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
+            );
+
+            body = world.createBody(bodyDef);
+            body.setUserData(number);
+            body.setFixedRotation(true);
         /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
                 / 2 / GameConstants.PIXELS_TO_METERS);*/
-        shape.setRadius((sprite.getWidth() / 2) /
-                GameConstants.PIXELS_TO_METERS);
+            shape.setRadius((sprite.getWidth() / 2) /
+                    GameConstants.PIXELS_TO_METERS);
+        }
+
         fixtureDef.shape = shape;
         fixtureDef.density = 0.1f;
         fixtureDef.restitution = 0.1f;
@@ -174,14 +193,26 @@ public class Particle extends AbstractGameObject {
         this.blastTimer = blastTimer;
     }
 
+    public AnimatedSprite getAnimatedSprite() {
+        return animatedSprite;
+    }
+
+    public void setAnimatedSprite(AnimatedSprite animatedSprite) {
+        this.animatedSprite = animatedSprite;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
-        batch.draw(sprite,
-                sprite.getX(), sprite.getY(),
-                sprite.getOriginX(),sprite.getOriginY(),
-                sprite.getWidth(), sprite.getHeight(),
-                sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
-        );
+        if("suicide_particle".equals(type)){
+            animatedSprite.draw(batch);
+        }else {
+            batch.draw(sprite,
+                    sprite.getX(), sprite.getY(),
+                    sprite.getOriginX(), sprite.getOriginY(),
+                    sprite.getWidth(), sprite.getHeight(),
+                    sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
+            );
+        }
     }
 }

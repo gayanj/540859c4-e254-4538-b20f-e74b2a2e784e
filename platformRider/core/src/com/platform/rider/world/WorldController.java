@@ -129,7 +129,6 @@ public class WorldController {
         } else {
             world.step(deltaTime, 8, 3);
             destroyParticles();
-            destroySplitParticles();
             checkStage();
             splitParticles();
             createSuicideParticles();
@@ -157,7 +156,11 @@ public class WorldController {
     private void destroyParticles() {
         for (String particleKey : normalParticlesForRemoval) {
             String type = particleHashMap.get(particleKey).getType();
-            particleHashMap.get(particleKey).setSprite(null);
+            if (type.equals(GameConstants.SUICIDE_PARTICLE)) {
+                particleHashMap.get(particleKey).setAnimatedSprite(null);
+            }else {
+                particleHashMap.get(particleKey).setSprite(null);
+            }
             final Array<JointEdge> list = particleHashMap.get(particleKey).getBody().getJointList();
             while (list.size > 0) {
                 world.destroyJoint(list.get(0).joint);
@@ -172,7 +175,8 @@ public class WorldController {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
             } else if (type.equals(GameConstants.SPLIT_PARTICLE)) {
                 splitParticlesAlive--;
-            } else {
+            } else if(type.equals(GameConstants.SUICIDE_PARTICLE)){
+                GameConstants.FRAME_DURATION = 0.025f;
                 suicideParticlesAlive--;
             }
         }
@@ -181,7 +185,12 @@ public class WorldController {
 
     private void destroyAllParticles() {
         for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
-            entry.getValue().setSprite(null);
+            String type = entry.getValue().getType();
+            if (type.equals(GameConstants.SUICIDE_PARTICLE)) {
+                entry.getValue().setAnimatedSprite(null);
+            }else {
+                entry.getValue().setSprite(null);
+            }
             final Array<JointEdge> particleJointList = entry.getValue().getBody().getJointList();
             while (particleJointList.size > 0) {
                 world.destroyJoint(particleJointList.get(0).joint);
@@ -231,8 +240,9 @@ public class WorldController {
     }
 
     private void checkStage() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0) {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && GameConstants.NORMAL_PARTICAL_SPEED <= 7) {
             stage++;
+            GameConstants.NORMAL_PARTICAL_SPEED++;
         }
     }
 
@@ -263,10 +273,12 @@ public class WorldController {
                 }
             }
             particle.setBlastTimer(0);
+            GameConstants.FRAME_DURATION = 0.025f;
         } else {
             int count = particle.getBlastTimer();
             count++;
             particle.setBlastTimer(count);
+            particle.getAnimatedSprite().getAnimation().setFrameDuration(GameConstants.FRAME_DURATION -= 0.000025f);
         }
     }
 
@@ -323,10 +335,14 @@ public class WorldController {
                 checkSuicideParticle(particle);
             }
 
-            particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
-                            getWidth() / 2,
-                    (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
-            );
+            if(GameConstants.SUICIDE_PARTICLE.equals(particle.getType())){
+                updateSuicideParticles(particle);
+            }else {
+                particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
+                                getWidth() / 2,
+                        (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
+                );
+            }
         }
     }
 
@@ -338,6 +354,13 @@ public class WorldController {
                     (saw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - saw.getAnimatedSprite().getHeight() / 2
             );
         }*/
+    }
+
+    private void updateSuicideParticles(Particle particle) {
+        particle.getAnimatedSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().
+                            getWidth() / 2,
+                    (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
+            );
     }
 
     private void updateSplitParticleCount(Particle particle) {
@@ -370,19 +393,7 @@ public class WorldController {
                 contact.getFixtureB().getBody().setLinearVelocity(inverseNormal);
                 particle.setColliding(true);
             }
-            /*if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
-                Particle particle = particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
-                particle.setColliding(true);
-                if (particle.getCollisionCount() > 3) {
-                    Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED, -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED);
-                    contact.getFixtureA().getBody().setLinearVelocity(inverseNormal);
-                    particle.setCollisionCount(0);
-                } else {
-                    int count = particle.getCollisionCount();
-                    count++;
-                    particle.setCollisionCount(count);
-                }
-            }*/
+
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
@@ -390,9 +401,13 @@ public class WorldController {
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
-                //remove particles
+                /*//remove particles
                 if (!splitParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     splitParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }*/
+                //remove particles
+                if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
@@ -428,10 +443,11 @@ public class WorldController {
                     (Gdx.graphics.getHeight() / 2),
                     Assets.instance.fonts.defaultBig.getCache().getBounds().width,
                     Assets.instance.fonts.defaultBig.getCache().getBounds().height);
-            if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
+            //if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
                 destroyAllParticles();
+                GameConstants.NORMAL_PARTICAL_SPEED = 5f;
                 backToMenu();
-            }
+            //}
         }
     }
 
