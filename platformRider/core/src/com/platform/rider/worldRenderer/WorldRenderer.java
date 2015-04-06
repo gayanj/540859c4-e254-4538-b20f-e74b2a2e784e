@@ -1,11 +1,12 @@
 package com.platform.rider.worldRenderer;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.sprites.Particle;
 import com.platform.rider.sprites.Saw;
@@ -24,6 +25,7 @@ public class WorldRenderer {
     private Box2DDebugRenderer b2debugRenderer;
     private Matrix4 debugMatrix;
     private OrthographicCamera cameraGUI;
+    private Viewport viewport;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -33,10 +35,10 @@ public class WorldRenderer {
     private void init() {
         batch = new SpriteBatch();
         b2debugRenderer = new Box2DDebugRenderer();
-        cameraGUI = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.
-                getHeight());
+        cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
+        viewport = new FitViewport(1080, 1920 , cameraGUI);
         cameraGUI.position.set(0, 0, 0);
-        cameraGUI.setToOrtho(true); // flip y-axis
+        cameraGUI.setToOrtho(true,viewport.getWorldWidth(),viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
     }
 
@@ -54,6 +56,7 @@ public class WorldRenderer {
             worldController.hero.render(batch);
             renderParticles();
             renderSpikes();
+            renderExplosion(batch);
             batch.end();
             b2debugRenderer.render(worldController.world, debugMatrix);
             worldController.touchPadHelper.render();
@@ -73,9 +76,7 @@ public class WorldRenderer {
     }
 
     public void resize(int width, int height) {
-        /*worldController.camera.viewportWidth = (GameConstants.APP_HEIGHT / height) *
-                width;
-        worldController.camera.update();*/
+        viewport.update(width, height);
     }
 
     public void dispose() {
@@ -95,8 +96,8 @@ public class WorldRenderer {
     }
 
     private void renderGuiScore(SpriteBatch batch) {
-        float x = -15;
-        float y = -15;
+        float x = 15;
+        float y = 15;
         batch.draw(Assets.instance.assetParticle.particle,
                 x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
         Assets.instance.fonts.defaultNormal.draw(batch,
@@ -117,10 +118,22 @@ public class WorldRenderer {
 
     private void renderPowerButton(SpriteBatch batch) {
         float x = 15;
+        float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight();
         if (!worldController.isGameOver()) {
-            float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight();
             batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 1, 1, 0);
+        }
+    }
+
+    private void renderExplosion(SpriteBatch batch) {
+        if (worldController.isBlast()) {
+            worldController.explosion.getAnimatedSprite().setPosition((worldController.getBlastPosition().x * GameConstants.PIXELS_TO_METERS) - worldController.explosion.getAnimatedSprite().
+                            getWidth() / 2,
+                    (worldController.getBlastPosition().y * GameConstants.PIXELS_TO_METERS) - worldController.explosion.getAnimatedSprite().getHeight() / 2);
+            worldController.explosion.render(batch);
+            if(worldController.explosion.getAnimatedSprite().isAnimationFinished()){
+                worldController.setBlast(false);
+            }
         }
     }
 }

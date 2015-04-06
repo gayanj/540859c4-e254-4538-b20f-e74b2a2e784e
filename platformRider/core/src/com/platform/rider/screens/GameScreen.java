@@ -2,9 +2,7 @@ package com.platform.rider.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.platform.rider.assets.Assets;
 import com.platform.rider.world.WorldController;
 import com.platform.rider.worldRenderer.WorldRenderer;
 
@@ -37,6 +35,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
+        worldController.resize(width, height);
         worldRenderer.resize(width, height);
     }
 

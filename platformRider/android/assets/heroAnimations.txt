@@ -1,0 +1,879 @@
+heroAnimations.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+heroAnimations_
+  rotate: false
+  xy: 1028, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 52
+heroAnimations_
+  rotate: false
+  xy: 1370, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 22
+heroAnimations_
+  rotate: false
+  xy: 2, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 124
+heroAnimations_
+  rotate: false
+  xy: 1712, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 33
+heroAnimations_
+  rotate: false
+  xy: 173, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 98
+heroAnimations_
+  rotate: false
+  xy: 1370, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 3
+heroAnimations_
+  rotate: false
+  xy: 344, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 80
+heroAnimations_
+  rotate: false
+  xy: 1028, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 68
+heroAnimations_
+  rotate: false
+  xy: 1370, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 105
+heroAnimations_
+  rotate: false
+  xy: 1199, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 10
+heroAnimations_
+  rotate: false
+  xy: 173, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 91
+heroAnimations_
+  rotate: false
+  xy: 344, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 79
+heroAnimations_
+  rotate: false
+  xy: 515, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 61
+heroAnimations_
+  rotate: false
+  xy: 1541, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 49
+heroAnimations_
+  rotate: false
+  xy: 1199, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 36
+heroAnimations_
+  rotate: false
+  xy: 1370, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 6
+heroAnimations_
+  rotate: false
+  xy: 857, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 87
+heroAnimations_
+  rotate: false
+  xy: 2, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 120
+heroAnimations_
+  rotate: false
+  xy: 857, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 108
+heroAnimations_
+  rotate: false
+  xy: 1028, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 17
+heroAnimations_
+  rotate: false
+  xy: 173, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 94
+heroAnimations_
+  rotate: false
+  xy: 2, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 119
+heroAnimations_
+  rotate: false
+  xy: 1712, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 64
+heroAnimations_
+  rotate: false
+  xy: 173, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 101
+heroAnimations_
+  rotate: false
+  xy: 344, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 75
+heroAnimations_
+  rotate: false
+  xy: 686, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 45
+heroAnimations_
+  rotate: false
+  xy: 857, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 32
+heroAnimations_
+  rotate: false
+  xy: 1370, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 2
+heroAnimations_
+  rotate: false
+  xy: 1541, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 83
+heroAnimations_
+  rotate: false
+  xy: 1541, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 104
+heroAnimations_
+  rotate: false
+  xy: 1370, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 13
+heroAnimations_
+  rotate: false
+  xy: 344, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 90
+heroAnimations_
+  rotate: false
+  xy: 344, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 78
+heroAnimations_
+  rotate: false
+  xy: 2, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 115
+heroAnimations_
+  rotate: false
+  xy: 515, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 60
+heroAnimations_
+  rotate: false
+  xy: 1712, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 48
+heroAnimations_
+  rotate: false
+  xy: 515, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 71
+heroAnimations_
+  rotate: false
+  xy: 515, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 59
+heroAnimations_
+  rotate: false
+  xy: 686, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 41
+heroAnimations_
+  rotate: false
+  xy: 857, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 29
+heroAnimations_
+  rotate: false
+  xy: 1028, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 86
+heroAnimations_
+  rotate: false
+  xy: 2, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 123
+heroAnimations_
+  rotate: false
+  xy: 1028, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 16
+heroAnimations_
+  rotate: false
+  xy: 173, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 97
+heroAnimations_
+  rotate: false
+  xy: 2, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 118
+heroAnimations_
+  rotate: false
+  xy: 1199, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 67
+heroAnimations_
+  rotate: false
+  xy: 173, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 100
+heroAnimations_
+  rotate: false
+  xy: 344, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 74
+heroAnimations_
+  rotate: false
+  xy: 344, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 111
+heroAnimations_
+  rotate: false
+  xy: 686, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 44
+heroAnimations_
+  rotate: false
+  xy: 515, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 55
+heroAnimations_
+  rotate: false
+  xy: 1028, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 25
+heroAnimations_
+  rotate: false
+  xy: 1712, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 82
+heroAnimations_
+  rotate: false
+  xy: 1028, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 107
+heroAnimations_
+  rotate: false
+  xy: 1541, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 12
+heroAnimations_
+  rotate: false
+  xy: 173, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 93
+heroAnimations_
+  rotate: false
+  xy: 2, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 114
+heroAnimations_
+  rotate: false
+  xy: 515, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 63
+heroAnimations_
+  rotate: false
+  xy: 686, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 70
+heroAnimations_
+  rotate: false
+  xy: 515, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 58
+heroAnimations_
+  rotate: false
+  xy: 686, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 40
+heroAnimations_
+  rotate: false
+  xy: 857, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 28
+heroAnimations_
+  rotate: false
+  xy: 1199, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 51
+heroAnimations_
+  rotate: false
+  xy: 2, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 122
+heroAnimations_
+  rotate: false
+  xy: 857, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 39
+heroAnimations_
+  rotate: false
+  xy: 1541, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 21
+heroAnimations_
+  rotate: false
+  xy: 173, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 96
+heroAnimations_
+  rotate: false
+  xy: 1199, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 9
+heroAnimations_
+  rotate: false
+  xy: 1370, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 66
+heroAnimations_
+  rotate: false
+  xy: 1712, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 103
+heroAnimations_
+  rotate: false
+  xy: 344, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 77
+heroAnimations_
+  rotate: false
+  xy: 515, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 110
+heroAnimations_
+  rotate: false
+  xy: 686, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 47
+heroAnimations_
+  rotate: false
+  xy: 686, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 54
+heroAnimations_
+  rotate: false
+  xy: 1710, 1370
+  size: 167, 167
+  orig: 441, 441
+  offset: 137, 137
+  index: 24
+heroAnimations_
+  rotate: false
+  xy: 1370, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 35
+heroAnimations_
+  rotate: false
+  xy: 1199, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 106
+heroAnimations_
+  rotate: false
+  xy: 173, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 92
+heroAnimations_
+  rotate: false
+  xy: 1541, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 5
+heroAnimations_
+  rotate: false
+  xy: 2, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 117
+heroAnimations_
+  rotate: false
+  xy: 515, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 62
+heroAnimations_
+  rotate: false
+  xy: 344, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 73
+heroAnimations_
+  rotate: false
+  xy: 686, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 43
+heroAnimations_
+  rotate: false
+  xy: 1370, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 50
+heroAnimations_
+  rotate: false
+  xy: 1370, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 38
+heroAnimations_
+  rotate: false
+  xy: 1712, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 20
+heroAnimations_
+  rotate: false
+  xy: 1199, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 8
+heroAnimations_
+  rotate: false
+  xy: 515, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 89
+heroAnimations_
+  rotate: false
+  xy: 857, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 31
+heroAnimations_
+  rotate: false
+  xy: 1712, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 102
+heroAnimations_
+  rotate: false
+  xy: 1028, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 19
+heroAnimations_
+  rotate: false
+  xy: 1370, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 1
+heroAnimations_
+  rotate: false
+  xy: 344, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 76
+heroAnimations_
+  rotate: false
+  xy: 2, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 113
+heroAnimations_
+  rotate: false
+  xy: 686, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 46
+heroAnimations_
+  rotate: false
+  xy: 515, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 57
+heroAnimations_
+  rotate: false
+  xy: 857, 1541
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 27
+heroAnimations_
+  rotate: false
+  xy: 1541, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 34
+heroAnimations_
+  rotate: false
+  xy: 1712, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 4
+heroAnimations_
+  rotate: false
+  xy: 1199, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 85
+heroAnimations_
+  rotate: false
+  xy: 2, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 116
+heroAnimations_
+  rotate: false
+  xy: 1028, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 15
+heroAnimations_
+  rotate: false
+  xy: 344, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 72
+heroAnimations_
+  rotate: false
+  xy: 686, 1370
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 42
+heroAnimations_
+  rotate: false
+  xy: 857, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 53
+heroAnimations_
+  rotate: false
+  xy: 1199, 857
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 23
+heroAnimations_
+  rotate: false
+  xy: 686, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 88
+heroAnimations_
+  rotate: false
+  xy: 857, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 30
+heroAnimations_
+  rotate: false
+  xy: 1028, 1199
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 18
+heroAnimations_
+  rotate: false
+  xy: 173, 515
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 99
+heroAnimations_
+  rotate: false
+  xy: 1879, 1370
+  size: 167, 167
+  orig: 441, 441
+  offset: 137, 137
+  index: 0
+heroAnimations_
+  rotate: false
+  xy: 344, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 81
+heroAnimations_
+  rotate: false
+  xy: 173, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 112
+heroAnimations_
+  rotate: false
+  xy: 857, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 69
+heroAnimations_
+  rotate: false
+  xy: 1712, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 11
+heroAnimations_
+  rotate: false
+  xy: 515, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 56
+heroAnimations_
+  rotate: false
+  xy: 857, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 26
+heroAnimations_
+  rotate: false
+  xy: 1028, 686
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 37
+heroAnimations_
+  rotate: false
+  xy: 1199, 1712
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 7
+heroAnimations_
+  rotate: false
+  xy: 1370, 173
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 84
+heroAnimations_
+  rotate: false
+  xy: 1541, 1370
+  size: 167, 167
+  orig: 441, 441
+  offset: 137, 137
+  index: 121
+heroAnimations_
+  rotate: false
+  xy: 686, 2
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 109
+heroAnimations_
+  rotate: false
+  xy: 1199, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 14
+heroAnimations_
+  rotate: false
+  xy: 173, 1028
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 95
+heroAnimations_
+  rotate: false
+  xy: 1541, 344
+  size: 169, 169
+  orig: 441, 441
+  offset: 136, 136
+  index: 65

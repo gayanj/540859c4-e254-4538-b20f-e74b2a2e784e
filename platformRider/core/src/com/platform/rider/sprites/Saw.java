@@ -1,6 +1,5 @@
 package com.platform.rider.sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -22,14 +21,14 @@ public class Saw extends AbstractGameObject{
         animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.spikeAnimation);
         //sprite = new Sprite(textureRegion);
         if(xscale == 0 && side.equals("R")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         }else if(xscale == 0 && side.equals("L")){
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) * yscale + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         }
         if(yscale == 0 && side.equals("D")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) - Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
         }else if(yscale == 0 && side.equals("U")){
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + Gdx.graphics.getWidth() / 2, (-animatedSprite.getHeight() / 2) + Gdx.graphics.getHeight() / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
         }
 
         bodyDef.type = BodyDef.BodyType.StaticBody;

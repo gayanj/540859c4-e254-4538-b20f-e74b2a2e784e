@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
+import com.platform.rider.utils.GameConstants;
 
 /**
  * Created by Gayan on 3/29/2015.
@@ -15,6 +18,7 @@ public class MenuScreen extends AbstractGameScreen{
 
     private SpriteBatch batch;
     private OrthographicCamera cameraGUI;
+    private Viewport viewport;
     public MenuScreen (Game game) {
         super(game);
     }
@@ -32,16 +36,16 @@ public class MenuScreen extends AbstractGameScreen{
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
-        cameraGUI = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.
-                getHeight());
+        cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
+        viewport = new FitViewport(1080, 1920 , cameraGUI);
         cameraGUI.position.set(0, 0, 0);
-        cameraGUI.setToOrtho(true); // flip y-axis
+        cameraGUI.setToOrtho(true,viewport.getWorldWidth(),viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
     }
 

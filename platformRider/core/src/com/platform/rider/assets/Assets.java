@@ -44,6 +44,9 @@ public class Assets implements Disposable, AssetErrorListener {
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION,
                 TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_EXPLOSION_ANIMATION,
+                TextureAtlas.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: "
@@ -72,12 +75,19 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        TextureAtlas explosionAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_EXPLOSION_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : explosionAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
         fonts = new AssetFonts();
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
         assetSpike = new AssetSpike(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
-        assetAnimations = new AssetAnimations(spikeAnimationAtlas,suicideParticleAnimationAtlas);
+        assetAnimations = new AssetAnimations(spikeAnimationAtlas, suicideParticleAnimationAtlas, explosionAnimationAtlas);
     }
 
     @Override
@@ -167,13 +177,17 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetAnimations {
         public final Animation spikeAnimation;
         public final Animation suicideParticleAnimation;
+        public final Animation explosionParticleAnimation;
 
-        public AssetAnimations(TextureAtlas spikeAtlas,TextureAtlas suicideParticleAtlas) {
-            spikeAnimation = new Animation(0.025f,spikeAtlas.getRegions());
+        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas, TextureAtlas explosionAtlas) {
+            spikeAnimation = new Animation(0.025f, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-            suicideParticleAnimation = new Animation(0.025f,suicideParticleAtlas.getRegions());
+            suicideParticleAnimation = new Animation(0.025f, suicideParticleAtlas.getRegions());
             suicideParticleAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+            explosionParticleAnimation = new Animation(0.025f, explosionAtlas.getRegions());
+            explosionParticleAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }
 }
