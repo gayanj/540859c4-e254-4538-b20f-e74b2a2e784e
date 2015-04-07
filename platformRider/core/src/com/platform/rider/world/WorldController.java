@@ -35,8 +35,10 @@ public class WorldController {
     public World world;
     public Hero hero;
     public Explosion explosion;
+    public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
     public List<String> normalParticlesForRemoval = new ArrayList<String>();
+    public List<String> explosionsForRemoval = new ArrayList<String>();
     public List<String> splitParticlesForRemoval = new ArrayList<String>();
     public HashMap<String, Saw> spikeHashMap = new HashMap<String, Saw>();
     public TouchPadHelper touchPadHelper;
@@ -47,8 +49,6 @@ public class WorldController {
     int totalParticlesAlive = 0;
     int stage = 0;
     boolean gameOver = false;
-    boolean blast = false;
-    Vector2 blastPosition;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
     public WorldController(Game game) {
@@ -86,8 +86,9 @@ public class WorldController {
         hero = new Hero(new Vector2(0, 0), world);
     }
 
-    private void createExplosion() {
-        explosion = new Explosion();
+    private void createExplosion(int explosionIndex) {
+        explosion = new Explosion(explosionIndex);
+        explosionHashMap.put(String.valueOf(explosionIndex),explosion);
     }
 
     private void createParticles() {
@@ -148,6 +149,7 @@ public class WorldController {
         } else {
             world.step(deltaTime, 8, 3);
             destroyParticles();
+            destroyExplosions();
             checkStage();
             splitParticles();
             createSuicideParticles();
@@ -241,6 +243,13 @@ public class WorldController {
         }
     }
 
+    private void destroyExplosions(){
+        for (String explosion : explosionsForRemoval) {
+            explosionHashMap.remove(explosion);
+        }
+        explosionsForRemoval.clear();
+    }
+
     private void destroySplitParticles() {
         for (String particleKey : splitParticlesForRemoval) {
             particleHashMap.get(particleKey).setSprite(null);
@@ -291,15 +300,15 @@ public class WorldController {
                     normalParticlesForRemoval.add(body.getUserData().toString());
                 }
             }
-            particle.setBlastTimer(0);
-            GameConstants.FRAME_DURATION = 0.025f;
-            blast = true;
-            blastPosition = center;
+            System.out.println("Particle index: " + particle.getBody().getUserData());
+            System.out.println("Explosion index: " + explosionHashMap.keySet());
+            explosionHashMap.get(particle.getBody().getUserData().toString()).setBlast(true);
+            explosionHashMap.get(particle.getBody().getUserData().toString()).setBlastPosition(center);
         } else {
             int count = particle.getBlastTimer();
             count++;
             particle.setBlastTimer(count);
-            particle.getAnimatedSprite().getAnimation().setFrameDuration(GameConstants.FRAME_DURATION -= 0.000025f);
+            particle.updateFrameDuration();
         }
     }
 
@@ -319,9 +328,9 @@ public class WorldController {
     private void createSuicideParticles() {
         if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && suicideParticlesAlive == 0) {
             //for (int i = 0; i < stage; i++) {
+            createExplosion(totalParticlesCreated);
             createNewParticle(GameConstants.SUICIDE_PARTICLE);
             suicideParticlesAlive++;
-            createExplosion();
             //}
         }
     }
@@ -489,17 +498,5 @@ public class WorldController {
                 GameConstants.COLLISION_SPEED = 10f;
             }
         }
-    }
-
-    public boolean isBlast() {
-        return blast;
-    }
-
-    public void setBlast(boolean blast) {
-        this.blast = blast;
-    }
-
-    public Vector2 getBlastPosition() {
-        return blastPosition;
     }
 }

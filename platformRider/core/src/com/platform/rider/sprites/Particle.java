@@ -24,6 +24,7 @@ public class Particle extends AbstractGameObject {
     int collisionCount = 0;
     int counter = 0;
     int blastTimer = 0;
+    float frameDuration = 0.025f;
     String type;
 
     public Particle(Vector2 position, World world, int number, String type) {
@@ -137,14 +138,6 @@ public class Particle extends AbstractGameObject {
         this.sprite = sprite;
     }
 
-    public int getCollisionCount() {
-        return collisionCount;
-    }
-
-    public void setCollisionCount(int collisionCount) {
-        this.collisionCount = collisionCount;
-    }
-
     public boolean isRemove() {
         return remove;
     }
@@ -199,6 +192,10 @@ public class Particle extends AbstractGameObject {
 
     public void setAnimatedSprite(AnimatedSprite animatedSprite) {
         this.animatedSprite = animatedSprite;
+    }
+
+    public void updateFrameDuration(){
+        this.animatedSprite.getAnimation().setFrameDuration(frameDuration -= 0.000025f);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
+import com.platform.rider.sprites.Explosion;
 import com.platform.rider.sprites.Particle;
 import com.platform.rider.sprites.Saw;
 import com.platform.rider.utils.GameConstants;
@@ -126,13 +127,17 @@ public class WorldRenderer {
     }
 
     private void renderExplosion(SpriteBatch batch) {
-        if (worldController.isBlast()) {
-            worldController.explosion.getAnimatedSprite().setPosition((worldController.getBlastPosition().x * GameConstants.PIXELS_TO_METERS) - worldController.explosion.getAnimatedSprite().
-                            getWidth() / 2,
-                    (worldController.getBlastPosition().y * GameConstants.PIXELS_TO_METERS) - worldController.explosion.getAnimatedSprite().getHeight() / 2);
-            worldController.explosion.render(batch);
-            if(worldController.explosion.getAnimatedSprite().isAnimationFinished()){
-                worldController.setBlast(false);
+        for (Map.Entry<String, Explosion> entry : worldController.explosionHashMap.entrySet()) {
+            if (entry.getValue().isBlast()) {
+                entry.getValue().getAnimatedSprite().setPosition((entry.getValue().getBlastPosition().x * GameConstants.PIXELS_TO_METERS) - entry.getValue().getAnimatedSprite().
+                                getWidth() / 2,
+                        (entry.getValue().getBlastPosition().y * GameConstants.PIXELS_TO_METERS) - entry.getValue().getAnimatedSprite().getHeight() / 2
+                );
+                entry.getValue().render(batch);
+                if (entry.getValue().getAnimatedSprite().isAnimationFinished()) {
+                    entry.getValue().setBlast(false);
+                    worldController.explosionsForRemoval.add(Integer.toString(entry.getValue().getHashMapIndex()));
+                }
             }
         }
     }
