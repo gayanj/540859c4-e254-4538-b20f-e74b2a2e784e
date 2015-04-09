@@ -62,7 +62,7 @@ public class WorldController {
         initTouchpad();
         Gdx.input.setInputProcessor(touchPadHelper.getStage());
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
-        viewport = new FitViewport(1080, 1920 , camera);
+        viewport = new FitViewport(1080, 1920, camera);
         initPhysics();
         world.setContactListener(new reactorContactListener());
     }
@@ -88,7 +88,7 @@ public class WorldController {
 
     private void createExplosion(int explosionIndex) {
         explosion = new Explosion(explosionIndex);
-        explosionHashMap.put(String.valueOf(explosionIndex),explosion);
+        explosionHashMap.put(String.valueOf(explosionIndex), explosion);
     }
 
     private void createParticles() {
@@ -243,7 +243,7 @@ public class WorldController {
         }
     }
 
-    private void destroyExplosions(){
+    private void destroyExplosions() {
         for (String explosion : explosionsForRemoval) {
             explosionHashMap.remove(explosion);
         }
@@ -331,6 +331,15 @@ public class WorldController {
             createExplosion(totalParticlesCreated);
             createNewParticle(GameConstants.SUICIDE_PARTICLE);
             suicideParticlesAlive++;
+            createNewParticle(GameConstants.INVISIBLE_PARTICLE);
+            //}
+        }
+    }
+
+    private void createInvisibleParticles() {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 20 == 0) {
+            //for (int i = 0; i < stage; i++) {
+            createNewParticle(GameConstants.INVISIBLE_PARTICLE);
             //}
         }
     }
@@ -366,7 +375,9 @@ public class WorldController {
                 checkSuicideParticle(particle);
             }
 
-            if (GameConstants.SUICIDE_PARTICLE.equals(particle.getType())) {
+            if (GameConstants.INVISIBLE_PARTICLE.equals(particle.getType())) {
+                updateInvisibleParticles(particle);
+            } else if (GameConstants.SUICIDE_PARTICLE.equals(particle.getType())) {
                 updateSuicideParticles(particle);
             } else {
                 particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
@@ -388,6 +399,13 @@ public class WorldController {
     }
 
     private void updateSuicideParticles(Particle particle) {
+        particle.getAnimatedSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().
+                        getWidth() / 2,
+                (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
+        );
+    }
+
+    private void updateInvisibleParticles(Particle particle) {
         particle.getAnimatedSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().
                         getWidth() / 2,
                 (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
@@ -442,6 +460,9 @@ public class WorldController {
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
+                gameOver = true;
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
                 gameOver = true;
             }
         }

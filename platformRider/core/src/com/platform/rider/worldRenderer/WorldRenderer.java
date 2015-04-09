@@ -37,9 +37,9 @@ public class WorldRenderer {
         batch = new SpriteBatch();
         b2debugRenderer = new Box2DDebugRenderer();
         cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
-        viewport = new FitViewport(1080, 1920 , cameraGUI);
+        viewport = new FitViewport(1080, 1920, cameraGUI);
         cameraGUI.position.set(0, 0, 0);
-        cameraGUI.setToOrtho(true,viewport.getWorldWidth(),viewport.getWorldHeight()); // flip y-axis
+        cameraGUI.setToOrtho(true, viewport.getWorldWidth(), viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
     }
 
@@ -49,19 +49,19 @@ public class WorldRenderer {
     }
 
     private void renderWorld() {
+        batch.setProjectionMatrix(worldController.camera.combined);
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(GameConstants.PIXELS_TO_METERS,
+                GameConstants.PIXELS_TO_METERS, 0);
+        batch.begin();
         if (!worldController.isGameOver()) {
-            batch.setProjectionMatrix(worldController.camera.combined);
-            debugMatrix = batch.getProjectionMatrix().cpy().scale(GameConstants.PIXELS_TO_METERS,
-                    GameConstants.PIXELS_TO_METERS, 0);
-            batch.begin();
             worldController.hero.render(batch);
-            renderParticles();
-            renderSpikes();
-            renderExplosion(batch);
-            batch.end();
-            b2debugRenderer.render(worldController.world, debugMatrix);
-            worldController.touchPadHelper.render();
         }
+        renderParticles();
+        renderSpikes();
+        renderExplosion(batch);
+        batch.end();
+        b2debugRenderer.render(worldController.world, debugMatrix);
+        worldController.touchPadHelper.render();
     }
 
     private void renderParticles() {

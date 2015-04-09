@@ -48,7 +48,7 @@ public class Hero extends AbstractGameObject {
         fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_2;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3 | GameConstants.SPRITE_4;
 
         body.createFixture(fixtureDef);
         shape.dispose();

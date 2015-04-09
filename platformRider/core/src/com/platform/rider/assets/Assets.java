@@ -47,6 +47,13 @@ public class Assets implements Disposable, AssetErrorListener {
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_EXPLOSION_ANIMATION,
                 TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_APPEARING_ANIMATION,
+                TextureAtlas.class);
+
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION,
+                TextureAtlas.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: "
@@ -82,12 +89,26 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        TextureAtlas invisibleParticleAppearingAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_APPEARING_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : explosionAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
+        TextureAtlas invisibleParticleDisappearingAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : explosionAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
         fonts = new AssetFonts();
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
         assetSpike = new AssetSpike(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
-        assetAnimations = new AssetAnimations(spikeAnimationAtlas, suicideParticleAnimationAtlas, explosionAnimationAtlas);
+        assetAnimations = new AssetAnimations(spikeAnimationAtlas, suicideParticleAnimationAtlas, explosionAnimationAtlas, invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas);
     }
 
     @Override
@@ -178,8 +199,10 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Animation spikeAnimation;
         public final Animation suicideParticleAnimation;
         public final Animation explosionParticleAnimation;
+        public final Animation invisibleParticleAppearingAnimation;
+        public final Animation invisibleParticleDisappearingAnimation;
 
-        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas, TextureAtlas explosionAtlas) {
+        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas, TextureAtlas explosionAtlas, TextureAtlas invisibleParticleAppearingAtlas, TextureAtlas invisibleParticleDisappearingAtlas) {
             spikeAnimation = new Animation(0.025f, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -188,6 +211,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
             explosionParticleAnimation = new Animation(0.025f, explosionAtlas.getRegions());
             explosionParticleAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            invisibleParticleAppearingAnimation = new Animation(0.025f, invisibleParticleAppearingAtlas.getRegions());
+            invisibleParticleAppearingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            invisibleParticleDisappearingAnimation = new Animation(0.025f, invisibleParticleDisappearingAtlas.getRegions());
+            invisibleParticleDisappearingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }
 }

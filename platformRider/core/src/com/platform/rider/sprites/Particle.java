@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
@@ -20,8 +21,11 @@ public class Particle extends AbstractGameObject {
     boolean colliding = false;
     boolean splitParticle = false;
     boolean remove = false;
+    boolean invisible = true;
+    boolean vulnerable = false;
+    boolean startCounter = false;
     int splitParticleCount = 0;
-    int collisionCount = 0;
+    int invisibleCount = 0;
     int counter = 0;
     int blastTimer = 0;
     float frameDuration = 0.025f;
@@ -35,18 +39,20 @@ public class Particle extends AbstractGameObject {
         this.world = world;
         this.position = position;
         this.type = type;
-        if("split_particle".equals(type)){
+        if (GameConstants.SPLIT_PARTICLE.equals(type)) {
             textureRegion = Assets.instance.assetParticle.split_particle;
             speed = GameConstants.SPLIT_PARTICAL_SPEED;
-        }else if("normal_particle".equals(type)) {
+        } else if (GameConstants.NORMAL_PARTICLE.equals(type)) {
             textureRegion = Assets.instance.assetParticle.particle;
             speed = GameConstants.NORMAL_PARTICAL_SPEED;
-        }else if("suicide_particle".equals(type)) {
-            //textureRegion = Assets.instance.assetParticle.suicide_particle;
+        } else if (GameConstants.SUICIDE_PARTICLE.equals(type)) {
             animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.suicideParticleAnimation);
             speed = GameConstants.SUICIDE_PARTICAL_SPEED;
+        } else if (GameConstants.INVISIBLE_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.invisibleParticleAppearingAnimation);
+            speed = GameConstants.INVISIBLE_PARTICLE_SPEED;
         }
-        if("suicide_particle".equals(type)){
+        if (GameConstants.SUICIDE_PARTICLE.equals(type) || GameConstants.INVISIBLE_PARTICLE.equals(type)) {
             animatedSprite.setSize(animatedSprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, animatedSprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
             animatedSprite.setPosition(-animatedSprite.getWidth() / 2 + position.x, -animatedSprite.getHeight() / 2 + position.y);
             bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -60,7 +66,7 @@ public class Particle extends AbstractGameObject {
             body.setFixedRotation(true);
             shape.setRadius((animatedSprite.getWidth() / 2) /
                     GameConstants.PIXELS_TO_METERS);
-        }else {
+        } else {
             sprite = new Sprite(textureRegion);
             sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
             sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
@@ -194,16 +200,80 @@ public class Particle extends AbstractGameObject {
         this.animatedSprite = animatedSprite;
     }
 
-    public void updateFrameDuration(){
+    public void updateFrameDuration() {
         this.animatedSprite.getAnimation().setFrameDuration(frameDuration -= 0.000025f);
+    }
+
+    public boolean isStartCounter() {
+        return startCounter;
+    }
+
+    public void setStartCounter(boolean startCounter) {
+        this.startCounter = startCounter;
+    }
+
+    public int getInvisibleCount() {
+        return invisibleCount;
+    }
+
+    public void setInvisibleCount(int invisibleCount) {
+        this.invisibleCount = invisibleCount;
+    }
+
+    private void changeVisibility() {
+        invisible = !invisible;
+    }
+
+    private void changeCollisionFilter(short filterType) {
+        Filter filter = body.getFixtureList().get(0).getFilterData();
+        filter.categoryBits = filterType;
+        body.getFixtureList().get(0).setFilterData(filter);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
-        if("suicide_particle".equals(type)){
+        if (GameConstants.INVISIBLE_PARTICLE.equals(type)) {
+            if (invisibleCount < 300) {
+                if (invisible) {
+                    animatedSprite.setAnimation(Assets.instance.assetAnimations.invisibleParticleAppearingAnimation);
+                    animatedSprite.draw(batch);
+                    if (animatedSprite.isAnimationFinished()) {
+                        animatedSprite.stop();
+                    }
+                    if (!animatedSprite.isPlaying()) {
+                        startCounter = true;
+                        vulnerable = false;
+                        changeCollisionFilter(GameConstants.SPRITE_4);
+                    } else {
+                        vulnerable = true;
+                        changeCollisionFilter(GameConstants.SPRITE_1);
+                    }
+                } else {
+                    animatedSprite.setAnimation(Assets.instance.assetAnimations.invisibleParticleDisappearingAnimation);
+                    animatedSprite.draw(batch);
+                    if (animatedSprite.isAnimationFinished()) {
+                        animatedSprite.stop();
+                    }
+                    if (!animatedSprite.isPlaying()) {
+                        startCounter = true;
+                        vulnerable = false;
+                        animatedSprite.stop();
+                        changeCollisionFilter(GameConstants.SPRITE_5);
+                    } else {
+                        vulnerable = true;
+                        changeCollisionFilter(GameConstants.SPRITE_1);
+                    }
+                }
+                invisibleCount++;
+            } else {
+                invisibleCount = 0;
+                changeVisibility();
+                animatedSprite.play();
+            }
+        } else if (GameConstants.SUICIDE_PARTICLE.equals(type)) {
             animatedSprite.draw(batch);
-        }else {
+        } else {
             batch.draw(sprite,
                     sprite.getX(), sprite.getY(),
                     sprite.getOriginX(), sprite.getOriginY(),
