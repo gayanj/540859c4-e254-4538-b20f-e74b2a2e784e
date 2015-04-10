@@ -92,7 +92,7 @@ public class WorldRenderer {
         renderGuiScore(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);
-        renderPowerButton(batch);
+        //renderPowerButton(batch);
         batch.end();
     }
 

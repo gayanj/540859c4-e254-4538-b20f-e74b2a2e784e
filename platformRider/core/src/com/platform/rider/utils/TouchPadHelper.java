@@ -42,7 +42,7 @@ public class TouchPadHelper {
         //Create new TouchPad with the created style
         touchpad = new Touchpad(10, touchpadStyle);
         //setBounds(x,y,width,height)
-        touchpad.setBounds(GameConstants.APP_WIDTH - 215, 15, 200, 200);
+        touchpad.setBounds((GameConstants.APP_WIDTH/2) - 200/2, 15, 200, 200);
 
         //Create a Stage and add TouchPad
         stage = new Stage(new StretchViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT));
