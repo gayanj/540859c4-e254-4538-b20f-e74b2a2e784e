@@ -37,7 +37,7 @@ public class WorldRenderer {
         batch = new SpriteBatch();
         b2debugRenderer = new Box2DDebugRenderer();
         cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
-        viewport = new FitViewport(1080, 1920, cameraGUI);
+        viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, cameraGUI);
         cameraGUI.position.set(0, 0, 0);
         cameraGUI.setToOrtho(true, viewport.getWorldWidth(), viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();

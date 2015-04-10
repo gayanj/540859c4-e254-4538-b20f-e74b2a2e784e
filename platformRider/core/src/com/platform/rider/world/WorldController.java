@@ -62,7 +62,7 @@ public class WorldController {
         initTouchpad();
         Gdx.input.setInputProcessor(touchPadHelper.getStage());
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
-        viewport = new FitViewport(1080, 1920, camera);
+        viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
         world.setContactListener(new reactorContactListener());
     }
