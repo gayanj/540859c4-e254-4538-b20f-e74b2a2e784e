@@ -23,6 +23,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetParticle assetParticle;
     public AssetHero assetHero;
     public AssetSpike assetSpike;
+    public AssetPowerup assetPowerup;
     public AssetLevelDecoration assetLevelDecoration;
     public AssetFonts fonts;
     public AssetAnimations assetAnimations;
@@ -107,6 +108,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
         assetSpike = new AssetSpike(atlas);
+        assetPowerup = new AssetPowerup(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
         assetAnimations = new AssetAnimations(spikeAnimationAtlas, suicideParticleAnimationAtlas, explosionAnimationAtlas, invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas);
     }
@@ -148,6 +150,14 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetHero(TextureAtlas atlas) {
             hero = atlas.findRegion("hero");
+        }
+    }
+
+    public class AssetPowerup {
+        public final TextureAtlas.AtlasRegion super_force;
+
+        public AssetPowerup(TextureAtlas atlas) {
+            super_force = atlas.findRegion("super_force");
         }
     }
 

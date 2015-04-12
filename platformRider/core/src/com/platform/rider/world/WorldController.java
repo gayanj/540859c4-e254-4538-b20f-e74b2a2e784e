@@ -11,14 +11,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.screens.MenuScreen;
-import com.platform.rider.sprites.Explosion;
-import com.platform.rider.sprites.Hero;
-import com.platform.rider.sprites.Particle;
-import com.platform.rider.sprites.Saw;
-import com.platform.rider.utils.BlastRadiusCallBack;
-import com.platform.rider.utils.GameConstants;
-import com.platform.rider.utils.OverlapTester;
-import com.platform.rider.utils.TouchPadHelper;
+import com.platform.rider.sprites.*;
+import com.platform.rider.utils.*;
 
 import java.util.*;
 
@@ -35,21 +29,31 @@ public class WorldController {
     public World world;
     public Hero hero;
     public Explosion explosion;
+    public Powerups powerups;
+    public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
     public List<String> normalParticlesForRemoval = new ArrayList<String>();
     public List<String> explosionsForRemoval = new ArrayList<String>();
-    public List<String> splitParticlesForRemoval = new ArrayList<String>();
+    public List<String> powerupsForRemoval = new ArrayList<String>();
     public HashMap<String, Saw> spikeHashMap = new HashMap<String, Saw>();
     public TouchPadHelper touchPadHelper;
     int totalParticlesCreated = 0;
-    public int totalParticlesDestroyed = 0;
+    int totalParticlesDestroyed = 0;
+    int powerUpsCreated = 0;
+    int score = 0;
     int suicideParticlesAlive = 0;
     int splitParticlesAlive = 0;
     int totalParticlesAlive = 0;
     int stage = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
+
+    int bonusCounter = 0;
+    int bonusStreak = 0;
+    int particleStreakCount = 0;
+    boolean startBonusCounter = false;
+    boolean addStreak = false;
 
     public WorldController(Game game) {
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
@@ -64,6 +68,7 @@ public class WorldController {
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
+        powerups = new Powerups();
         world.setContactListener(new reactorContactListener());
     }
 
@@ -95,6 +100,20 @@ public class WorldController {
         for (int i = 0; i < 4; i++) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
+    }
+
+    private void createPowerUp(String type) {
+        Random r = new Random();
+        int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
+        int xHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int xR = r.nextInt(xHigh - xLow) + xLow;
+
+        int yLow = -(GameConstants.APP_WIDTH / 2 - 100);
+        int yHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int yR = r.nextInt(yHigh - yLow) + yLow;
+        Vector2 position = new Vector2(xR, yR);
+        Power power = new Power(position, world, type, "power" + powerUpsCreated);
+        powerupHashMap.put(String.valueOf("power" + powerUpsCreated++), power);
     }
 
     private void createNewParticle(String type) {
@@ -150,8 +169,11 @@ public class WorldController {
             world.step(deltaTime, 8, 3);
             destroyParticles();
             destroyExplosions();
+            destroyPowerups();
             checkStage();
-            splitParticles();
+            checkBonusStreak();
+            checkPowerups();
+            createSplitParticles();
             createSuicideParticles();
             camera.update();
             //Touch pad readings
@@ -160,10 +182,12 @@ public class WorldController {
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
             }
-            //handleHeroPowerUp();
+            handleHeroPowerUp();
             updateHero();
             updateParticles();
             updateSpikes();
+            updatePowerupCounter();
+            updatePowerupRemovals();
         }
     }
 
@@ -190,6 +214,7 @@ public class WorldController {
             particleHashMap.remove(particleKey);
             //increment the number of destroyed particles
             totalParticlesDestroyed++;
+            score++;
             totalParticlesAlive--;
             //create a new particle
             if (type.equals(GameConstants.NORMAL_PARTICLE)) {
@@ -200,8 +225,28 @@ public class WorldController {
                 GameConstants.FRAME_DURATION = 0.025f;
                 suicideParticlesAlive--;
             }
+            if (startBonusCounter) {
+                particleStreakCount++;
+                bonusStreak++;
+                bonusCounter = 0;
+            } else {
+                startBonusCounter = true;
+            }
         }
         normalParticlesForRemoval.clear();
+    }
+
+    private void destroyPowerups() {
+        for (String powerupKey : powerupsForRemoval) {
+            powerupHashMap.get(powerupKey).setSprite(null);
+            final Array<JointEdge> list = powerupHashMap.get(powerupKey).getBody().getJointList();
+            while (list.size > 0) {
+                world.destroyJoint(list.get(0).joint);
+            }
+            world.destroyBody(powerupHashMap.get(powerupKey).getBody());
+            powerupHashMap.remove(powerupKey);
+        }
+        powerupsForRemoval.clear();
     }
 
     private void destroyAllParticles() {
@@ -250,27 +295,49 @@ public class WorldController {
         explosionsForRemoval.clear();
     }
 
-    private void destroySplitParticles() {
-        for (String particleKey : splitParticlesForRemoval) {
-            particleHashMap.get(particleKey).setSprite(null);
-            final Array<JointEdge> list = particleHashMap.get(particleKey).getBody().getJointList();
-            while (list.size > 0) {
-                world.destroyJoint(list.get(0).joint);
-            }
-            world.destroyBody(particleHashMap.get(particleKey).getBody());
-            particleHashMap.remove(particleKey);
-            //increment the number of destroyed particles
-            totalParticlesDestroyed++;
-            splitParticlesAlive--;
-            totalParticlesAlive--;
-        }
-        splitParticlesForRemoval.clear();
-    }
-
     private void checkStage() {
         if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && GameConstants.NORMAL_PARTICAL_SPEED <= 7) {
             stage++;
             GameConstants.NORMAL_PARTICAL_SPEED++;
+        }
+    }
+
+    private void checkBonusStreak() {
+        if (startBonusCounter && bonusCounter < 100) {
+            bonusCounter++;
+        } else {
+            startBonusCounter = false;
+            bonusCounter = 0;
+            addStreak = true;
+        }
+        if (addStreak) {
+            if (bonusStreak > 0) {
+                score += bonusStreak * particleStreakCount;
+            }
+            particleStreakCount = 0;
+            bonusStreak = 0;
+            addStreak = false;
+        }
+    }
+
+    private void checkPowerups() {
+        if (powerups.isActive() && powerups.getType().equals(GameConstants.SUPER_FORCE)) {
+            GameConstants.COLLISION_SPEED = 30f;
+            int powerCount = powerups.getPowerCounter();
+            powerCount++;
+            powerups.setPowerCounter(powerCount);
+        } else {
+            GameConstants.COLLISION_SPEED = 20f;
+        }
+    }
+
+    private void updatePowerupCounter() {
+        if (powerups.getPowerCounter() > 500) {
+            powerups.setActive(false);
+            powerups.setPowerCounter(0);
+            if (powerups.getRemaining() == 0) {
+                powerups.setPickedUp(false);
+            }
         }
     }
 
@@ -296,12 +363,10 @@ public class WorldController {
                 if ("hero".equals(body.getUserData().toString())) {
                     gameOver = true;
                 }
-                if (!normalParticlesForRemoval.contains(body.getUserData().toString())) {
+                if (!body.getUserData().toString().contains("power".toLowerCase()) && !normalParticlesForRemoval.contains(body.getUserData().toString())) {
                     normalParticlesForRemoval.add(body.getUserData().toString());
                 }
             }
-            System.out.println("Particle index: " + particle.getBody().getUserData());
-            System.out.println("Explosion index: " + explosionHashMap.keySet());
             explosionHashMap.get(particle.getBody().getUserData().toString()).setBlast(true);
             explosionHashMap.get(particle.getBody().getUserData().toString()).setBlastPosition(center);
         } else {
@@ -312,8 +377,8 @@ public class WorldController {
         }
     }
 
-    private void splitParticles() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && splitParticlesAlive == 0 && totalParticlesAlive < 20) {
+    private void createSplitParticles() {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && splitParticlesAlive == 0) {
             createNewParticle(GameConstants.SPLIT_PARTICLE);
             splitParticlesAlive++;
         }
@@ -332,6 +397,7 @@ public class WorldController {
             createNewParticle(GameConstants.SUICIDE_PARTICLE);
             suicideParticlesAlive++;
             createNewParticle(GameConstants.INVISIBLE_PARTICLE);
+            createPowerUp(GameConstants.SUPER_FORCE);
             //}
         }
     }
@@ -384,6 +450,16 @@ public class WorldController {
                                 getWidth() / 2,
                         (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
                 );
+            }
+        }
+    }
+
+    private void updatePowerupRemovals() {
+        for (Map.Entry<String, Power> entry : powerupHashMap.entrySet()) {
+            if (entry.getValue().isPickedUp()) {
+                if (!powerupsForRemoval.contains(entry.getValue().getBody().getUserData().toString())) {
+                    powerupsForRemoval.add(entry.getValue().getBody().getUserData().toString());
+                }
             }
         }
     }
@@ -465,6 +541,17 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
                 gameOver = true;
             }
+
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_6) {
+                Power power = powerupHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
+                powerups.setType(power.getType());
+                powerups.setRemaining(2);
+                powerups.setTextureRegion(power.getTexureRegion());
+                powerups.setPickedUp(true);
+                if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }
+            }
         }
 
         @Override
@@ -507,17 +594,33 @@ public class WorldController {
         for (int i = 0; i < 2; i++) {
             if (Gdx.input.isTouched(i)) {
                 Vector2 touchPoint = new Vector2(Gdx.input.getX(i), Gdx.input.getY(i));
-                Rectangle gameoverBound = new Rectangle(
+                Rectangle powerupBound = new Rectangle(
                         15,
-                        (1278 - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight()),
+                        791,
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedWidth(),
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight());
-                if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
-                    GameConstants.COLLISION_SPEED = 20f;
+                if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
+                    deployPowerup();
                 }
-            } else {
-                GameConstants.COLLISION_SPEED = 10f;
             }
         }
+    }
+
+    private void deployPowerup() {
+        if (!powerups.isActive() && powerups.getRemaining() > 0) {
+            //powerups.setType(GameConstants.SUPER_FORCE);
+            powerups.setActive(true);
+            int remaining = powerups.getRemaining();
+            remaining--;
+            powerups.setRemaining(remaining);
+        }
+    }
+
+    public int getBonusStreak() {
+        return bonusStreak;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

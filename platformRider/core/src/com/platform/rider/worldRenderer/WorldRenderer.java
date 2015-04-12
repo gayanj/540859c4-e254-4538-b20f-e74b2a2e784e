@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.sprites.Explosion;
 import com.platform.rider.sprites.Particle;
+import com.platform.rider.sprites.Power;
 import com.platform.rider.sprites.Saw;
 import com.platform.rider.utils.GameConstants;
 import com.platform.rider.world.WorldController;
@@ -58,6 +59,7 @@ public class WorldRenderer {
         }
         renderParticles();
         renderSpikes();
+        renderPowerups();
         renderExplosion(batch);
         batch.end();
         b2debugRenderer.render(worldController.world, debugMatrix);
@@ -76,6 +78,12 @@ public class WorldRenderer {
         }
     }
 
+    private void renderPowerups() {
+        for (Map.Entry<String, Power> entry : worldController.powerupHashMap.entrySet()) {
+            entry.getValue().render(batch);
+        }
+    }
+
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
@@ -90,20 +98,30 @@ public class WorldRenderer {
         // draw collected gold coins icon + text
         // (anchored to top left edge)
         renderGuiScore(batch);
+        renderBonusSreak(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);
-        //renderPowerButton(batch);
+        renderPowerButton(batch);
+        renderPowerupInfo(batch);
         batch.end();
     }
 
     private void renderGuiScore(SpriteBatch batch) {
         float x = 15;
         float y = 15;
-        batch.draw(Assets.instance.assetParticle.particle,
-                x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
         Assets.instance.fonts.defaultNormal.draw(batch,
-                "" + worldController.totalParticlesDestroyed,
-                x + 75, y + 37);
+                "SCORE " + worldController.getScore(),
+                x , y + 37);
+    }
+
+    private void renderBonusSreak(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth/2 + 100;
+        float y = 15;
+        if(worldController.getBonusStreak() > 0) {
+            Assets.instance.fonts.defaultNormal.draw(batch,
+                    "COMBO " + worldController.getBonusStreak() + "X",
+                    x + 75, y + 37);
+        }
     }
 
     private void renderGuiGameOverMessage(SpriteBatch batch) {
@@ -138,6 +156,25 @@ public class WorldRenderer {
                     entry.getValue().setBlast(false);
                     worldController.explosionsForRemoval.add(Integer.toString(entry.getValue().getHashMapIndex()));
                 }
+            }
+        }
+    }
+
+    private void renderPowerupInfo(SpriteBatch batch){
+        float x = cameraGUI.viewportWidth/2 - 100;
+        float y = 15;
+        if(worldController.powerups.isPickedUp() && worldController.powerups.getRemaining() >= 0){
+            batch.draw(worldController.powerups.getTextureRegion(),
+                    x, y + 37, 50, 50, Assets.instance.assetPowerup.super_force.packedWidth, Assets.instance.assetPowerup.super_force.packedHeight, 1, 1, 0);
+            Assets.instance.fonts.defaultNormal.draw(batch,
+                    " X " + worldController.powerups.getRemaining(),
+                    x + 75, y + 37);
+            if(worldController.powerups.isActive()) {
+                int remainingTime = 10 - (worldController.powerups.getPowerCounter() / 50);
+                String timer = new String(new char[remainingTime]).replace("\0", "|");
+                Assets.instance.fonts.defaultSmall.draw(batch,
+                        timer,
+                        x, y + 100);
             }
         }
     }

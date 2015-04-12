@@ -13,6 +13,7 @@ public class GameConstants {
     public static final short SPRITE_3 = 0x1 << 2; // 0010 or 0x3 in hex - Spikes
     public static final short SPRITE_4 = 0x1 << 3; // 0010 or 0x4 in hex - Invisible particle deadly
     public static final short SPRITE_5 = 0x1 << 4; // 0010 or 0x4 in hex - Invisible particle invulnerable
+    public static final short SPRITE_6 = 0x1 << 5; // 0010 or 0x4 in hex - Powerup
     public static float PARTICLE_SPRITE_SCALE = 0.5f;
     public static float NORMAL_PARTICAL_SPEED = 5f;
     public static float SPLIT_PARTICAL_SPEED = 6f;
@@ -52,4 +53,7 @@ public class GameConstants {
     // Location of description file for suicide particle animation texture atlas
     public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION =
             "invisibleParticleDisappearingAnimation.txt";
+
+    //Power Up Types
+    public static final String SUPER_FORCE = "super_force";
 }

@@ -9,6 +9,13 @@ splitparticle
   orig: 104, 104
   offset: 0, 0
   index: -1
+super_force
+  rotate: false
+  xy: 214, 883
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 background
   rotate: true
   xy: 2, 2

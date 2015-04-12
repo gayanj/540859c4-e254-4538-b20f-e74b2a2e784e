@@ -2,6 +2,7 @@ package com.platform.rider.sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,26 +11,27 @@ import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
 
 /**
- * Created by Gayan on 3/26/2015.
+ * Created by Gayan on 4/12/2015.
  */
-public class Hero extends AbstractGameObject {
-    private static final String TAG = Hero.class.getName();
+public class Power extends AbstractGameObject {
+    String type;
+    boolean pickedUp = false;
+    int powerUpVisibleCount = 0;
 
-    Vector2 position = new Vector2();
-
-    public Hero(Vector2 position, World world) {
-        init(position, world);
+    public Power(Vector2 position, World world, String type,String powerIndex) {
+        init(position, world, type, powerIndex);
     }
 
-    private void init(Vector2 position, World world) {
+    private void init(Vector2 position, World world, String type, String powerIndex) {
         this.world = world;
         this.position = position;
-        textureRegion = Assets.instance.assetHero.hero;
+        this.type = type;
+        textureRegion = Assets.instance.assetPowerup.super_force;
         sprite = new Sprite(textureRegion);
-        sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
-        sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
+        //sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
+        sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
 
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /
                         GameConstants.PIXELS_TO_METERS,
                 (sprite.getY() + sprite.getHeight() / 2) / GameConstants.PIXELS_TO_METERS
@@ -37,7 +39,7 @@ public class Hero extends AbstractGameObject {
 
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
-        body.setUserData("hero");
+        body.setUserData(powerIndex);
         body.setLinearDamping(GameConstants.LINEAR_DAMPING);
         shape.setRadius((sprite.getWidth() / 2) /
                 GameConstants.PIXELS_TO_METERS);
@@ -47,8 +49,8 @@ public class Hero extends AbstractGameObject {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
-        fixtureDef.filter.categoryBits = GameConstants.SPRITE_2;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3 | GameConstants.SPRITE_4 | GameConstants.SPRITE_6;
+        fixtureDef.filter.categoryBits = GameConstants.SPRITE_6;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2;
 
         body.createFixture(fixtureDef);
         shape.dispose();
@@ -70,14 +72,31 @@ public class Hero extends AbstractGameObject {
         this.body = body;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public boolean isPickedUp() {
+        return pickedUp;
+    }
+
+    public TextureRegion getTexureRegion(){
+        return textureRegion;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
         batch.draw(sprite,
                 sprite.getX(), sprite.getY(),
-                sprite.getOriginX(),sprite.getOriginY(),
+                sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(),
                 sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
         );
+        if(powerUpVisibleCount > 300){
+            pickedUp = true;
+        }else{
+            powerUpVisibleCount++;
+        }
     }
 }
