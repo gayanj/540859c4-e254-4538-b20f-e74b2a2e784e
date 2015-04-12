@@ -16,7 +16,7 @@ public class GameConstants {
     public static final short SPRITE_6 = 0x1 << 5; // 0010 or 0x4 in hex - Powerup
     public static float PARTICLE_SPRITE_SCALE = 0.5f;
     public static float NORMAL_PARTICAL_SPEED = 5f;
-    public static float SPLIT_PARTICAL_SPEED = 6f;
+    public static float SPLIT_PARTICAL_SPEED = 7f;
     public static float SUICIDE_PARTICAL_SPEED = 9f;
     public static float INVISIBLE_PARTICLE_SPEED = 0f;
     public static float COLLISION_SPEED = 20f;

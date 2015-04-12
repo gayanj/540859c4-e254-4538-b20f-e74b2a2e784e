@@ -46,6 +46,8 @@ public class WorldController {
     int splitParticlesAlive = 0;
     int totalParticlesAlive = 0;
     int stage = 0;
+    int invisibleParticleCounter = 0;
+    int powerUpCounter = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -173,8 +175,10 @@ public class WorldController {
             checkStage();
             checkBonusStreak();
             checkPowerups();
+            createRandomPowerup();
             createSplitParticles();
             createSuicideParticles();
+            createInvisibleParticles();
             camera.update();
             //Touch pad readings
             Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * 10f, touchPadHelper.getTouchpad().getKnobPercentY() * 10f);
@@ -391,22 +395,32 @@ public class WorldController {
     }
 
     private void createSuicideParticles() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && suicideParticlesAlive == 0) {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 15 == 0 && suicideParticlesAlive == 0) {
             //for (int i = 0; i < stage; i++) {
             createExplosion(totalParticlesCreated);
             createNewParticle(GameConstants.SUICIDE_PARTICLE);
             suicideParticlesAlive++;
-            createNewParticle(GameConstants.INVISIBLE_PARTICLE);
-            createPowerUp(GameConstants.SUPER_FORCE);
             //}
         }
     }
 
     private void createInvisibleParticles() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 20 == 0) {
+        if (totalParticlesDestroyed > 10 && invisibleParticleCounter > 500) {
             //for (int i = 0; i < stage; i++) {
             createNewParticle(GameConstants.INVISIBLE_PARTICLE);
+            invisibleParticleCounter = 0;
             //}
+        }else{
+            invisibleParticleCounter++;
+        }
+    }
+
+    private void createRandomPowerup(){
+        if(totalParticlesDestroyed > 20 && powerUpCounter > 2000){
+            createPowerUp(GameConstants.SUPER_FORCE);
+            powerUpCounter = 0;
+        }else{
+            powerUpCounter++;
         }
     }
 
