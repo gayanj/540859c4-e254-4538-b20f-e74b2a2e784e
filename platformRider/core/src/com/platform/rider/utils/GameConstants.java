@@ -18,11 +18,14 @@ public class GameConstants {
     public static float NORMAL_PARTICAL_SPEED = 5f;
     public static float SPLIT_PARTICAL_SPEED = 7f;
     public static float SUICIDE_PARTICAL_SPEED = 9f;
+    public static float HERO_SPEED = 6f;
     public static float INVISIBLE_PARTICLE_SPEED = 0f;
     public static float COLLISION_SPEED = 20f;
     public static float LINEAR_DAMPING = 2f;
     public static float BLAST_RADIUS = 1f;
     public static float FRAME_DURATION = 0.025f;
+    public static float SPLIT_PARTICAL_TIME = 200;
+    public static float SUICIDE_PARTICAL_COUNT = 1;
 
     //Particle Types
     public static final String NORMAL_PARTICLE = "normal_particle";
@@ -53,6 +56,10 @@ public class GameConstants {
     // Location of description file for suicide particle animation texture atlas
     public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION =
             "invisibleParticleDisappearingAnimation.txt";
+
+    // Location of description file for suicide particle animation texture atlas
+    public static final String TEXTURE_ATLAS_PARTICLE_DYING_ANIMATION =
+            "particleDyingAnimation.txt";
 
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";

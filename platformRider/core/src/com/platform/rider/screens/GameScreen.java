@@ -27,7 +27,7 @@ public class GameScreen extends AbstractGameScreen {
             // since last rendered frame.
             worldController.update(deltaTime);
         }
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(212/255f, 212/255f, 212/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
         worldRenderer.render();

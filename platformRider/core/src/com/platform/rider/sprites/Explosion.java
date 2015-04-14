@@ -1,7 +1,6 @@
 package com.platform.rider.sprites;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.platform.rider.assets.Assets;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
@@ -12,7 +11,6 @@ public class Explosion extends AbstractGameObject{
 
     int hashMapIndex;
     boolean blast = false;
-    Vector2 blastPosition;
 
     public AnimatedSprite getAnimatedSprite() {
         return animatedSprite;
@@ -28,14 +26,6 @@ public class Explosion extends AbstractGameObject{
 
     public void setBlast(boolean blast) {
         this.blast = blast;
-    }
-
-    public Vector2 getBlastPosition() {
-        return blastPosition;
-    }
-
-    public void setBlastPosition(Vector2 blastPosition) {
-        this.blastPosition = blastPosition;
     }
 
     public int getHashMapIndex() {

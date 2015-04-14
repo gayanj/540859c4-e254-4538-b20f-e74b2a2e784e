@@ -24,7 +24,7 @@ public class MenuScreen extends AbstractGameScreen{
     }
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(212/255f, 212/255f, 212/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();

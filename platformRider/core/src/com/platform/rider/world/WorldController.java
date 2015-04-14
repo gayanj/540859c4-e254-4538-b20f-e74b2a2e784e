@@ -29,12 +29,15 @@ public class WorldController {
     public World world;
     public Hero hero;
     public Explosion explosion;
+    public ParticleBurstAnimation particleBurstAnimation;
     public Powerups powerups;
+    public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
     public List<String> normalParticlesForRemoval = new ArrayList<String>();
     public List<String> explosionsForRemoval = new ArrayList<String>();
+    public List<String> particleBurstsForRemoval = new ArrayList<String>();
     public List<String> powerupsForRemoval = new ArrayList<String>();
     public HashMap<String, Saw> spikeHashMap = new HashMap<String, Saw>();
     public TouchPadHelper touchPadHelper;
@@ -56,6 +59,8 @@ public class WorldController {
     int particleStreakCount = 0;
     boolean startBonusCounter = false;
     boolean addStreak = false;
+
+    boolean increaseDifficulty = true;
 
     public WorldController(Game game) {
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
@@ -98,6 +103,11 @@ public class WorldController {
         explosionHashMap.put(String.valueOf(explosionIndex), explosion);
     }
 
+    private void createParticleBurst(String burstIndex,Vector2 position) {
+        particleBurstAnimation = new ParticleBurstAnimation(burstIndex,position);
+        particleBurstHashMap.put(String.valueOf(burstIndex), particleBurstAnimation);
+    }
+
     private void createParticles() {
         for (int i = 0; i < 4; i++) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
@@ -110,8 +120,8 @@ public class WorldController {
         int xHigh = GameConstants.APP_WIDTH / 2 - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_WIDTH / 2 - 100);
-        int yHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int yLow = -(GameConstants.APP_HEIGHT / 2 - 100);
+        int yHigh = GameConstants.APP_HEIGHT / 2 - 100;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Power power = new Power(position, world, type, "power" + powerUpsCreated);
@@ -124,8 +134,8 @@ public class WorldController {
         int xHigh = GameConstants.APP_WIDTH / 2 - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_WIDTH / 2 - 100);
-        int yHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int yLow = -(GameConstants.APP_HEIGHT / 2 - 100);
+        int yHigh = GameConstants.APP_HEIGHT / 2 - 100;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
@@ -171,8 +181,9 @@ public class WorldController {
             world.step(deltaTime, 8, 3);
             destroyParticles();
             destroyExplosions();
+            destroyParticleBursts();
             destroyPowerups();
-            checkStage();
+            increaseDifficulty();
             checkBonusStreak();
             checkPowerups();
             createRandomPowerup();
@@ -181,7 +192,7 @@ public class WorldController {
             createInvisibleParticles();
             camera.update();
             //Touch pad readings
-            Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * 10f, touchPadHelper.getTouchpad().getKnobPercentY() * 10f);
+            Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * GameConstants.HERO_SPEED, touchPadHelper.getTouchpad().getKnobPercentY() * GameConstants.HERO_SPEED);
             //If touchpad readings are zero dont alter velocity of hero
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
@@ -205,7 +216,7 @@ public class WorldController {
     private void destroyParticles() {
         for (String particleKey : normalParticlesForRemoval) {
             String type = particleHashMap.get(particleKey).getType();
-            if (type.equals(GameConstants.SUICIDE_PARTICLE)) {
+            if (type.equals(GameConstants.SUICIDE_PARTICLE) || type.equals(GameConstants.INVISIBLE_PARTICLE)) {
                 particleHashMap.get(particleKey).setAnimatedSprite(null);
             } else {
                 particleHashMap.get(particleKey).setSprite(null);
@@ -236,6 +247,7 @@ public class WorldController {
             } else {
                 startBonusCounter = true;
             }
+            increaseDifficulty = true;
         }
         normalParticlesForRemoval.clear();
     }
@@ -299,10 +311,22 @@ public class WorldController {
         explosionsForRemoval.clear();
     }
 
-    private void checkStage() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && GameConstants.NORMAL_PARTICAL_SPEED <= 7) {
-            stage++;
-            GameConstants.NORMAL_PARTICAL_SPEED++;
+    private void destroyParticleBursts() {
+        for (String explosion : particleBurstsForRemoval) {
+            particleBurstHashMap.remove(explosion);
+        }
+        particleBurstsForRemoval.clear();
+    }
+
+    private void increaseDifficulty() {
+        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && increaseDifficulty) {
+            if (GameConstants.NORMAL_PARTICAL_SPEED <= 7) {
+                GameConstants.NORMAL_PARTICAL_SPEED++;
+            }
+            if (GameConstants.SPLIT_PARTICAL_TIME > 80) {
+                GameConstants.SPLIT_PARTICAL_TIME -= 10;
+            }
+            increaseDifficulty = false;
         }
     }
 
@@ -361,8 +385,9 @@ public class WorldController {
                 Vector2 bodyWorldCenter = body.getWorldCenter();
 
                 //ignore bodies outside the blast range
-                if ((bodyWorldCenter.sub(center)).len() >= GameConstants.BLAST_RADIUS)
+                if ((bodyWorldCenter.sub(center)).len() >= GameConstants.BLAST_RADIUS) {
                     continue;
+                }
 
                 if ("hero".equals(body.getUserData().toString())) {
                     gameOver = true;
@@ -371,8 +396,11 @@ public class WorldController {
                     normalParticlesForRemoval.add(body.getUserData().toString());
                 }
             }
+            explosionHashMap.get(particle.getBody().getUserData().toString()).getAnimatedSprite().setPosition(
+                    (center.x * GameConstants.PIXELS_TO_METERS) - explosionHashMap.get(particle.getBody().getUserData().toString()).getAnimatedSprite().getWidth() / 2,
+                    (center.y * GameConstants.PIXELS_TO_METERS) - explosionHashMap.get(particle.getBody().getUserData().toString()).getAnimatedSprite().getHeight() / 2
+            );
             explosionHashMap.get(particle.getBody().getUserData().toString()).setBlast(true);
-            explosionHashMap.get(particle.getBody().getUserData().toString()).setBlastPosition(center);
         } else {
             int count = particle.getBlastTimer();
             count++;
@@ -396,11 +424,14 @@ public class WorldController {
 
     private void createSuicideParticles() {
         if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 15 == 0 && suicideParticlesAlive == 0) {
-            //for (int i = 0; i < stage; i++) {
-            createExplosion(totalParticlesCreated);
-            createNewParticle(GameConstants.SUICIDE_PARTICLE);
-            suicideParticlesAlive++;
-            //}
+            for (int i = 0; i < GameConstants.SUICIDE_PARTICAL_COUNT; i++) {
+                createExplosion(totalParticlesCreated);
+                createNewParticle(GameConstants.SUICIDE_PARTICLE);
+                suicideParticlesAlive++;
+            }
+            if (GameConstants.SUICIDE_PARTICAL_COUNT < 5) {
+                GameConstants.SUICIDE_PARTICAL_COUNT++;
+            }
         }
     }
 
@@ -410,16 +441,16 @@ public class WorldController {
             createNewParticle(GameConstants.INVISIBLE_PARTICLE);
             invisibleParticleCounter = 0;
             //}
-        }else{
+        } else {
             invisibleParticleCounter++;
         }
     }
 
-    private void createRandomPowerup(){
-        if(totalParticlesDestroyed > 20 && powerUpCounter > 2000){
+    private void createRandomPowerup() {
+        if (totalParticlesDestroyed > 20 && powerUpCounter > 2000) {
             createPowerUp(GameConstants.SUPER_FORCE);
             powerUpCounter = 0;
-        }else{
+        } else {
             powerUpCounter++;
         }
     }
@@ -503,7 +534,7 @@ public class WorldController {
     }
 
     private void updateSplitParticleCount(Particle particle) {
-        if (stage >= 2 && particle.getSplitParticleCount() > 200 && splitParticlesAlive < 20) {
+        if (particle.getSplitParticleCount() > GameConstants.SPLIT_PARTICAL_TIME && splitParticlesAlive < 20) {
             //set split particle position
             Vector2 particlePosition = new Vector2(particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS - particle.getSprite().
                     getWidth() / 2, particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS - particle.getSprite().
@@ -535,16 +566,14 @@ public class WorldController {
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
+                createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(),contact.getFixtureA().getBody().getPosition());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
-                /*//remove particles
-                if (!splitParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
-                    splitParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
-                }*/
                 //remove particles
+                createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(),contact.getFixtureA().getBody().getPosition());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -599,6 +628,8 @@ public class WorldController {
             //if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
             destroyAllParticles();
             GameConstants.NORMAL_PARTICAL_SPEED = 5f;
+            GameConstants.SPLIT_PARTICAL_TIME = 200;
+            GameConstants.SUICIDE_PARTICAL_COUNT = 1;
             backToMenu();
             //}
         }
