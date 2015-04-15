@@ -103,8 +103,8 @@ public class WorldController {
         explosionHashMap.put(String.valueOf(explosionIndex), explosion);
     }
 
-    private void createParticleBurst(String burstIndex,Vector2 position) {
-        particleBurstAnimation = new ParticleBurstAnimation(burstIndex,position);
+    private void createParticleBurst(String burstIndex, Vector2 position, String type) {
+        particleBurstAnimation = new ParticleBurstAnimation(burstIndex, position, type);
         particleBurstHashMap.put(String.valueOf(burstIndex), particleBurstAnimation);
     }
 
@@ -320,10 +320,10 @@ public class WorldController {
 
     private void increaseDifficulty() {
         if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && increaseDifficulty) {
-            if (GameConstants.NORMAL_PARTICAL_SPEED <= 7) {
+            if (GameConstants.NORMAL_PARTICAL_SPEED <= 9) {
                 GameConstants.NORMAL_PARTICAL_SPEED++;
             }
-            if (GameConstants.SPLIT_PARTICAL_TIME > 80) {
+            if (GameConstants.SPLIT_PARTICAL_TIME > 90) {
                 GameConstants.SPLIT_PARTICAL_TIME -= 10;
             }
             increaseDifficulty = false;
@@ -429,7 +429,7 @@ public class WorldController {
                 createNewParticle(GameConstants.SUICIDE_PARTICLE);
                 suicideParticlesAlive++;
             }
-            if (GameConstants.SUICIDE_PARTICAL_COUNT < 5) {
+            if (GameConstants.SUICIDE_PARTICAL_COUNT < 6) {
                 GameConstants.SUICIDE_PARTICAL_COUNT++;
             }
         }
@@ -566,14 +566,14 @@ public class WorldController {
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
-                createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(),contact.getFixtureA().getBody().getPosition());
+                createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(),particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
-                createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(),contact.getFixtureA().getBody().getPosition());
+                createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -640,8 +640,8 @@ public class WorldController {
             if (Gdx.input.isTouched(i)) {
                 Vector2 touchPoint = new Vector2(Gdx.input.getX(i), Gdx.input.getY(i));
                 Rectangle powerupBound = new Rectangle(
-                        15,
-                        791,
+                        0,
+                        799,
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedWidth(),
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight());
                 if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {

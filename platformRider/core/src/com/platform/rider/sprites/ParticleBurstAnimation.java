@@ -34,10 +34,18 @@ public class ParticleBurstAnimation extends AbstractGameObject {
         return hashMapIndex;
     }
 
-    public ParticleBurstAnimation(String hashMapIndex, Vector2 position) {
+    public ParticleBurstAnimation(String hashMapIndex, Vector2 position, String type) {
         this.hashMapIndex = hashMapIndex;
-        animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.particleDyingAnimationAnimation);
-        animatedSprite.setSize(animatedSprite.getWidth(), animatedSprite.getHeight());
+        if(GameConstants.NORMAL_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.normalParticleDyingAnimation);
+        }else if(GameConstants.SPLIT_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.splitParticleDyingAnimation);
+        }else if(GameConstants.INVISIBLE_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.invisibleParticleDyingAnimation);
+        }else if(GameConstants.SUICIDE_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.suicideParticleDyingAnimation);
+        }
+        animatedSprite.setSize(animatedSprite.getWidth() * 1f, animatedSprite.getHeight() * 1f);
         animatedSprite.setPosition(
                 (position.x * GameConstants.PIXELS_TO_METERS) - animatedSprite.getWidth() / 2,
                 (position.y * GameConstants.PIXELS_TO_METERS) - animatedSprite.getHeight() / 2

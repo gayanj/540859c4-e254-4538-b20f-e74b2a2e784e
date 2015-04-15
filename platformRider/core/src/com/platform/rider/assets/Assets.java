@@ -55,7 +55,16 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION,
                 TextureAtlas.class);
         // load texture atlas
-        assetManager.load(GameConstants.TEXTURE_ATLAS_PARTICLE_DYING_ANIMATION,
+        assetManager.load(GameConstants.TEXTURE_ATLAS_NORMAL_PARTICLE_DYING_ANIMATION,
+                TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_SPLIT_PARTICLE_DYING_ANIMATION,
+                TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_DYING_ANIMATION,
+                TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICLE_DYING_ANIMATION,
                 TextureAtlas.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
@@ -106,10 +115,31 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
-        TextureAtlas particleDyingAnimationAtlas =
-                assetManager.get(GameConstants.TEXTURE_ATLAS_PARTICLE_DYING_ANIMATION);
+        TextureAtlas normalParticleDyingAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_NORMAL_PARTICLE_DYING_ANIMATION);
         // enable texture filtering for pixel smoothing
-        for (Texture t : particleDyingAnimationAtlas.getTextures()) {
+        for (Texture t : normalParticleDyingAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
+        TextureAtlas splitParticleDyingAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_SPLIT_PARTICLE_DYING_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : splitParticleDyingAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
+        TextureAtlas invisibleParticleDyingAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_INVISIBLE_PARTICLE_DYING_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : invisibleParticleDyingAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
+        TextureAtlas suicideParticleDyingAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICLE_DYING_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : suicideParticleDyingAnimationAtlas.getTextures()) {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
@@ -119,7 +149,12 @@ public class Assets implements Disposable, AssetErrorListener {
         assetSpike = new AssetSpike(atlas);
         assetPowerup = new AssetPowerup(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
-        assetAnimations = new AssetAnimations(spikeAnimationAtlas, suicideParticleAnimationAtlas, explosionAnimationAtlas, invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas, particleDyingAnimationAtlas);
+        assetAnimations = new AssetAnimations(
+                spikeAnimationAtlas, suicideParticleAnimationAtlas,
+                explosionAnimationAtlas, invisibleParticleAppearingAtlas,
+                invisibleParticleDisappearingAtlas, normalParticleDyingAnimationAtlas,
+                splitParticleDyingAnimationAtlas,invisibleParticleDyingAnimationAtlas,
+                suicideParticleDyingAnimationAtlas);
     }
 
     @Override
@@ -220,9 +255,16 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Animation explosionParticleAnimation;
         public final Animation invisibleParticleAppearingAnimation;
         public final Animation invisibleParticleDisappearingAnimation;
-        public final Animation particleDyingAnimationAnimation;
+        public final Animation normalParticleDyingAnimation;
+        public final Animation splitParticleDyingAnimation;
+        public final Animation invisibleParticleDyingAnimation;
+        public final Animation suicideParticleDyingAnimation;
 
-        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas, TextureAtlas explosionAtlas, TextureAtlas invisibleParticleAppearingAtlas, TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas particleDyingAnimationAtlas) {
+        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas,
+                               TextureAtlas explosionAtlas, TextureAtlas invisibleParticleAppearingAtlas,
+                               TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas normalParticleDyingAnimationAtlas,
+                               TextureAtlas splitParticleDyingAnimationAtlas,TextureAtlas invisibleParticleDyingAnimationAtlas,
+                               TextureAtlas suicideParticleDyingAnimationAtlas) {
             spikeAnimation = new Animation(0.025f, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -238,8 +280,17 @@ public class Assets implements Disposable, AssetErrorListener {
             invisibleParticleDisappearingAnimation = new Animation(0.025f, invisibleParticleDisappearingAtlas.getRegions());
             invisibleParticleDisappearingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            particleDyingAnimationAnimation = new Animation(0.025f, particleDyingAnimationAtlas.getRegions());
-            particleDyingAnimationAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+            normalParticleDyingAnimation = new Animation(0.025f, normalParticleDyingAnimationAtlas.getRegions());
+            normalParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            splitParticleDyingAnimation = new Animation(0.025f, splitParticleDyingAnimationAtlas.getRegions());
+            splitParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            invisibleParticleDyingAnimation = new Animation(0.025f, invisibleParticleDyingAnimationAtlas.getRegions());
+            invisibleParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            suicideParticleDyingAnimation = new Animation(0.025f, suicideParticleDyingAnimationAtlas.getRegions());
+            suicideParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }
 }

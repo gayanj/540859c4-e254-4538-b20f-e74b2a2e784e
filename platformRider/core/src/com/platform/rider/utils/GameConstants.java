@@ -58,8 +58,20 @@ public class GameConstants {
             "invisibleParticleDisappearingAnimation.txt";
 
     // Location of description file for suicide particle animation texture atlas
-    public static final String TEXTURE_ATLAS_PARTICLE_DYING_ANIMATION =
-            "particleDyingAnimation.txt";
+    public static final String TEXTURE_ATLAS_NORMAL_PARTICLE_DYING_ANIMATION =
+            "normalParticleDyingAnimation.txt";
+
+    // Location of description file for suicide particle animation texture atlas
+    public static final String TEXTURE_ATLAS_SPLIT_PARTICLE_DYING_ANIMATION =
+            "splitParticleDyingAnimation.txt";
+
+    // Location of description file for suicide particle animation texture atlas
+    public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_DYING_ANIMATION =
+            "invisibleParticleDyingAnimation.txt";
+
+    // Location of description file for suicide particle animation texture atlas
+    public static final String TEXTURE_ATLAS_SUICIDE_PARTICLE_DYING_ANIMATION =
+            "suicideParticleDyingAnimation.txt";
 
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";

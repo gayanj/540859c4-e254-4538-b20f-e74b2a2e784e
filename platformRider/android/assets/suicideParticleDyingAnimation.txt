@@ -1,0 +1,88 @@
+suicideParticleDyingAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 782, 742
+  size: 104, 104
+  orig: 640, 480
+  offset: 277, 207
+  index: 1
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 2, 752
+  size: 316, 316
+  orig: 640, 480
+  offset: 176, 100
+  index: 8
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 2, 410
+  size: 342, 340
+  orig: 640, 480
+  offset: 161, 87
+  index: 9
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 2, 2
+  size: 410, 406
+  orig: 640, 480
+  offset: 122, 49
+  index: 12
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 610, 848
+  size: 260, 260
+  orig: 640, 480
+  offset: 203, 130
+  index: 6
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 320, 756
+  size: 288, 288
+  orig: 640, 480
+  offset: 190, 115
+  index: 7
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 414, 390
+  size: 366, 364
+  orig: 640, 480
+  offset: 148, 74
+  index: 10
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 804, 2
+  size: 200, 200
+  orig: 640, 480
+  offset: 231, 160
+  index: 4
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 414, 2
+  size: 388, 386
+  orig: 640, 480
+  offset: 134, 61
+  index: 11
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 782, 510
+  size: 230, 230
+  orig: 640, 480
+  offset: 217, 145
+  index: 5
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 804, 372
+  size: 136, 136
+  orig: 640, 480
+  offset: 262, 191
+  index: 2
+suicideParticleDyingAnimation
+  rotate: false
+  xy: 804, 204
+  size: 168, 166
+  orig: 640, 480
+  offset: 247, 176
+  index: 3
