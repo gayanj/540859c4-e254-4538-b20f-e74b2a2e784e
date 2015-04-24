@@ -3,6 +3,8 @@ package com.platform.rider.world;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -62,11 +64,36 @@ public class WorldController {
 
     boolean increaseDifficulty = true;
 
+    public static ParticleEffectPool heroParticleEffectPool;
+    public static ParticleEffectPool normalParticleEffectPool;
+    public static ParticleEffectPool splitParticleEffectPool;
+    public static ParticleEffectPool suicideParticleEffectPool;
+    public static Array<ParticleEffectPool.PooledEffect> normalParticleEffects = new Array<ParticleEffectPool.PooledEffect>();
+    public static Array<ParticleEffectPool.PooledEffect> splitParticleEffects = new Array<ParticleEffectPool.PooledEffect>();
+    public static Array<ParticleEffectPool.PooledEffect> suicideParticleEffects = new Array<ParticleEffectPool.PooledEffect>();
+    public static Array<ParticleEffectPool.PooledEffect> heroParticleEffects = new Array<ParticleEffectPool.PooledEffect>();
+
     public WorldController(Game game) {
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
         scaledHeight = GameConstants.APP_HEIGHT * 1.5f;
         this.game = game;
         init();
+
+        ParticleEffect normalParticleEffect = new ParticleEffect();
+        normalParticleEffect.load(Gdx.files.internal("particleEffects/normalParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        normalParticleEffectPool = new ParticleEffectPool(normalParticleEffect, 1, 2);
+
+        ParticleEffect splitParticleEffect = new ParticleEffect();
+        splitParticleEffect.load(Gdx.files.internal("particleEffects/splitParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        splitParticleEffectPool = new ParticleEffectPool(splitParticleEffect, 1, 2);
+
+        ParticleEffect suicideParticleEffect = new ParticleEffect();
+        suicideParticleEffect.load(Gdx.files.internal("particleEffects/suicideParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        suicideParticleEffectPool = new ParticleEffectPool(suicideParticleEffect, 1, 2);
+
+        ParticleEffect heroParticleEffect = new ParticleEffect();
+        heroParticleEffect.load(Gdx.files.internal("particleEffects/heroParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        heroParticleEffectPool = new ParticleEffectPool(heroParticleEffect, 1, 2);
     }
 
     private void init() {
@@ -566,9 +593,19 @@ public class WorldController {
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
-                createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(),particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType());
+                createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(), particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
+                }
+                for (int i = WorldController.suicideParticleEffects.size - 1; i >= 0; i--) {
+                    ParticleEffectPool.PooledEffect peffect = WorldController.suicideParticleEffects.get(i);
+                    peffect.free();
+                    WorldController.suicideParticleEffects.removeIndex(i);
+                }
+                for (int i = WorldController.normalParticleEffects.size - 1; i >= 0; i--) {
+                    ParticleEffectPool.PooledEffect peffect = WorldController.normalParticleEffects.get(i);
+                    peffect.free();
+                    WorldController.normalParticleEffects.removeIndex(i);
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
@@ -576,6 +613,11 @@ public class WorldController {
                 createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }
+                for (int i = WorldController.splitParticleEffects.size - 1; i >= 0; i--) {
+                    ParticleEffectPool.PooledEffect peffect = WorldController.splitParticleEffects.get(i);
+                    peffect.free();
+                    WorldController.splitParticleEffects.removeIndex(i);
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
@@ -630,6 +672,26 @@ public class WorldController {
             GameConstants.NORMAL_PARTICAL_SPEED = 5f;
             GameConstants.SPLIT_PARTICAL_TIME = 200;
             GameConstants.SUICIDE_PARTICAL_COUNT = 1;
+
+            //Reset all particle normalParticleEffects
+            for (int i = normalParticleEffects.size - 1; i >= 0; i--)
+                normalParticleEffects.get(i).free();
+            normalParticleEffects.clear();
+
+            //Reset all particle normalParticleEffects
+            for (int i = splitParticleEffects.size - 1; i >= 0; i--)
+                splitParticleEffects.get(i).free();
+            splitParticleEffects.clear();
+
+            //Reset all particle normalParticleEffects
+            for (int i = suicideParticleEffects.size - 1; i >= 0; i--)
+                suicideParticleEffects.get(i).free();
+            suicideParticleEffects.clear();
+
+            //Reset all particle normalParticleEffects
+            for (int i = heroParticleEffects.size - 1; i >= 0; i--)
+                heroParticleEffects.get(i).free();
+            heroParticleEffects.clear();
             backToMenu();
             //}
         }
@@ -639,12 +701,14 @@ public class WorldController {
         for (int i = 0; i < 2; i++) {
             if (Gdx.input.isTouched(i)) {
                 Vector2 touchPoint = new Vector2(Gdx.input.getX(i), Gdx.input.getY(i));
+                //System.out.println(touchPoint);
                 Rectangle powerupBound = new Rectangle(
-                        0,
-                        799,
+                        15,
+                        camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight(),
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedWidth(),
                         Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight());
                 if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
+                    System.out.println("Touched!");
                     deployPowerup();
                 }
             }

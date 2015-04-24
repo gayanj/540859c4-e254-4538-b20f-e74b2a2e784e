@@ -1,5 +1,7 @@
 package com.platform.rider.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
+import com.platform.rider.world.WorldController;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
@@ -272,14 +275,54 @@ public class Particle extends AbstractGameObject {
                 animatedSprite.play();
             }
         } else if (GameConstants.SUICIDE_PARTICLE.equals(type)) {
-            animatedSprite.draw(batch);
-        } else {
-            batch.draw(sprite,
+            //animatedSprite.draw(batch);
+            //Draw Particle Effect
+            ParticleEffectPool.PooledEffect effect = WorldController.suicideParticleEffectPool.obtain();
+            effect.setPosition(animatedSprite.getX() + animatedSprite.getWidth() / 2, animatedSprite.getY() + animatedSprite.getHeight() / 2);
+            WorldController.suicideParticleEffects.add(effect);
+
+            for (int i = WorldController.suicideParticleEffects.size - 1; i >= 0; i--) {
+                ParticleEffectPool.PooledEffect peffect = WorldController.suicideParticleEffects.get(i);
+                peffect.draw(batch, Gdx.graphics.getDeltaTime());
+                if (peffect.isComplete()) {
+                    peffect.free();
+                    WorldController.suicideParticleEffects.removeIndex(i);
+                }
+            }
+        } else if (GameConstants.NORMAL_PARTICLE.equals(type)) {
+            //Draw Particle Effect
+            ParticleEffectPool.PooledEffect effect = WorldController.normalParticleEffectPool.obtain();
+            effect.setPosition(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
+            WorldController.normalParticleEffects.add(effect);
+
+            for (int i = WorldController.normalParticleEffects.size - 1; i >= 0; i--) {
+                ParticleEffectPool.PooledEffect peffect = WorldController.normalParticleEffects.get(i);
+                peffect.draw(batch, Gdx.graphics.getDeltaTime());
+                if (peffect.isComplete()) {
+                    peffect.free();
+                    WorldController.normalParticleEffects.removeIndex(i);
+                }
+            }
+            /*batch.draw(sprite,
                     sprite.getX(), sprite.getY(),
                     sprite.getOriginX(), sprite.getOriginY(),
                     sprite.getWidth(), sprite.getHeight(),
                     sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
-            );
+            );*/
+        } else if (GameConstants.SPLIT_PARTICLE.equals(type)) {
+            //Draw Particle Effect
+            ParticleEffectPool.PooledEffect effect = WorldController.splitParticleEffectPool.obtain();
+            effect.setPosition(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
+            WorldController.splitParticleEffects.add(effect);
+
+            for (int i = WorldController.splitParticleEffects.size - 1; i >= 0; i--) {
+                ParticleEffectPool.PooledEffect peffect = WorldController.splitParticleEffects.get(i);
+                peffect.draw(batch, Gdx.graphics.getDeltaTime());
+                if (peffect.isComplete()) {
+                    peffect.free();
+                    WorldController.splitParticleEffects.removeIndex(i);
+                }
+            }
         }
     }
 }

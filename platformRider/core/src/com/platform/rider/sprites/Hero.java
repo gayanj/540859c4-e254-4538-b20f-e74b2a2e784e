@@ -1,5 +1,7 @@
 package com.platform.rider.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
+import com.platform.rider.world.WorldController;
 
 /**
  * Created by Gayan on 3/26/2015.
@@ -73,11 +76,24 @@ public class Hero extends AbstractGameObject {
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
-        batch.draw(sprite,
+        /*batch.draw(sprite,
                 sprite.getX(), sprite.getY(),
                 sprite.getOriginX(),sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(),
                 sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
-        );
+        );*/
+        //Draw Particle Effect
+        ParticleEffectPool.PooledEffect effect = WorldController.heroParticleEffectPool.obtain();
+        effect.setPosition(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
+        WorldController.heroParticleEffects.add(effect);
+
+        for (int i = WorldController.heroParticleEffects.size - 1; i >= 0; i--) {
+            ParticleEffectPool.PooledEffect peffect = WorldController.heroParticleEffects.get(i);
+            peffect.draw(batch, Gdx.graphics.getDeltaTime());
+            if (peffect.isComplete()) {
+                peffect.free();
+                WorldController.heroParticleEffects.removeIndex(i);
+            }
+        }
     }
 }
