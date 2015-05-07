@@ -4,42 +4,42 @@ filter: Linear,Linear
 repeat: none
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 18
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 24
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 109, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 30
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 27
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 109, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 54
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -53,63 +53,63 @@ invisibleParticleDisappearingAnimation_
   index: 60
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 109
+  xy: 216, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 2
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 57
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 216, 2
+  xy: 2, 430
   size: 1, 1
   orig: 104, 104
   offset: 0, 103
   index: 63
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 109, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 46
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 19
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 216, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 25
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 31
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 216, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 0
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 109, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -123,140 +123,140 @@ invisibleParticleDisappearingAnimation_
   index: 38
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 61
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 109
+  xy: 109, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 3
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 44
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 47
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 16
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 22
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 109
+  xy: 323, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 1
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 52
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 39
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 8
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 109, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 45
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 14
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 109, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 20
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 17
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 23
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 216, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 50
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 53
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 36
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 9
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -270,28 +270,28 @@ invisibleParticleDisappearingAnimation_
   index: 15
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 109, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 21
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 28
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 51
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -305,7 +305,7 @@ invisibleParticleDisappearingAnimation_
   index: 40
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 109, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -319,14 +319,14 @@ invisibleParticleDisappearingAnimation_
   index: 37
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 6
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -340,7 +340,7 @@ invisibleParticleDisappearingAnimation_
   index: 12
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 109, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -354,14 +354,14 @@ invisibleParticleDisappearingAnimation_
   index: 35
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 109
+  xy: 109, 216
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 4
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -375,21 +375,21 @@ invisibleParticleDisappearingAnimation_
   index: 10
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 323
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 59
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 7
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -403,35 +403,35 @@ invisibleParticleDisappearingAnimation_
   index: 13
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 26
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 2
+  xy: 216, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 32
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 2, 216
+  xy: 109, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 5
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 2, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 11
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 2
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
@@ -445,7 +445,7 @@ invisibleParticleDisappearingAnimation_
   index: 62
 invisibleParticleDisappearingAnimation_
   rotate: false
-  xy: 109, 2
+  xy: 323, 109
   size: 105, 105
   orig: 105, 105
   offset: 0, 0

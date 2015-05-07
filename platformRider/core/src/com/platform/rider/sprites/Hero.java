@@ -1,6 +1,7 @@
 package com.platform.rider.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,9 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
-import com.platform.rider.world.WorldController;
 
 /**
  * Created by Gayan on 3/26/2015.
@@ -20,6 +21,10 @@ public class Hero extends AbstractGameObject {
 
     Vector2 position = new Vector2();
 
+    ParticleEffect particleEffect = new ParticleEffect();
+    ParticleEffectPool particleEffectPool;
+    Array<ParticleEffectPool.PooledEffect> pooledEffects = new Array<ParticleEffectPool.PooledEffect>();
+
     public Hero(Vector2 position, World world) {
         init(position, world);
     }
@@ -28,6 +33,8 @@ public class Hero extends AbstractGameObject {
         this.world = world;
         this.position = position;
         textureRegion = Assets.instance.assetHero.hero;
+        particleEffect.load(Gdx.files.internal("particleEffects/heroParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        particleEffectPool = new ParticleEffectPool(particleEffect, 1, 2);
         sprite = new Sprite(textureRegion);
         sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
         sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
@@ -83,16 +90,16 @@ public class Hero extends AbstractGameObject {
                 sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
         );*/
         //Draw Particle Effect
-        ParticleEffectPool.PooledEffect effect = WorldController.heroParticleEffectPool.obtain();
+        ParticleEffectPool.PooledEffect effect = particleEffectPool.obtain();
         effect.setPosition(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
-        WorldController.heroParticleEffects.add(effect);
+        pooledEffects.add(effect);
 
-        for (int i = WorldController.heroParticleEffects.size - 1; i >= 0; i--) {
-            ParticleEffectPool.PooledEffect peffect = WorldController.heroParticleEffects.get(i);
+        for (int i = pooledEffects.size - 1; i >= 0; i--) {
+            ParticleEffectPool.PooledEffect peffect = pooledEffects.get(i);
             peffect.draw(batch, Gdx.graphics.getDeltaTime());
             if (peffect.isComplete()) {
                 peffect.free();
-                WorldController.heroParticleEffects.removeIndex(i);
+                pooledEffects.removeIndex(i);
             }
         }
     }
