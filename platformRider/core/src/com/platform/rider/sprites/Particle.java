@@ -23,8 +23,6 @@ public class Particle extends AbstractGameObject {
     Vector2 normaliseVector = new Vector2();
     Vector2 position = new Vector2();
     boolean colliding = false;
-    boolean splitParticle = false;
-    boolean remove = false;
     boolean invisible = true;
     boolean vulnerable = false;
     int splitParticleCount = 0;
@@ -185,28 +183,8 @@ public class Particle extends AbstractGameObject {
         return animatedSprite;
     }
 
-    public ParticleEffect getParticleEffect() {
-        return particleEffect;
-    }
-
-    public void setParticleEffect(ParticleEffect particleEffect) {
-        this.particleEffect = particleEffect;
-    }
-
-    public ParticleEffectPool getParticleEffectPool() {
-        return particleEffectPool;
-    }
-
-    public void setParticleEffectPool(ParticleEffectPool particleEffectPool) {
-        this.particleEffectPool = particleEffectPool;
-    }
-
     public Array<ParticleEffectPool.PooledEffect> getPooledEffects() {
         return pooledEffects;
-    }
-
-    public void setPooledEffects(Array<ParticleEffectPool.PooledEffect> pooledEffects) {
-        this.pooledEffects = pooledEffects;
     }
 
     public void setAnimatedSprite(AnimatedSprite animatedSprite) {

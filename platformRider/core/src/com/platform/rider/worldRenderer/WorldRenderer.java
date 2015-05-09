@@ -55,6 +55,7 @@ public class WorldRenderer {
             worldController.hero.render(batch);
         }
         renderParticles();
+        renderDeathSaws();
         renderSpikes();
         renderPowerups();
         renderExplosion(batch);
@@ -72,6 +73,12 @@ public class WorldRenderer {
 
     private void renderSpikes() {
         for (Map.Entry<String, Saw> entry : worldController.spikeHashMap.entrySet()) {
+            entry.getValue().render(batch);
+        }
+    }
+
+    private void renderDeathSaws() {
+        for (Map.Entry<String, DeathSaw> entry : worldController.deathSawHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }

@@ -39,7 +39,9 @@ public class WorldController {
     public List<String> explosionsForRemoval = new ArrayList<String>();
     public List<String> particleBurstsForRemoval = new ArrayList<String>();
     public List<String> powerupsForRemoval = new ArrayList<String>();
+    public List<String> deathSawsForRemoval = new ArrayList<String>();
     public HashMap<String, Saw> spikeHashMap = new HashMap<String, Saw>();
+    public HashMap<String, DeathSaw> deathSawHashMap = new HashMap<String, DeathSaw>();
     public TouchPadHelper touchPadHelper;
     int totalParticlesCreated = 0;
     int totalParticlesDestroyed = 0;
@@ -50,6 +52,7 @@ public class WorldController {
     int totalParticlesAlive = 0;
     int stage = 0;
     int invisibleParticleCounter = 0;
+    int deathSawCounter = 0;
     int powerUpCounter = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
@@ -174,6 +177,18 @@ public class WorldController {
         }
     }
 
+    private void createDeathSaw() {
+        if (totalParticlesDestroyed > 5 && deathSawCounter > 500) {
+            int i = 5;
+            int yscale = 2 * (i + 1);
+            DeathSaw deathSaw = new DeathSaw(0, yscale, world, "R", "R" + i);
+            deathSawHashMap.put("R" + i, deathSaw);
+            deathSawCounter = 0;
+        } else {
+            deathSawCounter++;
+        }
+    }
+
     public void update(float deltaTime) {
         if (gameOver) {
             handleGameOver();
@@ -183,6 +198,7 @@ public class WorldController {
             destroyExplosions();
             destroyParticleBursts();
             destroyPowerups();
+            destroyDeathSaws();
             increaseDifficulty();
             checkBonusStreak();
             checkPowerups();
@@ -190,6 +206,7 @@ public class WorldController {
             createSplitParticles();
             createSuicideParticles();
             createInvisibleParticles();
+            createDeathSaw();
             camera.update();
             //Touch pad readings
             Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * GameConstants.HERO_SPEED, touchPadHelper.getTouchpad().getKnobPercentY() * GameConstants.HERO_SPEED);
@@ -201,6 +218,7 @@ public class WorldController {
             updateHero();
             updateParticles();
             updateSpikes();
+            updateDeathSaws();
             updatePowerupCounter();
             updatePowerupRemovals();
         }
@@ -302,6 +320,19 @@ public class WorldController {
             }
             world.destroyBody(entry.getValue().getBody());
         }
+    }
+
+    private void destroyDeathSaws() {
+        for (String deathSawKey : deathSawsForRemoval) {
+            deathSawHashMap.get(deathSawKey).setAnimatedSprite(null);
+            final Array<JointEdge> list = deathSawHashMap.get(deathSawKey).getBody().getJointList();
+            while (list.size > 0) {
+                world.destroyJoint(list.get(0).joint);
+            }
+            world.destroyBody(deathSawHashMap.get(deathSawKey).getBody());
+            deathSawHashMap.remove(deathSawKey);
+        }
+        deathSawsForRemoval.clear();
     }
 
     private void destroyExplosions() {
@@ -517,6 +548,23 @@ public class WorldController {
                     (saw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - saw.getAnimatedSprite().getHeight() / 2
             );
         }*/
+    }
+
+    private void updateDeathSaws() {
+        for (Map.Entry<String, DeathSaw> entry : deathSawHashMap.entrySet()) {
+            DeathSaw deathSaw = entry.getValue();
+            deathSaw.getAnimatedSprite().setPosition((deathSaw.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - deathSaw.getAnimatedSprite().
+                            getWidth() / 2,
+                    (deathSaw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - deathSaw.getAnimatedSprite().getHeight() / 2
+            );
+            if(deathSaw.getAnimatedSprite().getX() < (-deathSaw.getAnimatedSprite().getWidth()) - GameConstants.APP_WIDTH / 2
+                    || deathSaw.getAnimatedSprite().getX() > (deathSaw.getAnimatedSprite().getWidth()) + GameConstants.APP_WIDTH / 2
+                    || deathSaw.getAnimatedSprite().getY() > (deathSaw.getAnimatedSprite().getHeight()) + GameConstants.APP_HEIGHT / 2
+                    || deathSaw.getAnimatedSprite().getY() < (-deathSaw.getAnimatedSprite().getHeight()) - GameConstants.APP_HEIGHT / 2){
+                deathSawsForRemoval.add(deathSaw.getBody().getUserData().toString());
+            }
+        }
+        System.out.println(deathSawHashMap.size());
     }
 
     private void updateSuicideParticles(Particle particle) {
