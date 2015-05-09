@@ -41,6 +41,10 @@ public class GameConstants {
     public static final String TEXTURE_ATLAS_SPIKE_ANIMATION =
             "spikeAniimations.txt";
 
+    // Location of description file for death spike animation texture atlas
+    public static final String TEXTURE_ATLAS_DEATH_SAW_ANIMATION =
+            "deathSpikeAnimation.txt";
+
     // Location of description file for suicide particle animation texture atlas
     public static final String TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION =
             "suicideParticleAnimations.txt";

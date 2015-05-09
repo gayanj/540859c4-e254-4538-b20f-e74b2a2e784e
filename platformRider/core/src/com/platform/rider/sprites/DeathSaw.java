@@ -16,7 +16,7 @@ public class DeathSaw extends AbstractGameObject{
     Vector2 speed;
     public DeathSaw(int xscale, int yscale, World world, String side, String userdata) {
         this.world = world;
-        animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.spikeAnimation);
+        animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.deathSawAnimation);
         if (xscale == 0 && side.equals("R")) {
             speed = new Vector2(-10,0);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
@@ -24,10 +24,10 @@ public class DeathSaw extends AbstractGameObject{
             speed = new Vector2(10,0);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         } else if (yscale == 0 && side.equals("D")) {
-            speed = new Vector2(0,-10);
+            speed = new Vector2(0,10);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
         } else if (yscale == 0 && side.equals("U")) {
-            speed = new Vector2(0,10);
+            speed = new Vector2(0,-10);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
         }
 

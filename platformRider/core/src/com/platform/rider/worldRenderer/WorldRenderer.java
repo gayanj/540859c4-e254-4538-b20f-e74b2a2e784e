@@ -55,8 +55,8 @@ public class WorldRenderer {
             worldController.hero.render(batch);
         }
         renderParticles();
-        renderDeathSaws();
         renderSpikes();
+        renderDeathSaws();
         renderPowerups();
         renderExplosion(batch);
         renderParticleBurst(batch);

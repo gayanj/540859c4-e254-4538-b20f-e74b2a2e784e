@@ -43,6 +43,9 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(GameConstants.TEXTURE_ATLAS_SPIKE_ANIMATION,
                 TextureAtlas.class);
         // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_DEATH_SAW_ANIMATION,
+                TextureAtlas.class);
+        // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION,
                 TextureAtlas.class);
         // load texture atlas
@@ -84,6 +87,13 @@ public class Assets implements Disposable, AssetErrorListener {
                 assetManager.get(GameConstants.TEXTURE_ATLAS_SPIKE_ANIMATION);
         // enable texture filtering for pixel smoothing
         for (Texture t : spikeAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
+        TextureAtlas deathSawAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_DEATH_SAW_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : deathSawAnimationAtlas.getTextures()) {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
@@ -150,11 +160,11 @@ public class Assets implements Disposable, AssetErrorListener {
         assetPowerup = new AssetPowerup(atlas);
         assetLevelDecoration = new AssetLevelDecoration(atlas);
         assetAnimations = new AssetAnimations(
-                spikeAnimationAtlas, suicideParticleAnimationAtlas,
-                explosionAnimationAtlas, invisibleParticleAppearingAtlas,
-                invisibleParticleDisappearingAtlas, normalParticleDyingAnimationAtlas,
-                splitParticleDyingAnimationAtlas,invisibleParticleDyingAnimationAtlas,
-                suicideParticleDyingAnimationAtlas);
+                spikeAnimationAtlas, deathSawAnimationAtlas,
+                suicideParticleAnimationAtlas, explosionAnimationAtlas,
+                invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas,
+                normalParticleDyingAnimationAtlas, splitParticleDyingAnimationAtlas,
+                invisibleParticleDyingAnimationAtlas, suicideParticleDyingAnimationAtlas);
     }
 
     @Override
@@ -251,6 +261,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetAnimations {
         public final Animation spikeAnimation;
+        public final Animation deathSawAnimation;
         public final Animation suicideParticleAnimation;
         public final Animation explosionParticleAnimation;
         public final Animation invisibleParticleAppearingAnimation;
@@ -260,13 +271,16 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Animation invisibleParticleDyingAnimation;
         public final Animation suicideParticleDyingAnimation;
 
-        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas suicideParticleAtlas,
+        public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas deathSawAtlas, TextureAtlas suicideParticleAtlas,
                                TextureAtlas explosionAtlas, TextureAtlas invisibleParticleAppearingAtlas,
                                TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas normalParticleDyingAnimationAtlas,
-                               TextureAtlas splitParticleDyingAnimationAtlas,TextureAtlas invisibleParticleDyingAnimationAtlas,
+                               TextureAtlas splitParticleDyingAnimationAtlas, TextureAtlas invisibleParticleDyingAnimationAtlas,
                                TextureAtlas suicideParticleDyingAnimationAtlas) {
             spikeAnimation = new Animation(0.025f, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+            deathSawAnimation = new Animation(0.025f, deathSawAtlas.getRegions());
+            deathSawAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
             suicideParticleAnimation = new Animation(0.025f, suicideParticleAtlas.getRegions());
             suicideParticleAnimation.setPlayMode(Animation.PlayMode.LOOP);
