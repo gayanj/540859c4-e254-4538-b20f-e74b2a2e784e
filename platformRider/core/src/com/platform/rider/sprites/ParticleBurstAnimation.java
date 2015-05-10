@@ -44,6 +44,8 @@ public class ParticleBurstAnimation extends AbstractGameObject {
             animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.invisibleParticleDyingAnimation);
         }else if(GameConstants.SUICIDE_PARTICLE.equals(type)) {
             animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.suicideParticleDyingAnimation);
+        }else if(GameConstants.HERO_PARTICLE.equals(type)) {
+            animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.heroParticleDyingAnimation);
         }
         animatedSprite.setSize(animatedSprite.getWidth() * 1f, animatedSprite.getHeight() * 1f);
         animatedSprite.setPosition(

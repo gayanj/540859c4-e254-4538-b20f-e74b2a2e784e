@@ -28,6 +28,7 @@ public class GameConstants {
     public static float SUICIDE_PARTICAL_COUNT = 1;
 
     //Particle Types
+    public static final String HERO_PARTICLE = "hero";
     public static final String NORMAL_PARTICLE = "normal_particle";
     public static final String SPLIT_PARTICLE = "split_particle";
     public static final String SUICIDE_PARTICLE = "suicide_particle";
@@ -49,33 +50,37 @@ public class GameConstants {
     public static final String TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION =
             "suicideParticleAnimations.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for explosion animation texture atlas
     public static final String TEXTURE_ATLAS_EXPLOSION_ANIMATION =
             "explosionAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for invisible particle animation texture atlas
     public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_APPEARING_ANIMATION =
             "invisibleParticleAppearingAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for invisible particle animation texture atlas
     public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_DISAPPEARING_ANIMATION =
             "invisibleParticleDisappearingAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for normal particle dying animation texture atlas
     public static final String TEXTURE_ATLAS_NORMAL_PARTICLE_DYING_ANIMATION =
             "normalParticleDyingAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for split particle dying animation texture atlas
     public static final String TEXTURE_ATLAS_SPLIT_PARTICLE_DYING_ANIMATION =
             "splitParticleDyingAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for invisible particle dying animation texture atlas
     public static final String TEXTURE_ATLAS_INVISIBLE_PARTICLE_DYING_ANIMATION =
             "invisibleParticleDyingAnimation.txt";
 
-    // Location of description file for suicide particle animation texture atlas
+    // Location of description file for suicide particle dying animation texture atlas
     public static final String TEXTURE_ATLAS_SUICIDE_PARTICLE_DYING_ANIMATION =
             "suicideParticleDyingAnimation.txt";
+
+    // Location of description file for hero particle dying animation texture atlas
+    public static final String TEXTURE_ATLAS_HREO_PARTICLE_DYING_ANIMATION =
+            "heroParticleDyingAnimation.txt";
 
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";

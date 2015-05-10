@@ -643,9 +643,11 @@ public class WorldController {
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
+                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                 gameOver = true;
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
+                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                 gameOver = true;
             }
 

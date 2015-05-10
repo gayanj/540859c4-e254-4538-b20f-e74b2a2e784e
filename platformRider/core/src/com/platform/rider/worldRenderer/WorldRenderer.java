@@ -61,7 +61,7 @@ public class WorldRenderer {
         renderExplosion(batch);
         renderParticleBurst(batch);
         batch.end();
-        b2debugRenderer.render(worldController.world, debugMatrix);
+        //b2debugRenderer.render(worldController.world, debugMatrix);
         worldController.touchPadHelper.render();
     }
 

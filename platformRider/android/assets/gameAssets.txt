@@ -4,56 +4,56 @@ filter: Linear,Linear
 repeat: none
 splitparticle
   rotate: false
-  xy: 108, 899
+  xy: 899, 108
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 super_force
   rotate: false
-  xy: 214, 883
+  xy: 883, 214
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 background
-  rotate: true
+  rotate: false
   xy: 2, 2
-  size: 480, 640
+  size: 640, 480
   orig: 640, 480
   offset: 0, 0
   index: -1
 hero
   rotate: false
-  xy: 134, 644
+  xy: 644, 134
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 powerbutton
   rotate: false
-  xy: 2, 777
+  xy: 777, 2
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 124, 777
+  xy: 777, 124
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 spike
-  rotate: true
-  xy: 2, 644
-  size: 130, 131
+  rotate: false
+  xy: 644, 2
+  size: 131, 130
   orig: 131, 132
   offset: 0, 1
   index: -1
 suicideparticle
   rotate: false
-  xy: 2, 899
+  xy: 899, 2
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
