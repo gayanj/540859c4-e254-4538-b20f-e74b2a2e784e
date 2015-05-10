@@ -13,6 +13,8 @@ import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
  * Created by Gayan on 5/9/2015.
  */
 public class DeathSaw extends AbstractGameObject{
+    int speedDelayCounter = 0;
+    boolean speedIsSet = false;
     Vector2 speed;
     public DeathSaw(int xscale, int yscale, World world, String side, String userdata) {
         this.world = world;
@@ -38,7 +40,6 @@ public class DeathSaw extends AbstractGameObject{
         );
 
         body = world.createBody(bodyDef);
-        body.setLinearVelocity(speed);
         body.setUserData(userdata);
         body.setFixedRotation(false);
         shape.setRadius((animatedSprite.getWidth() / 2) /
@@ -81,6 +82,14 @@ public class DeathSaw extends AbstractGameObject{
 
     @Override
     public void render(SpriteBatch batch) {
+        if(!speedIsSet) {
+            if (speedDelayCounter > 15) {
+                body.setLinearVelocity(speed);
+                speedIsSet = true;
+            } else {
+                speedDelayCounter++;
+            }
+        }
         animatedSprite.draw(batch);
     }
 }
