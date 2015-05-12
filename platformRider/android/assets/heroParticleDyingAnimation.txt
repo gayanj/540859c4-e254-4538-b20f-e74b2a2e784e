@@ -1,0 +1,88 @@
+heroParticleDyingAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+heroParticleDyingAnimation
+  rotate: false
+  xy: 402, 2
+  size: 358, 360
+  orig: 640, 480
+  offset: 142, 82
+  index: 10
+heroParticleDyingAnimation
+  rotate: false
+  xy: 2, 2
+  size: 398, 396
+  orig: 640, 480
+  offset: 124, 67
+  index: 12
+heroParticleDyingAnimation
+  rotate: false
+  xy: 2, 400
+  size: 378, 378
+  orig: 640, 480
+  offset: 133, 74
+  index: 11
+heroParticleDyingAnimation
+  rotate: false
+  xy: 226, 780
+  size: 132, 128
+  orig: 640, 480
+  offset: 259, 197
+  index: 2
+heroParticleDyingAnimation
+  rotate: false
+  xy: 762, 258
+  size: 102, 98
+  orig: 640, 480
+  offset: 274, 210
+  index: 1
+heroParticleDyingAnimation
+  rotate: false
+  xy: 738, 650
+  size: 192, 190
+  orig: 640, 480
+  offset: 229, 164
+  index: 4
+heroParticleDyingAnimation
+  rotate: false
+  xy: 696, 842
+  size: 162, 158
+  orig: 640, 480
+  offset: 244, 181
+  index: 3
+heroParticleDyingAnimation
+  rotate: false
+  xy: 2, 780
+  size: 222, 222
+  orig: 640, 480
+  offset: 214, 148
+  index: 5
+heroParticleDyingAnimation
+  rotate: false
+  xy: 762, 2
+  size: 254, 254
+  orig: 640, 480
+  offset: 197, 132
+  index: 6
+heroParticleDyingAnimation
+  rotate: false
+  xy: 382, 702
+  size: 312, 312
+  orig: 640, 480
+  offset: 166, 104
+  index: 8
+heroParticleDyingAnimation
+  rotate: false
+  xy: 738, 364
+  size: 284, 284
+  orig: 640, 480
+  offset: 181, 117
+  index: 7
+heroParticleDyingAnimation
+  rotate: false
+  xy: 402, 364
+  size: 334, 336
+  orig: 640, 480
+  offset: 155, 92
+  index: 9
