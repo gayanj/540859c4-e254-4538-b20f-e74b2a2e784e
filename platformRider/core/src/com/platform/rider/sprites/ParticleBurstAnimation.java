@@ -47,7 +47,6 @@ public class ParticleBurstAnimation extends AbstractGameObject {
         }else if(GameConstants.HERO_PARTICLE.equals(type)) {
             animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.heroParticleDyingAnimation);
         }
-        animatedSprite.setSize(animatedSprite.getWidth() * 1f, animatedSprite.getHeight() * 1f);
         animatedSprite.setPosition(
                 (position.x * GameConstants.PIXELS_TO_METERS) - animatedSprite.getWidth() / 2,
                 (position.y * GameConstants.PIXELS_TO_METERS) - animatedSprite.getHeight() / 2
