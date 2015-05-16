@@ -2,6 +2,7 @@ package com.platform.rider.worldRenderer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -116,21 +117,21 @@ public class WorldRenderer {
         float y = 0;
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "SCORE",
-                x , y);
-        Assets.instance.fonts.defaultNormal.draw(batch,""+worldController.getScore(),
-                x , y + 40);
+                x, y);
+        Assets.instance.fonts.defaultNormal.draw(batch, "" + worldController.getScore(),
+                x, y + 40);
     }
 
     private void renderBonusSreak(SpriteBatch batch) {
-        float x = cameraGUI.viewportWidth/2 + 300;
+        float x = cameraGUI.viewportWidth / 2 + 300;
         float y = 0;
-        if(worldController.getBonusStreak() > 0) {
+        if (worldController.getBonusStreak() > 0) {
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "COMBO",
-                    x , y);
+                    x, y);
             Assets.instance.fonts.defaultNormal.draw(batch,
                     worldController.getBonusStreak() + "X",
-                    x , y + 40);
+                    x, y + 40);
         }
     }
 
@@ -148,11 +149,11 @@ public class WorldRenderer {
     private void renderPowerButton(SpriteBatch batch) {
         //float x = 50;
         //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
-        if (!worldController.isGameOver()) {
+        //if (!worldController.isGameOver()) {
             worldController.powerupButton.render(batch);
             /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 2, 2, 0);*/
-        }
+        //}
     }
 
     private void renderExplosion(SpriteBatch batch) {
@@ -179,21 +180,26 @@ public class WorldRenderer {
         }
     }
 
-    private void renderPowerupInfo(SpriteBatch batch){
-        float x = cameraGUI.viewportWidth/2 - 100;
-        float y = 15;
-        if(worldController.powerups.isPickedUp() && worldController.powerups.getRemaining() >= 0){
-            batch.draw(worldController.powerups.getTextureRegion(),
-                    x, y + 37, 50, 50, Assets.instance.assetPowerup.super_force.packedWidth, Assets.instance.assetPowerup.super_force.packedHeight, 1, 1, 0);
+    private void renderPowerupInfo(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth / 2 + 380;
+        float y = 80;
+        if (worldController.powerups.isPickedUp() && worldController.powerups.getRemaining() >= 0) {
+            Sprite sprite = worldController.powerups.getSprite();
+            batch.draw(sprite,
+                    x, y + 37,
+                    sprite.getOriginX(), sprite.getOriginY(),
+                    sprite.getWidth(), sprite.getHeight(),
+                    sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
+            );
             Assets.instance.fonts.defaultNormal.draw(batch,
-                    " X " + worldController.powerups.getRemaining(),
-                    x + 75, y + 37);
+                    "X " + worldController.powerups.getRemaining(),
+                    x + 60, y + 37);
             if(worldController.powerups.isActive()) {
                 int remainingTime = 10 - (worldController.powerups.getPowerCounter() / 50);
                 String timer = new String(new char[remainingTime]).replace("\0", "|");
                 Assets.instance.fonts.defaultSmall.draw(batch,
                         timer,
-                        x, y + 100);
+                        x + 60, y + 100);
             }
         }
     }

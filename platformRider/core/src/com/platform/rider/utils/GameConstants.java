@@ -26,6 +26,7 @@ public class GameConstants {
     public static float FRAME_DURATION = 0.025f;
     public static float SPLIT_PARTICAL_TIME = 200;
     public static float SUICIDE_PARTICAL_COUNT = 1;
+    public static float DEATH_SAW_TIME = 500;
 
     //Particle Types
     public static final String HERO_PARTICLE = "hero";

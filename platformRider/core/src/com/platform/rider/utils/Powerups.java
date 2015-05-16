@@ -1,17 +1,27 @@
 package com.platform.rider.utils;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by Gayan on 4/12/2015.
  */
 public class Powerups {
-    String type;
+    String type = "none";
     int remaining = 0;
     boolean active = false;
     boolean pickedUp = false;
     int powerCounter = 0;
-    TextureRegion textureRegion;
+    Sprite sprite;
+
+    public void createSprite(TextureRegion textureRegion){
+        sprite = new Sprite(textureRegion);
+        sprite.setFlip(false,true);
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
 
     public String getType() {
         return type;
@@ -43,14 +53,6 @@ public class Powerups {
 
     public void setPowerCounter(int powerCounter) {
         this.powerCounter = powerCounter;
-    }
-
-    public TextureRegion getTextureRegion() {
-        return textureRegion;
-    }
-
-    public void setTextureRegion(TextureRegion textureRegion) {
-        this.textureRegion = textureRegion;
     }
 
     public boolean isPickedUp() {

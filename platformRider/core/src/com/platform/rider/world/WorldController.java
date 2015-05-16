@@ -125,8 +125,8 @@ public class WorldController {
         int xHigh = GameConstants.APP_WIDTH / 2 - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_HEIGHT / 2 - 100);
-        int yHigh = GameConstants.APP_HEIGHT / 2 - 100;
+        int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
+        int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Power power = new Power(position, world, type, "power" + powerUpsCreated);
@@ -146,8 +146,8 @@ public class WorldController {
         int xHigh = GameConstants.APP_WIDTH / 2 - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_HEIGHT / 2 - 100);
-        int yHigh = GameConstants.APP_HEIGHT / 2 - 100;
+        int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
+        int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
@@ -214,11 +214,11 @@ public class WorldController {
     }
 
     private void createDeathSaw() {
-        if (totalParticlesDestroyed > 5 && deathSawCounter > 500) {
+        if (totalParticlesDestroyed > 5 && deathSawCounter > GameConstants.DEATH_SAW_TIME) {
             Random r = new Random();
             int side = r.nextInt(4);
-            int vposition = r.nextInt((GameConstants.APP_HEIGHT / 130) - 1 - 1) + 1;
-            int hposition = r.nextInt((GameConstants.APP_WIDTH / 130) - 1 - 1) + 1;
+            int vposition = r.nextInt((GameConstants.APP_HEIGHT / 130) - 1 - 2) + 2;
+            int hposition = r.nextInt((GameConstants.APP_WIDTH / 130) - 2 - 2) + 2;
             if (side == 0) {//R
                 int yscale = 2 * (vposition + 1);
                 DeathSaw deathSaw = new DeathSaw(0, yscale, world, "R", "R" + vposition);
@@ -409,6 +409,9 @@ public class WorldController {
             }
             if (GameConstants.SPLIT_PARTICAL_TIME > 90) {
                 GameConstants.SPLIT_PARTICAL_TIME -= 10;
+            }
+            if (GameConstants.DEATH_SAW_TIME > 100) {
+                GameConstants.DEATH_SAW_TIME -= 10;
             }
             increaseDifficulty = false;
         }
@@ -691,7 +694,7 @@ public class WorldController {
                 Power power = powerupHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
                 powerups.setType(power.getType());
                 powerups.setRemaining(2);
-                powerups.setTextureRegion(power.getTexureRegion());
+                powerups.createSprite(power.getTexureRegion());
                 powerups.setPickedUp(true);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
@@ -732,6 +735,7 @@ public class WorldController {
             GameConstants.NORMAL_PARTICAL_SPEED = 5f;
             GameConstants.SPLIT_PARTICAL_TIME = 200;
             GameConstants.SUICIDE_PARTICAL_COUNT = 1;
+            GameConstants.DEATH_SAW_TIME = 500;
 
             //Reset all particle effects
             for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
