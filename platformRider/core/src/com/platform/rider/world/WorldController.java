@@ -31,6 +31,7 @@ public class WorldController {
     public Explosion explosion;
     public ParticleBurstAnimation particleBurstAnimation;
     public Powerups powerups;
+    public PowerupButton powerupButton;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -91,6 +92,7 @@ public class WorldController {
         createHero();
         createParticles();
         createSpikes();
+        createPowerButton();
     }
 
     private void initTouchpad() {
@@ -131,6 +133,13 @@ public class WorldController {
         powerupHashMap.put(String.valueOf("power" + powerUpsCreated++), power);
     }
 
+    private void createPowerButton() {
+        float x = Assets.instance.assetLevelDecoration.powerbutton.packedWidth;
+        float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
+        Vector2 position = new Vector2(x, y);
+        powerupButton = new PowerupButton(position, world);
+    }
+
     private void createNewParticle(String type) {
         Random r = new Random();
         int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
@@ -155,26 +164,53 @@ public class WorldController {
     }
 
     private void createSpikes() {
-        for (int i = 0; i < (GameConstants.APP_HEIGHT / 130) + 1; i++) {
-            int yscale = 2 * (i + 1);
+        for (int i = 2; i < (GameConstants.APP_HEIGHT / 130) - 1; i++) {
+            float yscale = 2 * (i + 1);
             Saw saw = new Saw(0, yscale, world, "R");
             spikeHashMap.put("R" + i, saw);
         }
-        for (int i = 0; i < (GameConstants.APP_HEIGHT / 130) + 1; i++) {
-            int yscale = 2 * (i + 1);
+        for (int i = 2; i < (GameConstants.APP_HEIGHT / 130) - 1; i++) {
+            float yscale = 2 * (i + 1);
             Saw saw = new Saw(0, yscale, world, "L");
             spikeHashMap.put("L" + i, saw);
         }
-        for (int i = 0; i < (GameConstants.APP_WIDTH / 130) + 1; i++) {
-            int xscale = 2 * (i + 1);
+        for (int i = 2; i < (GameConstants.APP_WIDTH / 130) - 2; i++) {
+            float xscale = (2 * (i + 1)) + 0.2f;
             Saw saw = new Saw(xscale, 0, world, "U");
             spikeHashMap.put("U" + i, saw);
         }
-        for (int i = 0; i < (GameConstants.APP_WIDTH / 130) + 1; i++) {
-            int xscale = 2 * (i + 1);
+        for (int i = 2; i < (GameConstants.APP_WIDTH / 130) - 2; i++) {
+            float xscale = (2 * (i + 1)) + 0.2f;
             Saw saw = new Saw(xscale, 0, world, "D");
             spikeHashMap.put("D" + i, saw);
         }
+
+        createSmallSaw(2 * (0.5f + 1), 2 * (2.5f + 1), "RT", 1);
+        createSmallSaw(2 * (2.6f + 1), 2 * (0.5f + 1), "RT", 2);
+        createSmallSaw(2 * (1.9f + 1), 2 * (1.175f + 1), "RT", 3);
+        createSmallSaw(2 * (1.2f + 1), 2 * (1.85f + 1), "RT", 4);
+
+        createSmallSaw(2 * (0.5f), 2 * (2.5f + 1), "LT", 1);
+        createSmallSaw(2 * (2.6f), 2 * (0.5f + 1), "LT", 2);
+        createSmallSaw(2 * (1.9f), 2 * (1.175f + 1), "LT", 3);
+        createSmallSaw(2 * (1.2f), 2 * (1.85f + 1), "LT", 4);
+
+        createSmallSaw(2 * (1.3f + 1) - 1.1f, 2 * (1.85f + 1) + 36.5f, "RB", 1);
+        createSmallSaw(2 * (1.75f + 1), 2 * (1.85f + 1) + 36.7f, "RB", 2);
+        createSmallSaw(2 * (2.6f + 1), 2 * (1.175f + 1) + 39.15f, "RB", 3);
+        createSmallSaw(2 * (3.1f + 1), 2 * (1.175f + 1) + 40.9f, "RB", 4);
+        createSmallSaw(2 * (3.15f + 1), 2 * (1.175f + 1) + 42.9f, "RB", 5);
+
+        createSmallSaw(2 * (1.3f + 0) - 1.1f, 2 * (1.85f + 1) + 36.5f, "LB", 1);
+        createSmallSaw(2 * (1.75f + 0), 2 * (1.85f + 1) + 36.7f, "LB", 2);
+        createSmallSaw(2 * (2.6f + 0), 2 * (1.175f + 1) + 39.15f, "LB", 3);
+        createSmallSaw(2 * (3.1f + 0), 2 * (1.175f + 1) + 40.9f, "LB", 4);
+        createSmallSaw(2 * (3.15f + 0), 2 * (1.175f + 1) + 42.9f, "LB", 5);
+    }
+
+    private void createSmallSaw(float xscale, float yscale, String side, int index) {
+        Saw saw = new Saw(xscale, yscale, world, side);
+        spikeHashMap.put(side + index, saw);
     }
 
     private void createDeathSaw() {
@@ -712,15 +748,11 @@ public class WorldController {
     public void handleHeroPowerUp() {
         for (int i = 0; i < 2; i++) {
             if (Gdx.input.isTouched(i)) {
-                Vector2 touchPoint = new Vector2(Gdx.input.getX(i), Gdx.input.getY(i));
-                //System.out.println(touchPoint);
-                Rectangle powerupBound = new Rectangle(
-                        15,
-                        camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight(),
-                        Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedWidth(),
-                        Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight());
+                float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
+                float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
+                Vector2 touchPoint = new Vector2(Gdx.input.getX(i) * xTouchScale, Gdx.input.getY(i) * yTouchScale);
+                Rectangle powerupBound = powerupButton.getSprite().getBoundingRectangle();
                 if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
-                    System.out.println("Touched!");
                     deployPowerup();
                 }
             }

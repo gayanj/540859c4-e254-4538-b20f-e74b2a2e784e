@@ -14,8 +14,8 @@ import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 /**
  * Created by Gayan on 3/27/2015.
  */
-public class Saw extends AbstractGameObject{
-    public Saw(int xscale,int yscale, World world, String side){
+public class Saw extends AbstractGameObject {
+    public Saw(float xscale, float yscale, World world, String side) {
         this.world = world;
         //textureRegion = Assets.instance.assetSpike.spike;
         animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.spikeAnimation);
@@ -28,6 +28,18 @@ public class Saw extends AbstractGameObject{
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
         } else if (yscale == 0 && side.equals("U")) {
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
+        } else if (side.equals("RT")) {
+            animatedSprite.setSize(animatedSprite.getWidth() * 0.7f, animatedSprite.getHeight() * 0.7f);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+        } else if (side.equals("LT")) {
+            animatedSprite.setSize(animatedSprite.getWidth() * 0.7f, animatedSprite.getHeight() * 0.7f);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+        } else if (side.equals("RB")) {
+            animatedSprite.setSize(animatedSprite.getWidth() * 0.6f, animatedSprite.getHeight() * 0.6f);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+        } else if (side.equals("LB")) {
+            animatedSprite.setSize(animatedSprite.getWidth() * 0.6f, animatedSprite.getHeight() * 0.6f);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         }
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -47,7 +59,7 @@ public class Saw extends AbstractGameObject{
 
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_3;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_2|GameConstants.SPRITE_1;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1;
 
         body.createFixture(fixtureDef);
         shape.dispose();
@@ -85,7 +97,7 @@ public class Saw extends AbstractGameObject{
         this.position = position;
     }
 
-    public AnimatedBox2DSprite getAnimatedSprite(){
+    public AnimatedBox2DSprite getAnimatedSprite() {
         return this.animatedBox2DSprite;
     }
 

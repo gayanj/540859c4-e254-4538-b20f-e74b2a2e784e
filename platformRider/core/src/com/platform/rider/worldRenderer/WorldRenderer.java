@@ -112,20 +112,25 @@ public class WorldRenderer {
     }
 
     private void renderGuiScore(SpriteBatch batch) {
-        float x = 15;
-        float y = 15;
+        float x = 0;
+        float y = 0;
         Assets.instance.fonts.defaultNormal.draw(batch,
-                "SCORE " + worldController.getScore(),
-                x , y + 37);
+                "SCORE",
+                x , y);
+        Assets.instance.fonts.defaultNormal.draw(batch,""+worldController.getScore(),
+                x , y + 40);
     }
 
     private void renderBonusSreak(SpriteBatch batch) {
-        float x = cameraGUI.viewportWidth/2 + 100;
-        float y = 15;
+        float x = cameraGUI.viewportWidth/2 + 300;
+        float y = 0;
         if(worldController.getBonusStreak() > 0) {
             Assets.instance.fonts.defaultNormal.draw(batch,
-                    "COMBO " + worldController.getBonusStreak() + "X",
-                    x + 75, y + 37);
+                    "COMBO",
+                    x , y);
+            Assets.instance.fonts.defaultNormal.draw(batch,
+                    worldController.getBonusStreak() + "X",
+                    x , y + 40);
         }
     }
 
@@ -141,11 +146,12 @@ public class WorldRenderer {
     }
 
     private void renderPowerButton(SpriteBatch batch) {
-        float x = 15;
-        float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight();
+        //float x = 50;
+        //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
         if (!worldController.isGameOver()) {
-            batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
-                    x, y, 50, 50, 100, 100, 1, 1, 0);
+            worldController.powerupButton.render(batch);
+            /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
+                    x, y, 50, 50, 100, 100, 2, 2, 0);*/
         }
     }
 
