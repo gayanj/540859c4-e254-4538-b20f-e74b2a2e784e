@@ -32,10 +32,15 @@ public class Assets implements Disposable, AssetErrorListener {
     private Assets() {
     }
 
-    public void init(AssetManager assetManager) {
+    public AssetManager getAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;
+        return assetManager;
+    }
+
+    public void init() {
+        //this.assetManager = assetManager;
         // set asset manager error handler
-        assetManager.setErrorListener(this);
+        /*assetManager.setErrorListener(this);
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_OBJECTS,
                 TextureAtlas.class);
@@ -77,7 +82,7 @@ public class Assets implements Disposable, AssetErrorListener {
         Gdx.app.debug(TAG, "# of assets loaded: "
                 + assetManager.getAssetNames().size);
         for (String a : assetManager.getAssetNames())
-            Gdx.app.debug(TAG, "asset: " + a);
+            Gdx.app.debug(TAG, "asset: " + a);*/
 
         TextureAtlas atlas =
                 assetManager.get(GameConstants.TEXTURE_ATLAS_OBJECTS);
