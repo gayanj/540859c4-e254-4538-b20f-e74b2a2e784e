@@ -26,7 +26,11 @@ public class Power extends AbstractGameObject {
         this.world = world;
         this.position = position;
         this.type = type;
-        textureRegion = Assets.instance.assetPowerup.super_force;
+        if(GameConstants.SUPER_FORCE.equals(type)) {
+            textureRegion = Assets.instance.assetPowerup.super_force;
+        }else if(GameConstants.SLOW_MOTION.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.slow_motion;
+        }
         sprite = new Sprite(textureRegion);
         //sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
         sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);

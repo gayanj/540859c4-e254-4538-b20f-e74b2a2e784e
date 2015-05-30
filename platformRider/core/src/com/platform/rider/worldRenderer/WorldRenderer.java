@@ -150,7 +150,7 @@ public class WorldRenderer {
         //float x = 50;
         //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
         //if (!worldController.isGameOver()) {
-            worldController.powerupButton.render(batch);
+        worldController.powerupButton.render(batch);
             /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 2, 2, 0);*/
         //}
@@ -194,13 +194,13 @@ public class WorldRenderer {
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "X " + worldController.powerups.getRemaining(),
                     x + 60, y + 37);
-            if(worldController.powerups.isActive()) {
-                int remainingTime = 10 - (worldController.powerups.getPowerCounter() / 50);
-                String timer = new String(new char[remainingTime]).replace("\0", "|");
-                Assets.instance.fonts.defaultSmall.draw(batch,
-                        timer,
-                        x + 60, y + 100);
-            }
+            //if(worldController.powerups.isActive()) {
+            int remainingTime = 10 - (worldController.powerups.getPowerCounter() / 50);
+            String timer = new String(new char[remainingTime]).replace("\0", "|");
+            Assets.instance.fonts.defaultSmall.draw(batch,
+                    timer,
+                    x + 60, y + 100);
+            //}
         }
     }
 }

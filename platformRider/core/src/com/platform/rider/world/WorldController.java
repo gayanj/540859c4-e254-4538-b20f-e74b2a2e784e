@@ -2,6 +2,8 @@ package com.platform.rider.world;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -66,6 +68,8 @@ public class WorldController {
 
     boolean increaseDifficulty = true;
 
+    public float scale = 1;
+
     public WorldController(Game game) {
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
         scaledHeight = GameConstants.APP_HEIGHT * 1.5f;
@@ -75,7 +79,21 @@ public class WorldController {
 
     private void init() {
         initTouchpad();
-        Gdx.input.setInputProcessor(touchPadHelper.getStage());
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(touchPadHelper.getStage());
+        multiplexer.addProcessor(new InputAdapter() {
+            public boolean touchUp (int x, int y, int pointer, int button) {
+                float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
+                float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
+                Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
+                Rectangle powerupBound = powerupButton.getSprite().getBoundingRectangle();
+                if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
+                    deployPowerup();
+                }
+                return true;
+            }
+        });
+        Gdx.input.setInputProcessor(multiplexer);
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
@@ -246,7 +264,7 @@ public class WorldController {
         if (gameOver) {
             handleGameOver();
         } else {
-            world.step(deltaTime, 8, 3);
+            world.step(deltaTime * scale, 8, 3);
             destroyParticles();
             destroyExplosions();
             destroyParticleBursts();
@@ -262,12 +280,11 @@ public class WorldController {
             createDeathSaw();
             camera.update();
             //Touch pad readings
-            Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * GameConstants.HERO_SPEED, touchPadHelper.getTouchpad().getKnobPercentY() * GameConstants.HERO_SPEED);
+            Vector2 touchPadVec = new Vector2(touchPadHelper.getTouchpad().getKnobPercentX() * GameConstants.HERO_SPEED * (1 / scale), touchPadHelper.getTouchpad().getKnobPercentY() * GameConstants.HERO_SPEED * (1 / scale));
             //If touchpad readings are zero dont alter velocity of hero
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
             }
-            handleHeroPowerUp();
             updateHero();
             updateParticles();
             updateSpikes();
@@ -282,6 +299,10 @@ public class WorldController {
                         getWidth() / 2,
                 (hero.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - hero.getSprite().getHeight() / 2
         );
+    }
+
+    private void updateDeltaTime(float scaleFactor) {
+        this.scale = scaleFactor;
     }
 
     private void destroyParticles() {
@@ -437,19 +458,39 @@ public class WorldController {
 
     private void checkPowerups() {
         if (powerups.isActive() && powerups.getType().equals(GameConstants.SUPER_FORCE)) {
-            GameConstants.COLLISION_SPEED = 30f;
-            int powerCount = powerups.getPowerCounter();
-            powerCount++;
-            powerups.setPowerCounter(powerCount);
+            activateSuperForcePowerup();
         } else {
             GameConstants.COLLISION_SPEED = 20f;
         }
+
+        if (powerups.isActive() && powerups.getType().equals(GameConstants.SLOW_MOTION)) {
+            activateSlowMotionPowerup();
+        } else {
+            updateDeltaTime(1);
+        }
+    }
+
+    private void activateSuperForcePowerup(){
+        GameConstants.COLLISION_SPEED = 30f;
+        int powerCount = powerups.getPowerCounter();
+        powerCount++;
+        powerups.setPowerCounter(powerCount);
+    }
+
+    private void activateSlowMotionPowerup(){
+        updateDeltaTime(0.3f);
+        int powerCount = powerups.getPowerCounter();
+        powerCount++;
+        powerups.setPowerCounter(powerCount);
     }
 
     private void updatePowerupCounter() {
         if (powerups.getPowerCounter() > 500) {
             powerups.setActive(false);
             powerups.setPowerCounter(0);
+            int remaining = powerups.getRemaining();
+            remaining--;
+            powerups.setRemaining(remaining);
             if (powerups.getRemaining() == 0) {
                 powerups.setPickedUp(false);
             }
@@ -535,7 +576,13 @@ public class WorldController {
 
     private void createRandomPowerup() {
         if (totalParticlesDestroyed > 20 && powerUpCounter > 2000) {
-            createPowerUp(GameConstants.SUPER_FORCE);
+            Random r = new Random();
+            int powerUpNumber = r.nextInt(2);
+            if(powerUpNumber == 0) {
+                createPowerUp(GameConstants.SLOW_MOTION);
+            }else if(powerUpNumber == 1){
+                createPowerUp(GameConstants.SUPER_FORCE);
+            }
             powerUpCounter = 0;
         } else {
             powerUpCounter++;
@@ -749,27 +796,12 @@ public class WorldController {
         }
     }
 
-    public void handleHeroPowerUp() {
-        for (int i = 0; i < 2; i++) {
-            if (Gdx.input.isTouched(i)) {
-                float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
-                float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
-                Vector2 touchPoint = new Vector2(Gdx.input.getX(i) * xTouchScale, Gdx.input.getY(i) * yTouchScale);
-                Rectangle powerupBound = powerupButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
-                    deployPowerup();
-                }
-            }
-        }
-    }
-
     private void deployPowerup() {
         if (!powerups.isActive() && powerups.getRemaining() > 0) {
             //powerups.setType(GameConstants.SUPER_FORCE);
             powerups.setActive(true);
-            int remaining = powerups.getRemaining();
-            remaining--;
-            powerups.setRemaining(remaining);
+        }else{
+            powerups.setActive(false);
         }
     }
 

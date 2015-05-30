@@ -225,9 +225,11 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetPowerup {
         public final TextureAtlas.AtlasRegion super_force;
+        public final TextureAtlas.AtlasRegion slow_motion;
 
         public AssetPowerup(TextureAtlas atlas) {
             super_force = atlas.findRegion("super_force");
+            slow_motion = atlas.findRegion("slow_motion");
         }
     }
 

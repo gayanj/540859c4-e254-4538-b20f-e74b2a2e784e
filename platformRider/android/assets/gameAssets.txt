@@ -16,6 +16,13 @@ super_force
   orig: 50, 50
   offset: 0, 0
   index: -1
+slow_motion
+  rotate: false
+  xy: 935, 214
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 background
   rotate: false
   xy: 2, 2

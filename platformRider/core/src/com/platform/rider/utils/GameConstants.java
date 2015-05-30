@@ -85,4 +85,5 @@ public class GameConstants {
 
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";
+    public static final String SLOW_MOTION = "slow_motion";
 }
