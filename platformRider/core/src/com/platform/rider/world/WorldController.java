@@ -575,14 +575,14 @@ public class WorldController {
     }
 
     private void createRandomPowerup() {
-        if (totalParticlesDestroyed > 1 && powerUpCounter > 1000) {
-            //Random r = new Random();
-            //int powerUpNumber = r.nextInt(2);
-            //if (powerUpNumber == 0) {
+        if (powerUpCounter > 1000) {
+            Random r = new Random();
+            int powerUpNumber = r.nextInt(2);
+            if (powerUpNumber == 0) {
                 createPowerUp(GameConstants.SLOW_MOTION);
-            //} else if (powerUpNumber == 1) {
-            //    createPowerUp(GameConstants.SUPER_FORCE);
-            //}
+            } else if (powerUpNumber == 1) {
+                createPowerUp(GameConstants.SUPER_FORCE);
+            }
             powerUpCounter = 0;
         } else {
             powerUpCounter++;
