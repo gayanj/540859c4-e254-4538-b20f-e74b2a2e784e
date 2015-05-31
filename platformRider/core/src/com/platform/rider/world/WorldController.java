@@ -742,6 +742,7 @@ public class WorldController {
                 powerups.setType(power.getType());
                 powerups.setRemaining(2);
                 powerups.createSprite(power.getTexureRegion());
+                powerups.setPowerCounter(0);
                 powerups.setPickedUp(true);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
