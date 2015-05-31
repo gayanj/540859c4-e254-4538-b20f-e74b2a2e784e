@@ -295,37 +295,37 @@ public class Assets implements Disposable, AssetErrorListener {
                                TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas normalParticleDyingAnimationAtlas,
                                TextureAtlas splitParticleDyingAnimationAtlas, TextureAtlas invisibleParticleDyingAnimationAtlas,
                                TextureAtlas suicideParticleDyingAnimationAtlas, TextureAtlas heroParticleDyingAnimationAtlas) {
-            spikeAnimation = new Animation(0.025f, spikeAtlas.getRegions());
+            spikeAnimation = new Animation(GameConstants.FRAME_DURATION, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-            deathSawAnimation = new Animation(0.025f, deathSawAtlas.getRegions());
+            deathSawAnimation = new Animation(GameConstants.FRAME_DURATION, deathSawAtlas.getRegions());
             deathSawAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-            suicideParticleAnimation = new Animation(0.025f, suicideParticleAtlas.getRegions());
+            suicideParticleAnimation = new Animation(GameConstants.FRAME_DURATION, suicideParticleAtlas.getRegions());
             suicideParticleAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-            explosionParticleAnimation = new Animation(0.025f, explosionAtlas.getRegions());
+            explosionParticleAnimation = new Animation(GameConstants.FRAME_DURATION, explosionAtlas.getRegions());
             explosionParticleAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            invisibleParticleAppearingAnimation = new Animation(0.025f, invisibleParticleAppearingAtlas.getRegions());
+            invisibleParticleAppearingAnimation = new Animation(GameConstants.FRAME_DURATION, invisibleParticleAppearingAtlas.getRegions());
             invisibleParticleAppearingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            invisibleParticleDisappearingAnimation = new Animation(0.025f, invisibleParticleDisappearingAtlas.getRegions());
+            invisibleParticleDisappearingAnimation = new Animation(GameConstants.FRAME_DURATION, invisibleParticleDisappearingAtlas.getRegions());
             invisibleParticleDisappearingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            normalParticleDyingAnimation = new Animation(0.025f, normalParticleDyingAnimationAtlas.getRegions());
+            normalParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, normalParticleDyingAnimationAtlas.getRegions());
             normalParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            splitParticleDyingAnimation = new Animation(0.025f, splitParticleDyingAnimationAtlas.getRegions());
+            splitParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, splitParticleDyingAnimationAtlas.getRegions());
             splitParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            invisibleParticleDyingAnimation = new Animation(0.025f, invisibleParticleDyingAnimationAtlas.getRegions());
+            invisibleParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, invisibleParticleDyingAnimationAtlas.getRegions());
             invisibleParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            suicideParticleDyingAnimation = new Animation(0.025f, suicideParticleDyingAnimationAtlas.getRegions());
+            suicideParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, suicideParticleDyingAnimationAtlas.getRegions());
             suicideParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-            heroParticleDyingAnimation = new Animation(0.025f, heroParticleDyingAnimationAtlas.getRegions());
+            heroParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, heroParticleDyingAnimationAtlas.getRegions());
             heroParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }

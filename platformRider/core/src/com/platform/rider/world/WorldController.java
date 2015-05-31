@@ -68,7 +68,7 @@ public class WorldController {
 
     boolean increaseDifficulty = true;
 
-    public float scale = 1;
+    public static float scale = 1;
 
     public WorldController(Game game) {
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
@@ -82,7 +82,7 @@ public class WorldController {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(touchPadHelper.getStage());
         multiplexer.addProcessor(new InputAdapter() {
-            public boolean touchUp (int x, int y, int pointer, int button) {
+            public boolean touchUp(int x, int y, int pointer, int button) {
                 float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
                 float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
                 Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
@@ -470,14 +470,14 @@ public class WorldController {
         }
     }
 
-    private void activateSuperForcePowerup(){
+    private void activateSuperForcePowerup() {
         GameConstants.COLLISION_SPEED = 30f;
         int powerCount = powerups.getPowerCounter();
         powerCount++;
         powerups.setPowerCounter(powerCount);
     }
 
-    private void activateSlowMotionPowerup(){
+    private void activateSlowMotionPowerup() {
         updateDeltaTime(0.3f);
         int powerCount = powerups.getPowerCounter();
         powerCount++;
@@ -575,14 +575,14 @@ public class WorldController {
     }
 
     private void createRandomPowerup() {
-        if (totalParticlesDestroyed > 20 && powerUpCounter > 2000) {
-            Random r = new Random();
-            int powerUpNumber = r.nextInt(2);
-            if(powerUpNumber == 0) {
+        if (totalParticlesDestroyed > 1 && powerUpCounter > 1000) {
+            //Random r = new Random();
+            //int powerUpNumber = r.nextInt(2);
+            //if (powerUpNumber == 0) {
                 createPowerUp(GameConstants.SLOW_MOTION);
-            }else if(powerUpNumber == 1){
-                createPowerUp(GameConstants.SUPER_FORCE);
-            }
+            //} else if (powerUpNumber == 1) {
+            //    createPowerUp(GameConstants.SUPER_FORCE);
+            //}
             powerUpCounter = 0;
         } else {
             powerUpCounter++;
@@ -709,7 +709,7 @@ public class WorldController {
         public void endContact(Contact contact) {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 Particle particle = particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
-                Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED, -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED);
+                Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED * (1 / scale), -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED * (1 / scale));
                 contact.getFixtureB().getBody().setLinearVelocity(inverseNormal);
                 particle.setColliding(true);
             }
@@ -800,7 +800,7 @@ public class WorldController {
         if (!powerups.isActive() && powerups.getRemaining() > 0) {
             //powerups.setType(GameConstants.SUPER_FORCE);
             powerups.setActive(true);
-        }else{
+        } else {
             powerups.setActive(false);
         }
     }
