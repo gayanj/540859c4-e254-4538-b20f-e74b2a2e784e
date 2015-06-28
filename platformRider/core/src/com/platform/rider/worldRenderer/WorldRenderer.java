@@ -54,6 +54,7 @@ public class WorldRenderer {
         batch.begin();
         if (!worldController.isGameOver()) {
             worldController.hero.render(batch);
+            worldController.forceField.render(batch);
         }
         renderParticles();
         renderSpikes();
@@ -62,7 +63,7 @@ public class WorldRenderer {
         renderExplosion(batch);
         renderParticleBurst(batch);
         batch.end();
-        //b2debugRenderer.render(worldController.world, debugMatrix);
+        b2debugRenderer.render(worldController.world, debugMatrix);
         worldController.touchPadHelper.render();
     }
 

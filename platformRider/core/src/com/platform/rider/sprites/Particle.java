@@ -102,7 +102,7 @@ public class Particle extends AbstractGameObject {
         fixtureDef.density = 0.1f;
         fixtureDef.restitution = 0.1f;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_1;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1 | GameConstants.SPRITE_3;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1 | GameConstants.SPRITE_3 | GameConstants.SPRITE_7;
 
         body.createFixture(fixtureDef);
         shape.dispose();

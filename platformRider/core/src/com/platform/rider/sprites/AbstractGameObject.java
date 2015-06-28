@@ -20,6 +20,7 @@ public abstract class AbstractGameObject {
     Body body;
     BodyDef bodyDef = new BodyDef();
     CircleShape shape = new CircleShape();
+    ChainShape chainShape = new ChainShape();
     FixtureDef fixtureDef = new FixtureDef();
     Vector2 position = new Vector2();
 

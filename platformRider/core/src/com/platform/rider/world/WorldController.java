@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -34,6 +35,7 @@ public class WorldController {
     public ParticleBurstAnimation particleBurstAnimation;
     public Powerups powerups;
     public PowerupButton powerupButton;
+    public ForceField forceField;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -57,6 +59,7 @@ public class WorldController {
     int invisibleParticleCounter = 0;
     int deathSawCounter = 0;
     int powerUpCounter = 0;
+    int particleCreationCounter = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -86,9 +89,19 @@ public class WorldController {
                 float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
                 float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
                 Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
-                Rectangle powerupBound = powerupButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
-                    deployPowerup();
+                if (OverlapTester.pointInRectangle(powerupButton.getSprite().getBoundingRectangle(), touchPoint)) {
+                    forceField.changeCollisionFilter(GameConstants.SPRITE_8);
+                    //deployPowerup();
+                }
+                return true;
+            }
+            public boolean touchDown(int x, int y, int pointer, int button){
+                float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
+                float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
+                Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
+                if (OverlapTester.pointInRectangle(powerupButton.getSprite().getBoundingRectangle(), touchPoint)) {
+                    forceField.changeCollisionFilter(GameConstants.SPRITE_7);
+                    //deployPowerup();
                 }
                 return true;
             }
@@ -108,9 +121,13 @@ public class WorldController {
     private void initPhysics() {
         world = new World(new Vector2(0, 0), true);
         createHero();
-        createParticles();
+        createForceField();
         createSpikes();
         createPowerButton();
+        WeldJointDef weldJointDef = new WeldJointDef();
+        weldJointDef.bodyA = hero.getBody();
+        weldJointDef.bodyB = forceField.getBody();
+        world.createJoint(weldJointDef);
     }
 
     private void initTouchpad() {
@@ -132,8 +149,11 @@ public class WorldController {
     }
 
     private void createParticles() {
-        for (int i = 0; i < 4; i++) {
+        if(particleCreationCounter > 10){
             createNewParticle(GameConstants.NORMAL_PARTICLE);
+            particleCreationCounter = 0;
+        }else{
+            particleCreationCounter++;
         }
     }
 
@@ -158,16 +178,29 @@ public class WorldController {
         powerupButton = new PowerupButton(position, world);
     }
 
-    private void createNewParticle(String type) {
-        Random r = new Random();
-        int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
-        int xHigh = GameConstants.APP_WIDTH / 2 - 100;
-        int xR = r.nextInt(xHigh - xLow) + xLow;
+    private void createForceField() {
+        Vector2 position = new Vector2(0, 0);
+        forceField = new ForceField(position,world);
+    }
 
-        int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
-        int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
-        int yR = r.nextInt(yHigh - yLow) + yLow;
-        Vector2 position = new Vector2(xR, yR);
+    private void createNewParticle(String type) {
+        Vector2 position;
+        while(true) {
+            Random r = new Random();
+            int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
+            int xHigh = GameConstants.APP_WIDTH / 2 - 100;
+            int xR = r.nextInt(xHigh - xLow) + xLow;
+
+            int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
+            int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
+            int yR = r.nextInt(yHigh - yLow) + yLow;
+            position = new Vector2(xR, yR);
+
+            if (!OverlapTester.pointInRectangle(forceField.getSprite().getBoundingRectangle(), position)) {
+                break;
+            }
+        }
+
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
         //increment the number of particles created count
         particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
@@ -175,10 +208,12 @@ public class WorldController {
     }
 
     private void createSplitParticle(Vector2 position) {
-        Particle particle = new Particle(position, world, totalParticlesCreated, GameConstants.SPLIT_PARTICLE);
-        //increment the number of particles created count
-        particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
-        totalParticlesAlive++;
+        if (!OverlapTester.pointInRectangle(forceField.getSprite().getBoundingRectangle(), position)) {
+            Particle particle = new Particle(position, world, totalParticlesCreated, GameConstants.SPLIT_PARTICLE);
+            //increment the number of particles created count
+            particleHashMap.put(String.valueOf(totalParticlesCreated++), particle);
+            totalParticlesAlive++;
+        }
     }
 
     private void createSpikes() {
@@ -273,10 +308,11 @@ public class WorldController {
             increaseDifficulty();
             checkBonusStreak();
             checkPowerups();
+            createParticles();
             createRandomPowerup();
             createSplitParticles();
             createSuicideParticles();
-            createInvisibleParticles();
+            //createInvisibleParticles();
             createDeathSaw();
             camera.update();
             //Touch pad readings
@@ -284,8 +320,10 @@ public class WorldController {
             //If touchpad readings are zero dont alter velocity of hero
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
+                forceField.getBody().setLinearVelocity(touchPadVec);
             }
             updateHero();
+            updateForceField();
             updateParticles();
             updateSpikes();
             updateDeathSaws();
@@ -298,6 +336,13 @@ public class WorldController {
         hero.getSprite().setPosition((hero.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - hero.getSprite().
                         getWidth() / 2,
                 (hero.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - hero.getSprite().getHeight() / 2
+        );
+    }
+
+    private void updateForceField() {
+        forceField.getSprite().setPosition((forceField.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - forceField.getSprite().
+                        getWidth() / 2,
+                (forceField.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - forceField.getSprite().getHeight() / 2
         );
     }
 
@@ -324,9 +369,7 @@ public class WorldController {
             score++;
             totalParticlesAlive--;
             //create a new particle
-            if (type.equals(GameConstants.NORMAL_PARTICLE)) {
-                createNewParticle(GameConstants.NORMAL_PARTICLE);
-            } else if (type.equals(GameConstants.SPLIT_PARTICLE)) {
+            if (type.equals(GameConstants.SPLIT_PARTICLE)) {
                 splitParticlesAlive--;
             } else if (type.equals(GameConstants.SUICIDE_PARTICLE)) {
                 GameConstants.FRAME_DURATION = 0.025f;
@@ -707,7 +750,7 @@ public class WorldController {
 
         @Override
         public void endContact(Contact contact) {
-            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_7 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 Particle particle = particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
                 Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED * (1 / scale), -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED * (1 / scale));
                 contact.getFixtureB().getBody().setLinearVelocity(inverseNormal);
@@ -733,6 +776,10 @@ public class WorldController {
                 gameOver = true;
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
+                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
+                gameOver = true;
+            }
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                 gameOver = true;
             }

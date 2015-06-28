@@ -14,6 +14,8 @@ public class GameConstants {
     public static final short SPRITE_4 = 0x1 << 3; // 0010 or 0x4 in hex - Invisible particle deadly
     public static final short SPRITE_5 = 0x1 << 4; // 0010 or 0x4 in hex - Invisible particle invulnerable
     public static final short SPRITE_6 = 0x1 << 5; // 0010 or 0x4 in hex - Powerup
+    public static final short SPRITE_7 = 0x1 << 6; // 0010 or 0x4 in hex - Force Field Active
+    public static final short SPRITE_8 = 0x1 << 7; // 0010 or 0x4 in hex - Force Field Inactive
     public static float PARTICLE_SPRITE_SCALE = 0.5f;
     public static float NORMAL_PARTICAL_SPEED = 5f;
     public static float SPLIT_PARTICAL_SPEED = 7f;

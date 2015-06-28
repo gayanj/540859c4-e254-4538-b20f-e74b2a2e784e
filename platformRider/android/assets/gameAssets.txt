@@ -4,21 +4,28 @@ filter: Linear,Linear
 repeat: none
 splitparticle
   rotate: false
-  xy: 899, 108
+  xy: 854, 256
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
+forceField
+  rotate: false
+  xy: 644, 2
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: -1
 super_force
   rotate: false
-  xy: 883, 214
+  xy: 750, 212
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 slow_motion
   rotate: false
-  xy: 935, 214
+  xy: 802, 212
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -32,35 +39,35 @@ background
   index: -1
 hero
   rotate: false
-  xy: 644, 134
+  xy: 750, 362
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 powerbutton
   rotate: false
-  xy: 777, 2
+  xy: 854, 134
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 777, 124
+  xy: 644, 362
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 spike
   rotate: false
-  xy: 644, 2
+  xy: 854, 2
   size: 131, 130
   orig: 131, 132
   offset: 0, 1
   index: -1
 suicideparticle
   rotate: false
-  xy: 899, 2
+  xy: 644, 212
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
