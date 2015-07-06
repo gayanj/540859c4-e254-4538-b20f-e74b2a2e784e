@@ -30,6 +30,10 @@ public class Power extends AbstractGameObject {
             textureRegion = Assets.instance.assetPowerup.super_force;
         }else if(GameConstants.SLOW_MOTION.equals(type)){
             textureRegion = Assets.instance.assetPowerup.slow_motion;
+        }else if(GameConstants.ENERGY.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.energy;
+        }else if(GameConstants.SPEED.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.speed;
         }
         sprite = new Sprite(textureRegion);
         //sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
@@ -53,7 +57,11 @@ public class Power extends AbstractGameObject {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
-        fixtureDef.filter.categoryBits = GameConstants.SPRITE_6;
+        if(GameConstants.SUPER_FORCE.equals(type) || GameConstants.SLOW_MOTION.equals(type)) {
+            fixtureDef.filter.categoryBits = GameConstants.SPRITE_6;
+        }else if(GameConstants.ENERGY.equals(type) || GameConstants.SPEED.equals(type)){
+            fixtureDef.filter.categoryBits = GameConstants.SPRITE_7;
+        }
         fixtureDef.filter.maskBits = GameConstants.SPRITE_2;
 
         body.createFixture(fixtureDef);

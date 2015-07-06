@@ -24,6 +24,7 @@ public class Hero extends AbstractGameObject {
     ParticleEffect particleEffect = new ParticleEffect();
     ParticleEffectPool particleEffectPool;
     Array<ParticleEffectPool.PooledEffect> pooledEffects = new Array<ParticleEffectPool.PooledEffect>();
+    int energy;
 
     public Hero(Vector2 position, World world) {
         init(position, world);
@@ -32,6 +33,7 @@ public class Hero extends AbstractGameObject {
     private void init(Vector2 position, World world) {
         this.world = world;
         this.position = position;
+        this.energy = 90;
         textureRegion = Assets.instance.assetHero.hero;
         particleEffect.load(Gdx.files.internal("particleEffects/heroParticleEffect.p"), Gdx.files.internal("particleEffects/"));
         particleEffectPool = new ParticleEffectPool(particleEffect, 1, 2);
@@ -58,7 +60,7 @@ public class Hero extends AbstractGameObject {
         fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_2;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3 | GameConstants.SPRITE_4 | GameConstants.SPRITE_6;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_1 | GameConstants.SPRITE_3 | GameConstants.SPRITE_4 | GameConstants.SPRITE_6 | GameConstants.SPRITE_7;
 
         body.createFixture(fixtureDef);
         shape.dispose();
@@ -78,6 +80,14 @@ public class Hero extends AbstractGameObject {
 
     public void setBody(Body body) {
         this.body = body;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
     @Override

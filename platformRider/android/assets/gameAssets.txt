@@ -18,7 +18,7 @@ super_force
   index: -1
 slow_motion
   rotate: false
-  xy: 935, 214
+  xy: 750, 230
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -63,5 +63,19 @@ suicideparticle
   xy: 899, 2
   size: 104, 104
   orig: 104, 104
+  offset: 0, 0
+  index: -1
+energy
+  rotate: false
+  xy: 802, 230
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+speed
+  rotate: false
+  xy: 935, 214
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1

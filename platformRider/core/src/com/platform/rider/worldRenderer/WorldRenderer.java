@@ -109,6 +109,7 @@ public class WorldRenderer {
         renderGuiGameOverMessage(batch);
         renderPowerButton(batch);
         renderPowerupInfo(batch);
+        renderHeroEnergy(batch);
         batch.end();
     }
 
@@ -202,5 +203,18 @@ public class WorldRenderer {
                     x + 60, y + 100);
             //}
         }
+    }
+
+    private void renderHeroEnergy(SpriteBatch batch){
+        float x = 0;
+        float y = 0;
+        int remainingTime = worldController.hero.getEnergy();
+        String timer = new String(new char[remainingTime]).replace("\0", "|");
+        Assets.instance.fonts.defaultNormal.draw(batch,
+                "LIFE",
+                x, y + 100);
+        Assets.instance.fonts.energyGreen.draw(batch,
+                timer,
+                x , y + 140);
     }
 }

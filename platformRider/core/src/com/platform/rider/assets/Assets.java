@@ -226,10 +226,14 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetPowerup {
         public final TextureAtlas.AtlasRegion super_force;
         public final TextureAtlas.AtlasRegion slow_motion;
+        public final TextureAtlas.AtlasRegion energy;
+        public final TextureAtlas.AtlasRegion speed;
 
         public AssetPowerup(TextureAtlas atlas) {
             super_force = atlas.findRegion("super_force");
             slow_motion = atlas.findRegion("slow_motion");
+            energy = atlas.findRegion("energy");
+            speed = atlas.findRegion("speed");
         }
     }
 
@@ -251,12 +255,15 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetFonts {
+        public final BitmapFont energyGreen;
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
 
         public AssetFonts() {
             // create three fonts for different sizes
+            energyGreen = new BitmapFont(
+                    Gdx.files.internal("fonts/energyGreen.fnt"), true);
             defaultSmall = new BitmapFont(
                     Gdx.files.internal("fonts/bitmap.fnt"), true);
             defaultNormal = new BitmapFont(
@@ -268,6 +275,8 @@ public class Assets implements Disposable, AssetErrorListener {
             defaultNormal.setScale(1.0f);
             defaultBig.setScale(2.0f);
             // enable linear texture filtering for smooth fonts
+            energyGreen.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
             defaultSmall.getRegion().getTexture().setFilter(
                     TextureFilter.Linear, TextureFilter.Linear);
             defaultNormal.getRegion().getTexture().setFilter(

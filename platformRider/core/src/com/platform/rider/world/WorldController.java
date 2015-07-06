@@ -33,6 +33,7 @@ public class WorldController {
     public Explosion explosion;
     public ParticleBurstAnimation particleBurstAnimation;
     public Powerups powerups;
+    public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
@@ -57,6 +58,7 @@ public class WorldController {
     int invisibleParticleCounter = 0;
     int deathSawCounter = 0;
     int powerUpCounter = 0;
+    int instantPowerUpCounter = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -98,6 +100,7 @@ public class WorldController {
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
         powerups = new Powerups();
+        instantPowerups = new InstantPowerups();
         world.setContactListener(new reactorContactListener());
     }
 
@@ -273,7 +276,9 @@ public class WorldController {
             increaseDifficulty();
             checkBonusStreak();
             checkPowerups();
+            checkHeroEnergy();
             createRandomPowerup();
+            createRandomInstantPowerup();
             createSplitParticles();
             createSuicideParticles();
             createInvisibleParticles();
@@ -468,6 +473,22 @@ public class WorldController {
         } else {
             updateDeltaTime(1);
         }
+
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.ENERGY)){
+            instantPowerups.setActive(false);
+            activateEnergyBoost();
+        }
+
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.SPEED)){
+            instantPowerups.setActive(false);
+            activateSpeedBoost();
+        }
+    }
+
+    private void checkHeroEnergy(){
+        if(hero.getEnergy() <= 0){
+            gameOver = true;
+        }
     }
 
     private void activateSuperForcePowerup() {
@@ -482,6 +503,14 @@ public class WorldController {
         int powerCount = powerups.getPowerCounter();
         powerCount++;
         powerups.setPowerCounter(powerCount);
+    }
+
+    private void activateEnergyBoost() {
+        hero.setEnergy(90);
+    }
+
+    private void activateSpeedBoost() {
+        GameConstants.HERO_SPEED += 1;
     }
 
     private void updatePowerupCounter() {
@@ -586,6 +615,21 @@ public class WorldController {
             powerUpCounter = 0;
         } else {
             powerUpCounter++;
+        }
+    }
+
+    private void createRandomInstantPowerup() {
+        if (instantPowerUpCounter > 1000) {
+            Random r = new Random();
+            int powerUpNumber = r.nextInt(2);
+            if (powerUpNumber == 0) {
+                createPowerUp(GameConstants.ENERGY);
+            } else if (powerUpNumber == 1) {
+                createPowerUp(GameConstants.SPEED);
+            }
+            instantPowerUpCounter = 0;
+        } else {
+            instantPowerUpCounter++;
         }
     }
 
@@ -712,6 +756,7 @@ public class WorldController {
                 Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED * (1 / scale), -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED * (1 / scale));
                 contact.getFixtureB().getBody().setLinearVelocity(inverseNormal);
                 particle.setColliding(true);
+                hero.setEnergy(hero.getEnergy()-1);
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
@@ -720,12 +765,18 @@ public class WorldController {
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
                 }
+                if(hero.getEnergy() < 85) {
+                    hero.setEnergy(hero.getEnergy() + 5);
+                }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
                 createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }
+                if(hero.getEnergy() < 85) {
+                    hero.setEnergy(hero.getEnergy() + 5);
                 }
             }
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
@@ -744,6 +795,18 @@ public class WorldController {
                 powerups.createSprite(power.getTexureRegion());
                 powerups.setPowerCounter(0);
                 powerups.setPickedUp(true);
+                if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }
+            }
+
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_7) {
+                Power power = powerupHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
+                instantPowerups.setType(power.getType());
+                instantPowerups.createSprite(power.getTexureRegion());
+                instantPowerups.setPowerCounter(0);
+                instantPowerups.setPickedUp(true);
+                instantPowerups.setActive(true);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -784,6 +847,7 @@ public class WorldController {
             GameConstants.SPLIT_PARTICAL_TIME = 200;
             GameConstants.SUICIDE_PARTICAL_COUNT = 1;
             GameConstants.DEATH_SAW_TIME = 500;
+            GameConstants.HERO_SPEED = 6f;
 
             //Reset all particle effects
             for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
