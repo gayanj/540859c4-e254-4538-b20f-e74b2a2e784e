@@ -30,10 +30,16 @@ public class Power extends AbstractGameObject {
             textureRegion = Assets.instance.assetPowerup.super_force;
         }else if(GameConstants.SLOW_MOTION.equals(type)){
             textureRegion = Assets.instance.assetPowerup.slow_motion;
+        }else if(GameConstants.MASS_DEATH.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.mass_death;
         }else if(GameConstants.ENERGY.equals(type)){
             textureRegion = Assets.instance.assetPowerup.energy;
         }else if(GameConstants.SPEED.equals(type)){
             textureRegion = Assets.instance.assetPowerup.speed;
+        }else if(GameConstants.INVINCIBILITY.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.invincibility;
+        }else if(GameConstants.ARMOR.equals(type)){
+            textureRegion = Assets.instance.assetPowerup.armor;
         }
         sprite = new Sprite(textureRegion);
         //sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight() * GameConstants.PARTICLE_SPRITE_SCALE);
@@ -57,9 +63,9 @@ public class Power extends AbstractGameObject {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.2f;
         fixtureDef.restitution = 0.5f;
-        if(GameConstants.SUPER_FORCE.equals(type) || GameConstants.SLOW_MOTION.equals(type)) {
+        if(GameConstants.SUPER_FORCE.equals(type) || GameConstants.SLOW_MOTION.equals(type) || GameConstants.MASS_DEATH.equals(type)) {
             fixtureDef.filter.categoryBits = GameConstants.SPRITE_6;
-        }else if(GameConstants.ENERGY.equals(type) || GameConstants.SPEED.equals(type)){
+        }else if(GameConstants.ENERGY.equals(type) || GameConstants.SPEED.equals(type) || GameConstants.INVINCIBILITY.equals(type) || GameConstants.ARMOR.equals(type)){
             fixtureDef.filter.categoryBits = GameConstants.SPRITE_7;
         }
         fixtureDef.filter.maskBits = GameConstants.SPRITE_2;

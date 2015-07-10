@@ -15,11 +15,12 @@ public class GameConstants {
     public static final short SPRITE_5 = 0x1 << 4; // 0010 or 0x4 in hex - Invisible particle invulnerable
     public static final short SPRITE_6 = 0x1 << 5; // 0010 or 0x4 in hex - Powerup
     public static final short SPRITE_7 = 0x1 << 6; // 0010 or 0x4 in hex - Instant Powerup
+    public static final short SPRITE_8 = 0x1 << 7; // 0010 or 0x4 in hex - Invincibility
     public static float PARTICLE_SPRITE_SCALE = 0.5f;
     public static float NORMAL_PARTICAL_SPEED = 5f;
     public static float SPLIT_PARTICAL_SPEED = 7f;
     public static float SUICIDE_PARTICAL_SPEED = 9f;
-    public static float HERO_SPEED = 6f;
+    public static float HERO_SPEED = 5f;
     public static float INVISIBLE_PARTICLE_SPEED = 0f;
     public static float COLLISION_SPEED = 20f;
     public static float LINEAR_DAMPING = 2f;
@@ -87,8 +88,11 @@ public class GameConstants {
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";
     public static final String SLOW_MOTION = "slow_motion";
+    public static final String MASS_DEATH = "mass_death";
 
     //Instant Power Up Types
     public static final String ENERGY = "energy";
     public static final String SPEED = "speed";
+    public static final String INVINCIBILITY = "invincibility";
+    public static final String ARMOR = "armor";
 }

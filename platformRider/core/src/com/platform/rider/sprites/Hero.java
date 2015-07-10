@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.platform.rider.assets.Assets;
@@ -17,14 +18,18 @@ import com.platform.rider.utils.GameConstants;
  * Created by Gayan on 3/26/2015.
  */
 public class Hero extends AbstractGameObject {
-    private static final String TAG = Hero.class.getName();
 
     Vector2 position = new Vector2();
+    int energy;
+    boolean invincible = false;
 
     ParticleEffect particleEffect = new ParticleEffect();
     ParticleEffectPool particleEffectPool;
+
+    ParticleEffect invincibleParticleEffect = new ParticleEffect();
+    ParticleEffectPool invincibleParticleEffectPool;
+
     Array<ParticleEffectPool.PooledEffect> pooledEffects = new Array<ParticleEffectPool.PooledEffect>();
-    int energy;
 
     public Hero(Vector2 position, World world) {
         init(position, world);
@@ -37,6 +42,8 @@ public class Hero extends AbstractGameObject {
         textureRegion = Assets.instance.assetHero.hero;
         particleEffect.load(Gdx.files.internal("particleEffects/heroParticleEffect.p"), Gdx.files.internal("particleEffects/"));
         particleEffectPool = new ParticleEffectPool(particleEffect, 1, 2);
+        invincibleParticleEffect.load(Gdx.files.internal("particleEffects/invincibleParticleEffect.p"), Gdx.files.internal("particleEffects/"));
+        invincibleParticleEffectPool = new ParticleEffectPool(invincibleParticleEffect, 1, 2);
         sprite = new Sprite(textureRegion);
         sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
         sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
@@ -53,8 +60,6 @@ public class Hero extends AbstractGameObject {
         body.setLinearDamping(GameConstants.LINEAR_DAMPING);
         shape.setRadius((sprite.getWidth() / 2) /
                 GameConstants.PIXELS_TO_METERS);
-        /*shape.setAsBox(sprite.getWidth() / 2 / GameConstants.PIXELS_TO_METERS, sprite.getHeight()
-                / 2 / GameConstants.PIXELS_TO_METERS);*/
 
         fixtureDef.shape = shape;
         fixtureDef.density = 0.2f;
@@ -90,6 +95,26 @@ public class Hero extends AbstractGameObject {
         this.energy = energy;
     }
 
+    public boolean isInvincible() {
+        return invincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
+    }
+
+    public void changeCollisionFilter(short filterType) {
+        Filter filter = body.getFixtureList().get(0).getFilterData();
+        if(filter.categoryBits != filterType) {
+            filter.categoryBits = filterType;
+            body.getFixtureList().get(0).setFilterData(filter);
+        }
+    }
+
+    public void increaseArmor() {
+        body.getFixtureList().get(0).setDensity(body.getFixtureList().get(0).getDensity() + 0.1f);
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         //Draw Sprite
@@ -100,7 +125,12 @@ public class Hero extends AbstractGameObject {
                 sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
         );*/
         //Draw Particle Effect
-        ParticleEffectPool.PooledEffect effect = particleEffectPool.obtain();
+        ParticleEffectPool.PooledEffect effect;
+        if(isInvincible()) {
+            effect = invincibleParticleEffectPool.obtain();
+        }else {
+            effect = particleEffectPool.obtain();
+        }
         effect.setPosition(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
         pooledEffects.add(effect);
 

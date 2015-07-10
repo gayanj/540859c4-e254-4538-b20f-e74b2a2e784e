@@ -60,7 +60,7 @@ public class Saw extends AbstractGameObject {
 
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_3;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1 | GameConstants.SPRITE_8;
 
         body.createFixture(fixtureDef);
         shape.dispose();

@@ -474,35 +474,57 @@ public class WorldController {
             updateDeltaTime(1);
         }
 
-        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.ENERGY)){
+        if (powerups.isActive() && powerups.getType().equals(GameConstants.MASS_DEATH)) {
+            activateMassDeathPowerup();
+        }
+
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.ENERGY)) {
             instantPowerups.setActive(false);
             activateEnergyBoost();
         }
 
-        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.SPEED)){
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.SPEED)) {
             instantPowerups.setActive(false);
             activateSpeedBoost();
         }
+
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.INVINCIBILITY)) {
+            activateInvincibility();
+        }
+
+        if (instantPowerups.isActive() && instantPowerups.getType().equals(GameConstants.ARMOR)) {
+            instantPowerups.setActive(false);
+            activateArmorBoost();
+        }
     }
 
-    private void checkHeroEnergy(){
-        if(hero.getEnergy() <= 0){
+    private void checkHeroEnergy() {
+        if (hero.getEnergy() <= 0) {
             gameOver = true;
         }
     }
 
     private void activateSuperForcePowerup() {
         GameConstants.COLLISION_SPEED = 30f;
-        int powerCount = powerups.getPowerCounter();
-        powerCount++;
-        powerups.setPowerCounter(powerCount);
+        powerups.setPowerCounter(powerups.getPowerCounter() + 1);
     }
 
     private void activateSlowMotionPowerup() {
         updateDeltaTime(0.3f);
-        int powerCount = powerups.getPowerCounter();
-        powerCount++;
-        powerups.setPowerCounter(powerCount);
+        powerups.setPowerCounter(powerups.getPowerCounter() + 1);
+    }
+
+    private void activateMassDeathPowerup() {
+        for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
+            createParticleBurst(entry.getValue().getBody().getUserData().toString(), entry.getValue().getBody().getPosition(), entry.getValue().getType());
+            if (!normalParticlesForRemoval.contains(entry.getValue().getBody().getUserData().toString())) {
+                normalParticlesForRemoval.add(entry.getValue().getBody().getUserData().toString());
+            }
+            if (hero.getEnergy() < 85) {
+                hero.setEnergy(hero.getEnergy() + 5);
+            }
+        }
+        powerups.setPowerCounter(powerups.getPowerCounter() + 1);
     }
 
     private void activateEnergyBoost() {
@@ -513,10 +535,30 @@ public class WorldController {
         GameConstants.HERO_SPEED += 1;
     }
 
+    private void activateInvincibility() {
+        if (instantPowerups.getPowerCounter() > 500) {
+            instantPowerups.setActive(false);
+            hero.changeCollisionFilter(GameConstants.SPRITE_2);
+            hero.setInvincible(false);
+        } else {
+            hero.changeCollisionFilter(GameConstants.SPRITE_8);
+            hero.setInvincible(true);
+            instantPowerups.setPowerCounter(instantPowerups.getPowerCounter() + 1);
+        }
+    }
+
+    private void activateArmorBoost() {
+        hero.increaseArmor();
+    }
+
     private void updatePowerupCounter() {
         if (powerups.getPowerCounter() > 500) {
             powerups.setActive(false);
-            powerups.setPowerCounter(0);
+            if(GameConstants.MASS_DEATH.equals(powerups.getType())){
+                powerups.setPowerCounter(500);
+            }else{
+                powerups.setPowerCounter(0);
+            }
             int remaining = powerups.getRemaining();
             remaining--;
             powerups.setRemaining(remaining);
@@ -559,9 +601,7 @@ public class WorldController {
             );
             explosionHashMap.get(particle.getBody().getUserData().toString()).setBlast(true);
         } else {
-            int count = particle.getBlastTimer();
-            count++;
-            particle.setBlastTimer(count);
+            particle.setBlastTimer(particle.getBlastTimer() + 1);
             particle.updateFrameDuration();
         }
     }
@@ -606,11 +646,13 @@ public class WorldController {
     private void createRandomPowerup() {
         if (powerUpCounter > 1000) {
             Random r = new Random();
-            int powerUpNumber = r.nextInt(2);
+            int powerUpNumber = r.nextInt(3);
             if (powerUpNumber == 0) {
                 createPowerUp(GameConstants.SLOW_MOTION);
             } else if (powerUpNumber == 1) {
                 createPowerUp(GameConstants.SUPER_FORCE);
+            } else if (powerUpNumber == 2) {
+                createPowerUp(GameConstants.MASS_DEATH);
             }
             powerUpCounter = 0;
         } else {
@@ -621,11 +663,15 @@ public class WorldController {
     private void createRandomInstantPowerup() {
         if (instantPowerUpCounter > 1000) {
             Random r = new Random();
-            int powerUpNumber = r.nextInt(2);
+            int powerUpNumber = r.nextInt(4);
             if (powerUpNumber == 0) {
                 createPowerUp(GameConstants.ENERGY);
             } else if (powerUpNumber == 1) {
                 createPowerUp(GameConstants.SPEED);
+            } else if (powerUpNumber == 2) {
+                createPowerUp(GameConstants.INVINCIBILITY);
+            } else if (powerUpNumber == 3) {
+                createPowerUp(GameConstants.ARMOR);
             }
             instantPowerUpCounter = 0;
         } else {
@@ -756,7 +802,7 @@ public class WorldController {
                 Vector2 inverseNormal = new Vector2(-particle.getNormaliseVector().x * GameConstants.COLLISION_SPEED * (1 / scale), -particle.getNormaliseVector().y * GameConstants.COLLISION_SPEED * (1 / scale));
                 contact.getFixtureB().getBody().setLinearVelocity(inverseNormal);
                 particle.setColliding(true);
-                hero.setEnergy(hero.getEnergy()-1);
+                hero.setEnergy(hero.getEnergy() - 1);
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
@@ -765,24 +811,27 @@ public class WorldController {
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
                 }
-                if(hero.getEnergy() < 85) {
+                if (hero.getEnergy() < 85) {
                     hero.setEnergy(hero.getEnergy() + 5);
                 }
             }
+
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
                 createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
-                if(hero.getEnergy() < 85) {
+                if (hero.getEnergy() < 85) {
                     hero.setEnergy(hero.getEnergy() + 5);
                 }
             }
+
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                 gameOver = true;
             }
+
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
                 createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                 gameOver = true;
@@ -793,7 +842,11 @@ public class WorldController {
                 powerups.setType(power.getType());
                 powerups.setRemaining(2);
                 powerups.createSprite(power.getTexureRegion());
-                powerups.setPowerCounter(0);
+                if(GameConstants.MASS_DEATH.equals(power.getType())){
+                    powerups.setPowerCounter(500);
+                }else{
+                    powerups.setPowerCounter(0);
+                }
                 powerups.setPickedUp(true);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
@@ -810,6 +863,22 @@ public class WorldController {
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
+            }
+
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_8 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
+                //remove particles
+                createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
+                if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
+                    normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
+                }
+                if (hero.getEnergy() < 85) {
+                    hero.setEnergy(hero.getEnergy() + 5);
+                }
+            }
+
+            if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_8 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
+                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
+                gameOver = true;
             }
         }
 
@@ -847,7 +916,7 @@ public class WorldController {
             GameConstants.SPLIT_PARTICAL_TIME = 200;
             GameConstants.SUICIDE_PARTICAL_COUNT = 1;
             GameConstants.DEATH_SAW_TIME = 500;
-            GameConstants.HERO_SPEED = 6f;
+            GameConstants.HERO_SPEED = 5f;
 
             //Reset all particle effects
             for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {

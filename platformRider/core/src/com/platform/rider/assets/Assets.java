@@ -226,14 +226,21 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetPowerup {
         public final TextureAtlas.AtlasRegion super_force;
         public final TextureAtlas.AtlasRegion slow_motion;
+        public final TextureAtlas.AtlasRegion mass_death;
         public final TextureAtlas.AtlasRegion energy;
         public final TextureAtlas.AtlasRegion speed;
+        public final TextureAtlas.AtlasRegion invincibility;
+        public final TextureAtlas.AtlasRegion armor;
 
         public AssetPowerup(TextureAtlas atlas) {
             super_force = atlas.findRegion("super_force");
             slow_motion = atlas.findRegion("slow_motion");
+            mass_death = atlas.findRegion("mass_death");
             energy = atlas.findRegion("energy");
             speed = atlas.findRegion("speed");
+            invincibility = atlas.findRegion("invincibility");
+            armor = atlas.findRegion("armor");
+
         }
     }
 
