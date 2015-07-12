@@ -93,6 +93,14 @@ public class GameConstants {
     public static final String HERO_DEATH_SOUND =
             "sounds/hero_death.ogg";
 
+    // Location of description file for pickup sound effect
+    public static final String PICKUP_SOUND =
+            "sounds/pickup.ogg";
+
+    // Location of description file for bomb sound effect
+    public static final String BOMB_SOUND =
+            "sounds/bomb.ogg";
+
     // Location of description file for background music
     public static final String BACKGROUND_MUSIC =
             "music/background.ogg";

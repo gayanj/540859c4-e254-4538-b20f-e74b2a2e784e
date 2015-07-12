@@ -120,6 +120,10 @@ public class LoadingScreen extends AbstractGameScreen {
                 Sound.class);
         assetManager.load(GameConstants.HERO_DEATH_SOUND,
                 Sound.class);
+        assetManager.load(GameConstants.PICKUP_SOUND,
+                Sound.class);
+        assetManager.load(GameConstants.BOMB_SOUND,
+                Sound.class);
         assetManager.load(GameConstants.BACKGROUND_MUSIC,
                 Music.class);
         assetManager.load(GameConstants.MENU_MUSIC,

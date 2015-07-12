@@ -209,12 +209,14 @@ public class WorldRenderer {
         float x = 0;
         float y = 0;
         int remainingTime = worldController.hero.getEnergy();
-        String timer = new String(new char[remainingTime]).replace("\0", "|");
-        Assets.instance.fonts.defaultNormal.draw(batch,
-                "LIFE",
-                x, y + 100);
-        Assets.instance.fonts.energyGreen.draw(batch,
-                timer,
-                x , y + 140);
+        if(remainingTime >= 0) {
+            String timer = new String(new char[remainingTime]).replace("\0", "|");
+            Assets.instance.fonts.defaultNormal.draw(batch,
+                    "LIFE",
+                    x, y + 100);
+            Assets.instance.fonts.energyGreen.draw(batch,
+                    timer,
+                    x, y + 140);
+        }
     }
 }

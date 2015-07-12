@@ -606,6 +606,7 @@ public class WorldController {
                     (center.y * GameConstants.PIXELS_TO_METERS) - explosionHashMap.get(particle.getBody().getUserData().toString()).getAnimatedSprite().getHeight() / 2
             );
             explosionHashMap.get(particle.getBody().getUserData().toString()).setBlast(true);
+            AudioManager.instance.play(Assets.instance.sounds.bomb);
         } else {
             particle.setBlastTimer(particle.getBlastTimer() + 1);
             particle.updateFrameDuration();
@@ -862,6 +863,7 @@ public class WorldController {
                     powerups.setPowerCounter(0);
                 }
                 powerups.setPickedUp(true);
+                AudioManager.instance.play(Assets.instance.sounds.pickup);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -874,6 +876,7 @@ public class WorldController {
                 instantPowerups.setPowerCounter(0);
                 instantPowerups.setPickedUp(true);
                 instantPowerups.setActive(true);
+                AudioManager.instance.play(Assets.instance.sounds.pickup);
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     powerupsForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -892,8 +895,11 @@ public class WorldController {
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_8 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
-                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
-                gameOver = true;
+                if(!gameOver) {
+                    createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
+                    AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    gameOver = true;
+                }
             }
         }
 

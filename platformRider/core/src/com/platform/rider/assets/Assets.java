@@ -355,10 +355,14 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetSounds {
         public final Sound particle_death;
         public final Sound hero_death;
+        public final Sound pickup;
+        public final Sound bomb;
 
         public AssetSounds (AssetManager assetManager) {
             particle_death = assetManager.get(GameConstants.PARTICLE_DEATH_SOUND, Sound.class);
             hero_death = assetManager.get(GameConstants.HERO_DEATH_SOUND, Sound.class);
+            pickup = assetManager.get(GameConstants.PICKUP_SOUND, Sound.class);
+            bomb = assetManager.get(GameConstants.BOMB_SOUND, Sound.class);
         }
     }
 
