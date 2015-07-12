@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
+import com.platform.rider.utils.AudioManager;
 import com.platform.rider.utils.GameConstants;
 
 /**
@@ -47,6 +48,7 @@ public class MenuScreen extends AbstractGameScreen{
         cameraGUI.position.set(0, 0, 0);
         cameraGUI.setToOrtho(true,viewport.getWorldWidth(),viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
+        AudioManager.instance.play(Assets.instance.music.menu_music, 1);
     }
 
     @Override

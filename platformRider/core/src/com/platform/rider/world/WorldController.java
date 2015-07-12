@@ -59,6 +59,7 @@ public class WorldController {
     int deathSawCounter = 0;
     int powerUpCounter = 0;
     int instantPowerUpCounter = 0;
+    int gameOverCounter = 0;
     boolean gameOver = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -102,6 +103,7 @@ public class WorldController {
         powerups = new Powerups();
         instantPowerups = new InstantPowerups();
         world.setContactListener(new reactorContactListener());
+        AudioManager.instance.play(Assets.instance.music.background_music, 1);
     }
 
     public void resize(int width, int height) {
@@ -265,7 +267,9 @@ public class WorldController {
 
     public void update(float deltaTime) {
         if (gameOver) {
+            AudioManager.instance.stopMusic();
             handleGameOver();
+            gameOverCounter++;
         } else {
             world.step(deltaTime * scale, 8, 3);
             destroyParticles();
@@ -500,6 +504,8 @@ public class WorldController {
 
     private void checkHeroEnergy() {
         if (hero.getEnergy() <= 0) {
+            createParticleBurst("-1", hero.getBody().getPosition(), GameConstants.HERO_PARTICLE);
+            AudioManager.instance.play(Assets.instance.sounds.hero_death);
             gameOver = true;
         }
     }
@@ -807,6 +813,7 @@ public class WorldController {
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
+                AudioManager.instance.play(Assets.instance.sounds.particle_death);
                 createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(), particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType());
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
@@ -819,6 +826,7 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
                 createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
+                AudioManager.instance.play(Assets.instance.sounds.particle_death);
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }
@@ -828,13 +836,19 @@ public class WorldController {
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
-                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
-                gameOver = true;
+                if(!gameOver) {
+                    createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
+                    AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    gameOver = true;
+                }
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_4) {
-                createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
-                gameOver = true;
+                if(!gameOver) {
+                    createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
+                    AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    gameOver = true;
+                }
             }
 
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_6) {
@@ -868,6 +882,7 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_8 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
                 createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
+                AudioManager.instance.play(Assets.instance.sounds.particle_death);
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
                 }

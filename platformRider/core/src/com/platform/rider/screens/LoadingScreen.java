@@ -3,6 +3,8 @@ package com.platform.rider.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -113,6 +115,15 @@ public class LoadingScreen extends AbstractGameScreen {
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_HREO_PARTICLE_DYING_ANIMATION,
                 TextureAtlas.class);
+        // load sound effects
+        assetManager.load(GameConstants.PARTICLE_DEATH_SOUND,
+                Sound.class);
+        assetManager.load(GameConstants.HERO_DEATH_SOUND,
+                Sound.class);
+        assetManager.load(GameConstants.BACKGROUND_MUSIC,
+                Music.class);
+        assetManager.load(GameConstants.MENU_MUSIC,
+                Music.class);
     }
 
     @Override

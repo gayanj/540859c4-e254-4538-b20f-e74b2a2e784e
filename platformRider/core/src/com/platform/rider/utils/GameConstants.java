@@ -85,6 +85,22 @@ public class GameConstants {
     public static final String TEXTURE_ATLAS_HREO_PARTICLE_DYING_ANIMATION =
             "heroParticleDyingAnimation.txt";
 
+    // Location of description file for particle death sound effect
+    public static final String PARTICLE_DEATH_SOUND =
+            "sounds/particle_death.ogg";
+
+    // Location of description file for hero death sound effect
+    public static final String HERO_DEATH_SOUND =
+            "sounds/hero_death.ogg";
+
+    // Location of description file for background music
+    public static final String BACKGROUND_MUSIC =
+            "music/background.ogg";
+
+    // Location of description file for menu music
+    public static final String MENU_MUSIC =
+            "music/menu.ogg";
+
     //Power Up Types
     public static final String SUPER_FORCE = "super_force";
     public static final String SLOW_MOTION = "slow_motion";

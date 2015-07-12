@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -27,6 +29,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetLevelDecoration assetLevelDecoration;
     public AssetFonts fonts;
     public AssetAnimations assetAnimations;
+    public AssetSounds sounds;
+    public AssetMusic music;
 
     // singleton: prevent instantiation from other classes
     private Assets() {
@@ -181,6 +185,8 @@ public class Assets implements Disposable, AssetErrorListener {
                 normalParticleDyingAnimationAtlas, splitParticleDyingAnimationAtlas,
                 invisibleParticleDyingAnimationAtlas, suicideParticleDyingAnimationAtlas,
                 heroParticleDyingAnimationAtlas);
+        sounds = new AssetSounds(this.assetManager);
+        music = new AssetMusic(this.assetManager);
     }
 
     @Override
@@ -343,6 +349,26 @@ public class Assets implements Disposable, AssetErrorListener {
 
             heroParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, heroParticleDyingAnimationAtlas.getRegions());
             heroParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        }
+    }
+
+    public class AssetSounds {
+        public final Sound particle_death;
+        public final Sound hero_death;
+
+        public AssetSounds (AssetManager assetManager) {
+            particle_death = assetManager.get(GameConstants.PARTICLE_DEATH_SOUND, Sound.class);
+            hero_death = assetManager.get(GameConstants.HERO_DEATH_SOUND, Sound.class);
+        }
+    }
+
+    public class AssetMusic {
+        public final Music background_music;
+        public final Music menu_music;
+
+        public AssetMusic (AssetManager assetManager) {
+            background_music = assetManager.get(GameConstants.BACKGROUND_MUSIC, Music.class);
+            menu_music = assetManager.get(GameConstants.MENU_MUSIC, Music.class);
         }
     }
 }

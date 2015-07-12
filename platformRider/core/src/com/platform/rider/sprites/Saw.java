@@ -50,7 +50,7 @@ public class Saw extends AbstractGameObject {
         );
 
         body = world.createBody(bodyDef);
-        //body.setUserData(animatedBox2DSprite);
+        body.setUserData("saw");
         body.setFixedRotation(false);
         shape.setRadius((animatedSprite.getWidth() / 2) /
                 GameConstants.PIXELS_TO_METERS);
