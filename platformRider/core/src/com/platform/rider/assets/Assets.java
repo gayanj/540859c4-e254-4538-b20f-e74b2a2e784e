@@ -357,12 +357,20 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound hero_death;
         public final Sound pickup;
         public final Sound bomb;
+        public final Sound armor;
+        public final Sound speed;
+        public final Sound energy;
+        public final Sound invincible;
 
         public AssetSounds (AssetManager assetManager) {
             particle_death = assetManager.get(GameConstants.PARTICLE_DEATH_SOUND, Sound.class);
             hero_death = assetManager.get(GameConstants.HERO_DEATH_SOUND, Sound.class);
             pickup = assetManager.get(GameConstants.PICKUP_SOUND, Sound.class);
             bomb = assetManager.get(GameConstants.BOMB_SOUND, Sound.class);
+            armor = assetManager.get(GameConstants.ARMOR_SOUND, Sound.class);
+            speed = assetManager.get(GameConstants.SPEED_SOUND, Sound.class);
+            energy = assetManager.get(GameConstants.ENERGY_SOUND, Sound.class);
+            invincible = assetManager.get(GameConstants.INVINCIBLE_SOUND, Sound.class);
         }
     }
 

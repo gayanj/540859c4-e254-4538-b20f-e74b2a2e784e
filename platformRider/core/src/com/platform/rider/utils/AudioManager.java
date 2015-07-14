@@ -10,6 +10,7 @@ public class AudioManager {
 
     public static final AudioManager instance = new AudioManager();
     private Music playingMusic;
+    private Sound playingSound;
 
     // singleton: prevent instantiation from other classes
     private AudioManager() {
@@ -35,13 +36,23 @@ public class AudioManager {
     public void play(Music music, float volume) {
         stopMusic();
         playingMusic = music;
-            music.setLooping(true);
-            music.setVolume(volume);
-            music.play();
+        music.setLooping(true);
+        music.setVolume(volume);
+        music.play();
+    }
+
+    public void playParticleDeathSound(Sound sound) {
+        stopSound();
+        playingSound = sound;
+        play(sound, 1);
     }
 
     public void stopMusic() {
         if (playingMusic != null) playingMusic.stop();
+    }
+
+    public void stopSound() {
+        if (playingSound != null) playingSound.stop();
     }
 
     /*public void onSettingsUpdated() {

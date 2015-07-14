@@ -101,6 +101,22 @@ public class GameConstants {
     public static final String BOMB_SOUND =
             "sounds/bomb.ogg";
 
+    // Location of description file for armor sound effect
+    public static final String ARMOR_SOUND =
+            "sounds/armor.ogg";
+
+    // Location of description file for speed sound effect
+    public static final String SPEED_SOUND =
+            "sounds/speed.ogg";
+
+    // Location of description file for energy sound effect
+    public static final String ENERGY_SOUND =
+            "sounds/energy.ogg";
+
+    // Location of description file for invincible sound effect
+    public static final String INVINCIBLE_SOUND =
+            "sounds/invincible.ogg";
+
     // Location of description file for background music
     public static final String BACKGROUND_MUSIC =
             "music/background.ogg";
