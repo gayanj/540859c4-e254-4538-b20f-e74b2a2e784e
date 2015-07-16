@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
+import com.platform.rider.main.AnyDirection;
 import com.platform.rider.utils.AudioManager;
 import com.platform.rider.utils.GameConstants;
 
@@ -42,6 +43,7 @@ public class MenuScreen extends AbstractGameScreen{
 
     @Override
     public void show() {
+        AnyDirection.myRequestHandler.showAds(true);
         batch = new SpriteBatch();
         cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(1080, 1920 , cameraGUI);

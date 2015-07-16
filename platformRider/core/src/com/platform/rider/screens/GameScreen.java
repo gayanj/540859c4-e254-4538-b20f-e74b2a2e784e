@@ -3,6 +3,7 @@ package com.platform.rider.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.platform.rider.main.AnyDirection;
 import com.platform.rider.world.WorldController;
 import com.platform.rider.worldRenderer.WorldRenderer;
 
@@ -41,6 +42,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        AnyDirection.myRequestHandler.showAds(false);
         // Initialize controller and renderer
         worldController = new WorldController(game);
         worldRenderer = new WorldRenderer(worldController);
