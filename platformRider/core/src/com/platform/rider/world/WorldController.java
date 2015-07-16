@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
+import com.platform.rider.main.AnyDirection;
 import com.platform.rider.screens.MenuScreen;
 import com.platform.rider.sprites.*;
 import com.platform.rider.utils.*;
@@ -916,6 +917,7 @@ public class WorldController {
 
     private void backToMenu() {
         // switch to menu screen
+        AnyDirection.myRequestHandler.showInterstitialAd();
         game.setScreen(new MenuScreen(game));
     }
 

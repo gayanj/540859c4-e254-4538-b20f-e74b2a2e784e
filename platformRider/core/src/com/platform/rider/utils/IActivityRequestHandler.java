@@ -5,4 +5,6 @@ package com.platform.rider.utils;
  */
 public interface IActivityRequestHandler {
     public void showAds(boolean show);
+
+    public void showInterstitialAd();
 }
