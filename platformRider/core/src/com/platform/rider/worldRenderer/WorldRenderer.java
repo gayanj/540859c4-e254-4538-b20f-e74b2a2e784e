@@ -208,15 +208,29 @@ public class WorldRenderer {
     private void renderHeroEnergy(SpriteBatch batch){
         float x = 0;
         float y = 0;
-        int remainingTime = worldController.hero.getEnergy();
-        if(remainingTime >= 0) {
-            String timer = new String(new char[remainingTime]).replace("\0", "|");
+        int remainingEnergy = worldController.hero.getEnergy();
+        if(remainingEnergy >= 0) {
+            String energy = new String(new char[remainingEnergy]).replace("\0", "|");
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "LIFE",
                     x, y + 100);
-            Assets.instance.fonts.energyGreen.draw(batch,
-                    timer,
-                    x, y + 140);
+            if(remainingEnergy >= 60){
+                Assets.instance.fonts.energyGreen.draw(batch,
+                        energy,
+                        x, y + 140);
+            }else if(remainingEnergy >= 40){
+                Assets.instance.fonts.energyYellow.draw(batch,
+                        energy,
+                        x, y + 140);
+            }else if(remainingEnergy >= 20){
+                Assets.instance.fonts.energyOrange.draw(batch,
+                        energy,
+                        x, y + 140);
+            }else if(remainingEnergy >= 0){
+                Assets.instance.fonts.energyRed.draw(batch,
+                        energy,
+                        x, y + 140);
+            }
         }
     }
 }

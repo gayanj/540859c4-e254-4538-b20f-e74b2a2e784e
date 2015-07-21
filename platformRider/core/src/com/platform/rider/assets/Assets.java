@@ -268,15 +268,24 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class AssetFonts {
+        public final BitmapFont energyRed;
         public final BitmapFont energyGreen;
+        public final BitmapFont energyYellow;
+        public final BitmapFont energyOrange;
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
 
         public AssetFonts() {
             // create three fonts for different sizes
+            energyRed = new BitmapFont(
+                    Gdx.files.internal("fonts/energyRed.fnt"), true);
             energyGreen = new BitmapFont(
                     Gdx.files.internal("fonts/energyGreen.fnt"), true);
+            energyYellow = new BitmapFont(
+                    Gdx.files.internal("fonts/energyYellow.fnt"), true);
+            energyOrange = new BitmapFont(
+                    Gdx.files.internal("fonts/energyOrange.fnt"), true);
             defaultSmall = new BitmapFont(
                     Gdx.files.internal("fonts/bitmap.fnt"), true);
             defaultNormal = new BitmapFont(
@@ -288,7 +297,7 @@ public class Assets implements Disposable, AssetErrorListener {
             defaultNormal.setScale(1.0f);
             defaultBig.setScale(2.0f);
             // enable linear texture filtering for smooth fonts
-            energyGreen.getRegion().getTexture().setFilter(
+            energyRed.getRegion().getTexture().setFilter(
                     TextureFilter.Linear, TextureFilter.Linear);
             defaultSmall.getRegion().getTexture().setFilter(
                     TextureFilter.Linear, TextureFilter.Linear);
@@ -377,10 +386,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetMusic {
         public final Music background_music;
         public final Music menu_music;
+        public final Music alert;
 
         public AssetMusic (AssetManager assetManager) {
             background_music = assetManager.get(GameConstants.BACKGROUND_MUSIC, Music.class);
             menu_music = assetManager.get(GameConstants.MENU_MUSIC, Music.class);
+            alert = assetManager.get(GameConstants.ALERT_SOUND, Music.class);
         }
     }
 }

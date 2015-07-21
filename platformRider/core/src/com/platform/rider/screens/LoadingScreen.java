@@ -132,6 +132,8 @@ public class LoadingScreen extends AbstractGameScreen {
                 Sound.class);
         assetManager.load(GameConstants.INVINCIBLE_SOUND,
                 Sound.class);
+        assetManager.load(GameConstants.ALERT_SOUND,
+                Music.class);
         assetManager.load(GameConstants.BACKGROUND_MUSIC,
                 Music.class);
         assetManager.load(GameConstants.MENU_MUSIC,

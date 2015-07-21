@@ -22,4 +22,9 @@ public class DesktopLauncher implements IActivityRequestHandler {
     public void showAds(boolean show) {
 
     }
+
+    @Override
+    public void showInterstitialAd() {
+
+    }
 }

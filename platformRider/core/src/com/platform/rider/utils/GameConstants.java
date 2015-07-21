@@ -117,6 +117,10 @@ public class GameConstants {
     public static final String INVINCIBLE_SOUND =
             "sounds/invincible.ogg";
 
+    // Location of description file for alert sound effect
+    public static final String ALERT_SOUND =
+            "sounds/alert.ogg";
+
     // Location of description file for background music
     public static final String BACKGROUND_MUSIC =
             "music/background.ogg";

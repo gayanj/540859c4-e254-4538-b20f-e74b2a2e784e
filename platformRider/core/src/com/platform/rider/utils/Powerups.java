@@ -14,6 +14,15 @@ public class Powerups {
     int powerCounter = 0;
     Sprite sprite;
 
+    public Powerups(){
+
+    }
+    public Powerups(String type, int remaining, TextureRegion textureRegion, boolean pickedUp){
+        this.type = type;
+        this.remaining = remaining;
+        createSprite(textureRegion);
+        this.pickedUp = pickedUp;
+    }
     public void createSprite(TextureRegion textureRegion){
         sprite = new Sprite(textureRegion);
         sprite.setFlip(false,true);

@@ -101,7 +101,7 @@ public class WorldController {
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
-        powerups = new Powerups();
+        powerups = new Powerups(GameConstants.SUPER_FORCE, 2, Assets.instance.assetPowerup.super_force, true);
         instantPowerups = new InstantPowerups();
         world.setContactListener(new reactorContactListener());
         AudioManager.instance.play(Assets.instance.music.background_music, 1);
@@ -269,6 +269,7 @@ public class WorldController {
     public void update(float deltaTime) {
         if (gameOver) {
             AudioManager.instance.stopMusic();
+            AudioManager.instance.stopAlertSound();
             handleGameOver();
             gameOverCounter++;
         } else {
@@ -508,6 +509,10 @@ public class WorldController {
             createParticleBurst("-1", hero.getBody().getPosition(), GameConstants.HERO_PARTICLE);
             AudioManager.instance.play(Assets.instance.sounds.hero_death);
             gameOver = true;
+        } else if (hero.getEnergy() <= 20) {
+            AudioManager.instance.playAlertSound(Assets.instance.music.alert, 0.3f);
+        } else {
+            AudioManager.instance.stopAlertSound();
         }
     }
 

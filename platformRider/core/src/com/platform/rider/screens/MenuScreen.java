@@ -21,19 +21,22 @@ public class MenuScreen extends AbstractGameScreen{
     private SpriteBatch batch;
     private OrthographicCamera cameraGUI;
     private Viewport viewport;
+    private boolean paused;
     public MenuScreen (Game game) {
         super(game);
     }
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(212/255f, 212/255f, 212/255f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(cameraGUI.combined);
-        batch.begin();
-        renderGuiPlayButton(batch);
-        if(Gdx.input.justTouched())
-            game.setScreen(new GameScreen(game));
-        batch.end();
+        if (!paused) {
+            Gdx.gl.glClearColor(212 / 255f, 212 / 255f, 212 / 255f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.setProjectionMatrix(cameraGUI.combined);
+            batch.begin();
+            renderGuiPlayButton(batch);
+            if (Gdx.input.justTouched())
+                game.setScreen(new GameScreen(game));
+            batch.end();
+        }
     }
 
     @Override
@@ -60,7 +63,14 @@ public class MenuScreen extends AbstractGameScreen{
 
     @Override
     public void pause() {
+        paused = true;
+    }
 
+    @Override
+    public void resume() {
+        super.resume();
+        // Only called on Android!
+        paused = false;
     }
 
     private void renderGuiPlayButton (SpriteBatch batch) {
