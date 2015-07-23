@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * Created by Gayan on 3/28/2015.
@@ -45,7 +45,7 @@ public class TouchPadHelper {
         touchpad.setBounds((GameConstants.APP_WIDTH) - 250, 0, 250, 250);
 
         //Create a Stage and add TouchPad
-        stage = new Stage(new StretchViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT));
+        stage = new Stage(new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT));
         stage.addActor(touchpad);
         //stage.getViewport().update(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, false);
     }

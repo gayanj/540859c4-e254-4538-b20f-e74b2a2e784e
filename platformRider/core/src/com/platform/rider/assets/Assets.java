@@ -172,6 +172,13 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        TextureAtlas tutorialArrowAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_TUTORIAL_ARROW_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : tutorialArrowAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
         fonts = new AssetFonts();
         assetParticle = new AssetParticle(atlas);
         assetHero = new AssetHero(atlas);
@@ -184,7 +191,7 @@ public class Assets implements Disposable, AssetErrorListener {
                 invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas,
                 normalParticleDyingAnimationAtlas, splitParticleDyingAnimationAtlas,
                 invisibleParticleDyingAnimationAtlas, suicideParticleDyingAnimationAtlas,
-                heroParticleDyingAnimationAtlas);
+                heroParticleDyingAnimationAtlas,tutorialArrowAnimationAtlas);
         sounds = new AssetSounds(this.assetManager);
         music = new AssetMusic(this.assetManager);
     }
@@ -320,12 +327,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Animation invisibleParticleDyingAnimation;
         public final Animation suicideParticleDyingAnimation;
         public final Animation heroParticleDyingAnimation;
+        public final Animation tutorialArrowAnimation;
 
         public AssetAnimations(TextureAtlas spikeAtlas, TextureAtlas deathSawAtlas, TextureAtlas suicideParticleAtlas,
                                TextureAtlas explosionAtlas, TextureAtlas invisibleParticleAppearingAtlas,
                                TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas normalParticleDyingAnimationAtlas,
                                TextureAtlas splitParticleDyingAnimationAtlas, TextureAtlas invisibleParticleDyingAnimationAtlas,
-                               TextureAtlas suicideParticleDyingAnimationAtlas, TextureAtlas heroParticleDyingAnimationAtlas) {
+                               TextureAtlas suicideParticleDyingAnimationAtlas, TextureAtlas heroParticleDyingAnimationAtlas,
+                               TextureAtlas tutorialArrowAnimationAtlas) {
             spikeAnimation = new Animation(GameConstants.FRAME_DURATION, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -358,6 +367,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
             heroParticleDyingAnimation = new Animation(GameConstants.FRAME_DURATION, heroParticleDyingAnimationAtlas.getRegions());
             heroParticleDyingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+            tutorialArrowAnimation = new Animation(GameConstants.FRAME_DURATION, tutorialArrowAnimationAtlas.getRegions());
+            tutorialArrowAnimation.setPlayMode(Animation.PlayMode.LOOP);
         }
     }
 

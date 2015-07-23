@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.sprites.*;
 import com.platform.rider.utils.GameConstants;
+import com.platform.rider.utils.GamePreferences;
 import com.platform.rider.world.WorldController;
 
 import java.util.Map;
@@ -110,6 +111,9 @@ public class WorldRenderer {
         renderPowerButton(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
+        if(!GamePreferences.instance.tutorialCompleted) {
+            renderTutorialArrow(batch);
+        }
         batch.end();
     }
 
@@ -232,5 +236,9 @@ public class WorldRenderer {
                         x, y + 140);
             }
         }
+    }
+
+    private void renderTutorialArrow(SpriteBatch batch) {
+        worldController.tutorialArrow.render(batch);
     }
 }

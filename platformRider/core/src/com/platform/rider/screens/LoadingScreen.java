@@ -115,6 +115,9 @@ public class LoadingScreen extends AbstractGameScreen {
         // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_HREO_PARTICLE_DYING_ANIMATION,
                 TextureAtlas.class);
+        // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_TUTORIAL_ARROW_ANIMATION,
+                TextureAtlas.class);
         // load sound effects
         assetManager.load(GameConstants.PARTICLE_DEATH_SOUND,
                 Sound.class);

@@ -36,6 +36,7 @@ public class WorldController {
     public Powerups powerups;
     public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
+    public TutorialArrow tutorialArrow;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -97,6 +98,7 @@ public class WorldController {
                 return true;
             }
         });
+        GamePreferences.instance.load();
         Gdx.input.setInputProcessor(multiplexer);
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
@@ -117,6 +119,9 @@ public class WorldController {
         createParticles();
         createSpikes();
         createPowerButton();
+        if(!GamePreferences.instance.tutorialCompleted) {
+            createTutorialArrow();
+        }
     }
 
     private void initTouchpad() {
@@ -138,7 +143,7 @@ public class WorldController {
     }
 
     private void createParticles() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < GamePreferences.instance.stage; i++) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
         }
     }
@@ -162,6 +167,13 @@ public class WorldController {
         float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
         Vector2 position = new Vector2(x, y);
         powerupButton = new PowerupButton(position, world);
+    }
+
+    private void createTutorialArrow() {
+        float x = camera.viewportWidth - 123;
+        float y = camera.viewportHeight - 130;
+        Vector2 position = new Vector2(x, y);
+        tutorialArrow = new TutorialArrow(position, world);
     }
 
     private void createNewParticle(String type) {
@@ -296,6 +308,11 @@ public class WorldController {
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
             }
+            if(!GamePreferences.instance.tutorialCompleted && touchPadVec.x != 0 && touchPadVec.y != 0){
+                GamePreferences.instance.tutorialCompleted = true;
+                createNewParticle(GameConstants.NORMAL_PARTICLE);
+                GamePreferences.instance.stage++;
+            }
             updateHero();
             updateParticles();
             updateSpikes();
@@ -333,6 +350,23 @@ public class WorldController {
             //increment the number of destroyed particles
             totalParticlesDestroyed++;
             score++;
+            if(score > GamePreferences.instance.highscore){
+                GamePreferences.instance.highscore = score;
+            }
+            if(GamePreferences.instance.highscore > 20 && !GamePreferences.instance.thirdStageCleared){
+                createNewParticle(GameConstants.NORMAL_PARTICLE);
+                GamePreferences.instance.stage++;
+                GamePreferences.instance.thirdStageCleared = true;
+                GamePreferences.instance.spawnSplitParticles = true;
+            }else if(GamePreferences.instance.highscore > 15 && !GamePreferences.instance.secondStageCleared){
+                createNewParticle(GameConstants.NORMAL_PARTICLE);
+                GamePreferences.instance.stage++;
+                GamePreferences.instance.secondStageCleared = true;
+            }else if(GamePreferences.instance.highscore > 10 && !GamePreferences.instance.firstStageCleared){
+                createNewParticle(GameConstants.NORMAL_PARTICLE);
+                GamePreferences.instance.stage++;
+                GamePreferences.instance.firstStageCleared = true;
+            }
             totalParticlesAlive--;
             //create a new particle
             if (type.equals(GameConstants.NORMAL_PARTICLE)) {
@@ -620,7 +654,7 @@ public class WorldController {
     }
 
     private void createSplitParticles() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && splitParticlesAlive == 0) {
+        if (GamePreferences.instance.spawnSplitParticles && totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && splitParticlesAlive == 0) {
             createNewParticle(GameConstants.SPLIT_PARTICLE);
             splitParticlesAlive++;
         }
@@ -633,7 +667,7 @@ public class WorldController {
     }
 
     private void createSuicideParticles() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 15 == 0 && suicideParticlesAlive == 0) {
+        if (GamePreferences.instance.spawnSuicideParticles && totalParticlesDestroyed > 0 && totalParticlesDestroyed % 15 == 0 && suicideParticlesAlive == 0) {
             for (int i = 0; i < GameConstants.SUICIDE_PARTICAL_COUNT; i++) {
                 createExplosion(totalParticlesCreated);
                 createNewParticle(GameConstants.SUICIDE_PARTICLE);
@@ -646,7 +680,7 @@ public class WorldController {
     }
 
     private void createInvisibleParticles() {
-        if (totalParticlesDestroyed > 10 && invisibleParticleCounter > 500) {
+        if (GamePreferences.instance.spawnInvisibleParticles && totalParticlesDestroyed > 10 && invisibleParticleCounter > 500) {
             //for (int i = 0; i < stage; i++) {
             createNewParticle(GameConstants.INVISIBLE_PARTICLE);
             invisibleParticleCounter = 0;
@@ -953,6 +987,7 @@ public class WorldController {
                 }
                 entry.getValue().getPooledEffects().clear();
             }
+            GamePreferences.instance.save();
             backToMenu();
             //}
         }

@@ -29,6 +29,7 @@ public class GameConstants {
     public static float SPLIT_PARTICAL_TIME = 200;
     public static float SUICIDE_PARTICAL_COUNT = 1;
     public static float DEATH_SAW_TIME = 500;
+    public static final String PREFERENCES_FILE = "particlebrawlprefs";
 
     //Particle Types
     public static final String HERO_PARTICLE = "hero";
@@ -84,6 +85,10 @@ public class GameConstants {
     // Location of description file for hero particle dying animation texture atlas
     public static final String TEXTURE_ATLAS_HREO_PARTICLE_DYING_ANIMATION =
             "heroParticleDyingAnimation.txt";
+
+    // Location of description file for tutorial arrow animation texture atlas
+    public static final String TEXTURE_ATLAS_TUTORIAL_ARROW_ANIMATION =
+            "tutorialArrowAnimation.txt";
 
     // Location of description file for particle death sound effect
     public static final String PARTICLE_DEATH_SOUND =
