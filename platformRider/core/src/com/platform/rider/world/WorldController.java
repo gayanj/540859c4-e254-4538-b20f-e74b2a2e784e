@@ -271,7 +271,7 @@ public class WorldController {
     }
 
     private void createDeathSaw() {
-        if (totalParticlesDestroyed > 5 && deathSawCounter > GameConstants.DEATH_SAW_TIME) {
+        if (GamePreferences.instance.spawnSuicideParticles && totalParticlesDestroyed > 20 && deathSawCounter > GameConstants.DEATH_SAW_TIME) {
             Random r = new Random();
             int side = r.nextInt(4);
             int vposition = r.nextInt((GameConstants.APP_HEIGHT / 130) - 1 - 2) + 2;
@@ -301,6 +301,7 @@ public class WorldController {
 
     public void update(float deltaTime) {
         if (gameOver) {
+            destroyParticles();
             AudioManager.instance.stopMusic();
             AudioManager.instance.stopAlertSound();
             handleGameOver();
@@ -398,11 +399,22 @@ public class WorldController {
             //create a new particle
             if (type.equals(GameConstants.NORMAL_PARTICLE)) {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
+                GamePreferences.instance.normalParticlesDestroyed++;
             } else if (type.equals(GameConstants.SPLIT_PARTICLE)) {
                 splitParticlesAlive--;
+                GamePreferences.instance.splitParticlesDestroyed++;
             } else if (type.equals(GameConstants.SUICIDE_PARTICLE)) {
                 GameConstants.FRAME_DURATION = 0.025f;
                 suicideParticlesAlive--;
+                GamePreferences.instance.suicideParticlesDestroyed++;
+            } else if (type.equals(GameConstants.INVISIBLE_PARTICLE)) {
+                GamePreferences.instance.invisibleParticlesDestroyed++;
+            }
+            if (!GamePreferences.instance.spawnSuicideParticles && GamePreferences.instance.splitParticlesDestroyed > 20) {
+                GamePreferences.instance.spawnSuicideParticles = true;
+            }
+            if (!GamePreferences.instance.spawnInvisibleParticles && GamePreferences.instance.suicideParticlesDestroyed > 20) {
+                GamePreferences.instance.spawnInvisibleParticles = true;
             }
             if (startBonusCounter) {
                 particleStreakCount++;
@@ -496,7 +508,7 @@ public class WorldController {
     }
 
     private void increaseDifficulty() {
-        if (totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && increaseDifficulty) {
+        if (GamePreferences.instance.spawnSuicideParticles && totalParticlesDestroyed > 0 && totalParticlesDestroyed % 10 == 0 && increaseDifficulty) {
             if (GameConstants.NORMAL_PARTICAL_SPEED <= 9) {
                 GameConstants.NORMAL_PARTICAL_SPEED++;
             }
@@ -663,8 +675,7 @@ public class WorldController {
 
                 if ("hero".equals(body.getUserData().toString())) {
                     gameOver = true;
-                }
-                if (!body.getUserData().toString().contains("power".toLowerCase()) && !normalParticlesForRemoval.contains(body.getUserData().toString())) {
+                } else if (!body.getUserData().toString().contains("power".toLowerCase()) && !normalParticlesForRemoval.contains(body.getUserData().toString())) {
                     normalParticlesForRemoval.add(body.getUserData().toString());
                 }
             }
@@ -882,11 +893,20 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_1 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_3) {
                 //remove particles
                 if (!normalParticlesForRemoval.contains(contact.getFixtureA().getBody().getUserData().toString())) {
-                    createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(), particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType());
-                    AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
+                    String type = particleHashMap.get(contact.getFixtureA().getBody().getUserData().toString()).getType();
+                    createParticleBurst(contact.getFixtureA().getBody().getUserData().toString(), contact.getFixtureA().getBody().getPosition(), type);
+                    if (!gameOver) {
+                        AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
+                    }
                     normalParticlesForRemoval.add(contact.getFixtureA().getBody().getUserData().toString());
-                    if (hero.getEnergy() < 85) {
+                    if (GameConstants.NORMAL_PARTICLE.equals(type) && hero.getEnergy() < 85) {
                         hero.setEnergy(hero.getEnergy() + 5);
+                    } else if (GameConstants.SPLIT_PARTICLE.equals(type) && hero.getEnergy() < 84) {
+                        hero.setEnergy(hero.getEnergy() + 6);
+                    } else if (GameConstants.SUICIDE_PARTICLE.equals(type) && hero.getEnergy() < 80) {
+                        hero.setEnergy(hero.getEnergy() + 10);
+                    } else if (GameConstants.INVISIBLE_PARTICLE.equals(type) && hero.getEnergy() < 70) {
+                        hero.setEnergy(hero.getEnergy() + 20);
                     }
                 }
             }
@@ -894,11 +914,20 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_3 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_1) {
                 //remove particles
                 if (!normalParticlesForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
-                    createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
-                    AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
+                    String type = particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType();
+                    createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), type);
+                    if (!gameOver) {
+                        AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
+                    }
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
-                    if (hero.getEnergy() < 85) {
+                    if (GameConstants.NORMAL_PARTICLE.equals(type) && hero.getEnergy() < 85) {
                         hero.setEnergy(hero.getEnergy() + 5);
+                    } else if (GameConstants.SPLIT_PARTICLE.equals(type) && hero.getEnergy() < 84) {
+                        hero.setEnergy(hero.getEnergy() + 6);
+                    } else if (GameConstants.SUICIDE_PARTICLE.equals(type) && hero.getEnergy() < 80) {
+                        hero.setEnergy(hero.getEnergy() + 10);
+                    } else if (GameConstants.INVISIBLE_PARTICLE.equals(type) && hero.getEnergy() < 70) {
+                        hero.setEnergy(hero.getEnergy() + 20);
                     }
                 }
             }
@@ -922,6 +951,7 @@ public class WorldController {
             if (contact.getFixtureA().getFilterData().categoryBits == GameConstants.SPRITE_2 && contact.getFixtureB().getFilterData().categoryBits == GameConstants.SPRITE_6) {
                 if (!powerupsForRemoval.contains(contact.getFixtureB().getBody().getUserData().toString())) {
                     Power power = powerupHashMap.get(contact.getFixtureB().getBody().getUserData().toString());
+                    powerups.setActive(false);
                     powerups.setType(power.getType());
                     powerups.setRemaining(2);
                     powerups.createSprite(power.getTexureRegion());

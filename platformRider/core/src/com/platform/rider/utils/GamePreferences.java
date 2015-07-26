@@ -21,6 +21,10 @@ public class GamePreferences {
     public boolean thirdStageCleared;
     public int stage;
     public int highscore;
+    public int normalParticlesDestroyed;
+    public int splitParticlesDestroyed;
+    public int suicideParticlesDestroyed;
+    public int invisibleParticlesDestroyed;
 
     private Preferences prefs;
 
@@ -41,6 +45,10 @@ public class GamePreferences {
         thirdStageCleared = prefs.getBoolean("thirdStageCleared", false);
         stage = prefs.getInteger("stage", 0);
         highscore = prefs.getInteger("highscore", 0);
+        normalParticlesDestroyed = prefs.getInteger("normalParticlesDestroyed", 0);
+        splitParticlesDestroyed = prefs.getInteger("splitParticlesDestroyed", 0);
+        suicideParticlesDestroyed = prefs.getInteger("suicideParticlesDestroyed", 0);
+        invisibleParticlesDestroyed = prefs.getInteger("invisibleParticlesDestroyed", 0);
     }
 
     public void save() {
@@ -55,6 +63,10 @@ public class GamePreferences {
         prefs.putBoolean("thirdStageCleared", thirdStageCleared);
         prefs.putInteger("stage", stage);
         prefs.putInteger("highscore", highscore);
+        prefs.getInteger("normalParticlesDestroyed", normalParticlesDestroyed);
+        prefs.getInteger("splitParticlesDestroyed", splitParticlesDestroyed);
+        prefs.getInteger("suicideParticlesDestroyed", suicideParticlesDestroyed);
+        prefs.getInteger("invisibleParticlesDestroyed", invisibleParticlesDestroyed);
         prefs.flush();
     }
 }
