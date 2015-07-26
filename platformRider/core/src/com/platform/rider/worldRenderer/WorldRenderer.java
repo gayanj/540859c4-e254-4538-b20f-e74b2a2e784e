@@ -109,6 +109,7 @@ public class WorldRenderer {
         // draw game over text
         renderGuiGameOverMessage(batch);
         renderPowerButton(batch);
+        //renderBackground(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
         if(GamePreferences.instance.renderFirstTutorial) {
@@ -126,7 +127,7 @@ public class WorldRenderer {
     }
 
     private void renderGuiScore(SpriteBatch batch) {
-        float x = 0;
+        float x = 10;
         float y = 0;
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "SCORE",
@@ -164,6 +165,16 @@ public class WorldRenderer {
         //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
         //if (!worldController.isGameOver()) {
         worldController.powerupButton.render(batch);
+            /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
+                    x, y, 50, 50, 100, 100, 2, 2, 0);*/
+        //}
+    }
+
+    private void renderBackground(SpriteBatch batch) {
+        //float x = 50;
+        //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
+        //if (!worldController.isGameOver()) {
+        worldController.background.render(batch);
             /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 2, 2, 0);*/
         //}
@@ -212,9 +223,9 @@ public class WorldRenderer {
                     "X " + worldController.powerups.getRemaining(),
                     x + 60, y + 37);
             //if(worldController.powerups.isActive()) {
-            int remainingTime = 10 - (worldController.powerups.getPowerCounter() / 50);
+            int remainingTime = 50 - (worldController.powerups.getPowerCounter() / 10);
             String timer = new String(new char[remainingTime]).replace("\0", "|");
-            Assets.instance.fonts.defaultSmall.draw(batch,
+            Assets.instance.fonts.energyOrange.draw(batch,
                     timer,
                     x + 60, y + 100);
             //}
@@ -228,7 +239,7 @@ public class WorldRenderer {
         if(remainingEnergy >= 0) {
             String energy = new String(new char[remainingEnergy]).replace("\0", "|");
             Assets.instance.fonts.defaultNormal.draw(batch,
-                    "LIFE",
+                    "ENERGY",
                     x, y + 100);
             if(remainingEnergy >= 60){
                 Assets.instance.fonts.energyGreen.draw(batch,

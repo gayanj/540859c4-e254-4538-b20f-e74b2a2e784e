@@ -18,28 +18,35 @@ splitparticle
   index: -1
 armor
   rotate: false
-  xy: 854, 266
+  xy: 644, 292
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 super_force
   rotate: false
-  xy: 883, 214
+  xy: 750, 230
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
+energyLogo
+  rotate: false
+  xy: 883, 214
+  size: 92, 159
+  orig: 92, 159
+  offset: 0, 0
+  index: -1
 slow_motion
   rotate: false
-  xy: 750, 230
+  xy: 644, 240
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 invincibility
   rotate: false
-  xy: 644, 240
+  xy: 748, 282
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -74,7 +81,7 @@ particle
   index: -1
 mass_death
   rotate: false
-  xy: 802, 230
+  xy: 696, 240
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -95,14 +102,14 @@ suicideparticle
   index: -1
 energy
   rotate: false
-  xy: 696, 240
+  xy: 800, 282
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 speed
   rotate: false
-  xy: 935, 214
+  xy: 802, 230
   size: 50, 50
   orig: 50, 50
   offset: 0, 0

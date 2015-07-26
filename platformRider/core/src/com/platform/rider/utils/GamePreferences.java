@@ -63,10 +63,10 @@ public class GamePreferences {
         prefs.putBoolean("thirdStageCleared", thirdStageCleared);
         prefs.putInteger("stage", stage);
         prefs.putInteger("highscore", highscore);
-        prefs.getInteger("normalParticlesDestroyed", normalParticlesDestroyed);
-        prefs.getInteger("splitParticlesDestroyed", splitParticlesDestroyed);
-        prefs.getInteger("suicideParticlesDestroyed", suicideParticlesDestroyed);
-        prefs.getInteger("invisibleParticlesDestroyed", invisibleParticlesDestroyed);
+        prefs.putInteger("normalParticlesDestroyed", normalParticlesDestroyed);
+        prefs.putInteger("splitParticlesDestroyed", splitParticlesDestroyed);
+        prefs.putInteger("suicideParticlesDestroyed", suicideParticlesDestroyed);
+        prefs.putInteger("invisibleParticlesDestroyed", invisibleParticlesDestroyed);
         prefs.flush();
     }
 }

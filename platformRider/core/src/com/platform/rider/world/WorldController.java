@@ -36,6 +36,7 @@ public class WorldController {
     public Powerups powerups;
     public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
+    public Background background;
     public TutorialArrow tutorialArrow;
     public TutorialBox tutorialBox;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
@@ -129,6 +130,7 @@ public class WorldController {
         createParticles();
         createSpikes();
         createPowerButton();
+        createBackground();
         if (!GamePreferences.instance.firstTutorialCompleted) {
             createTutorialArrow();
             GamePreferences.instance.renderFirstTutorial = true;
@@ -181,6 +183,13 @@ public class WorldController {
         float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
         Vector2 position = new Vector2(x, y);
         powerupButton = new PowerupButton(position, world);
+    }
+
+    private void createBackground() {
+        float x = camera.viewportWidth / 2;
+        float y = camera.viewportHeight / 2;
+        Vector2 position = new Vector2(x, y);
+        background = new Background(position, world);
     }
 
     private void createTutorialArrow() {

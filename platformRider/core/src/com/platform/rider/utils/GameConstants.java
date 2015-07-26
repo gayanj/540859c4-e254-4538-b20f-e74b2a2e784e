@@ -44,7 +44,7 @@ public class GameConstants {
 
     // Location of description file for spike animation texture atlas
     public static final String TEXTURE_ATLAS_SPIKE_ANIMATION =
-            "spikeAniimations.txt";
+            "spikeAnimations.txt";
 
     // Location of description file for death spike animation texture atlas
     public static final String TEXTURE_ATLAS_DEATH_SAW_ANIMATION =
