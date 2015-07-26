@@ -10,7 +10,9 @@ public class GamePreferences {
     public static final GamePreferences instance =
             new GamePreferences();
 
-    public boolean tutorialCompleted;
+    public boolean firstTutorialCompleted;
+    public boolean secondTutorialCompleted;
+    public boolean renderFirstTutorial;
     public boolean spawnSplitParticles;
     public boolean spawnSuicideParticles;
     public boolean spawnInvisibleParticles;
@@ -28,7 +30,9 @@ public class GamePreferences {
     }
 
     public void load() {
-        tutorialCompleted = prefs.getBoolean("tutorialCompleted", false);
+        firstTutorialCompleted = prefs.getBoolean("firstTutorialCompleted", false);
+        secondTutorialCompleted = prefs.getBoolean("secondTutorialCompleted", false);
+        renderFirstTutorial = prefs.getBoolean("renderFirstTutorial", false);
         spawnSplitParticles = prefs.getBoolean("spawnSplitParticles", false);
         spawnSuicideParticles = prefs.getBoolean("spawnSuicideParticles", false);
         spawnInvisibleParticles = prefs.getBoolean("spawnInvisibleParticles", false);
@@ -40,7 +44,9 @@ public class GamePreferences {
     }
 
     public void save() {
-        prefs.putBoolean("tutorialCompleted", tutorialCompleted);
+        prefs.putBoolean("firstTutorialCompleted", firstTutorialCompleted);
+        prefs.putBoolean("secondTutorialCompleted", secondTutorialCompleted);
+        prefs.putBoolean("renderFirstTutorial", renderFirstTutorial);
         prefs.putBoolean("spawnSplitParticles", spawnSplitParticles);
         prefs.putBoolean("spawnSuicideParticles", spawnSuicideParticles);
         prefs.putBoolean("spawnInvisibleParticles", spawnInvisibleParticles);

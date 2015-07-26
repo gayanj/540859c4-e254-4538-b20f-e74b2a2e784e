@@ -37,6 +37,7 @@ public class WorldController {
     public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
     public TutorialArrow tutorialArrow;
+    public TutorialBox tutorialBox;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -62,7 +63,10 @@ public class WorldController {
     int powerUpCounter = 0;
     int instantPowerUpCounter = 0;
     int gameOverCounter = 0;
+    int firstTutorialCounter = 0;
+    public int secondTutorialCounter = 0;
     boolean gameOver = false;
+    public boolean pause = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
     int bonusCounter = 0;
@@ -95,6 +99,12 @@ public class WorldController {
                 if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
                     deployPowerup();
                 }
+                if (!GamePreferences.instance.secondTutorialCompleted) {
+                    Rectangle tutorialBoxBound = tutorialBox.getSprite().getBoundingRectangle();
+                    if (OverlapTester.pointInRectangle(tutorialBoxBound, touchPoint)) {
+                        handleTutorialCompletedButton();
+                    }
+                }
                 return true;
             }
         });
@@ -119,8 +129,12 @@ public class WorldController {
         createParticles();
         createSpikes();
         createPowerButton();
-        if(!GamePreferences.instance.tutorialCompleted) {
+        if (!GamePreferences.instance.firstTutorialCompleted) {
             createTutorialArrow();
+            GamePreferences.instance.renderFirstTutorial = true;
+        }
+        if (!GamePreferences.instance.secondTutorialCompleted) {
+            createTutorialBox();
         }
     }
 
@@ -174,6 +188,13 @@ public class WorldController {
         float y = camera.viewportHeight - 130;
         Vector2 position = new Vector2(x, y);
         tutorialArrow = new TutorialArrow(position, world);
+    }
+
+    private void createTutorialBox() {
+        float x = camera.viewportWidth / 2;
+        float y = camera.viewportHeight / 2;
+        Vector2 position = new Vector2(x, y);
+        tutorialBox = new TutorialBox(position, world);
     }
 
     private void createNewParticle(String type) {
@@ -308,10 +329,16 @@ public class WorldController {
             if (touchPadVec.x != 0 && touchPadVec.y != 0) {
                 hero.getBody().setLinearVelocity(touchPadVec);
             }
-            if(!GamePreferences.instance.tutorialCompleted && touchPadVec.x != 0 && touchPadVec.y != 0){
-                GamePreferences.instance.tutorialCompleted = true;
-                createNewParticle(GameConstants.NORMAL_PARTICLE);
-                GamePreferences.instance.stage++;
+            if (!GamePreferences.instance.firstTutorialCompleted && touchPadVec.x != 0 && touchPadVec.y != 0) {
+                GamePreferences.instance.renderFirstTutorial = false;
+                if (firstTutorialCounter > 100) {
+                    GamePreferences.instance.firstTutorialCompleted = true;
+                    createNewParticle(GameConstants.NORMAL_PARTICLE);
+                    GamePreferences.instance.stage++;
+                    firstTutorialCounter = 0;
+                } else {
+                    firstTutorialCounter++;
+                }
             }
             updateHero();
             updateParticles();
@@ -350,19 +377,19 @@ public class WorldController {
             //increment the number of destroyed particles
             totalParticlesDestroyed++;
             score++;
-            if(score > GamePreferences.instance.highscore){
+            if (score > GamePreferences.instance.highscore) {
                 GamePreferences.instance.highscore = score;
             }
-            if(GamePreferences.instance.highscore > 20 && !GamePreferences.instance.thirdStageCleared){
+            if (GamePreferences.instance.highscore > 20 && !GamePreferences.instance.thirdStageCleared) {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
                 GamePreferences.instance.stage++;
                 GamePreferences.instance.thirdStageCleared = true;
                 GamePreferences.instance.spawnSplitParticles = true;
-            }else if(GamePreferences.instance.highscore > 15 && !GamePreferences.instance.secondStageCleared){
+            } else if (GamePreferences.instance.highscore > 15 && !GamePreferences.instance.secondStageCleared) {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
                 GamePreferences.instance.stage++;
                 GamePreferences.instance.secondStageCleared = true;
-            }else if(GamePreferences.instance.highscore > 10 && !GamePreferences.instance.firstStageCleared){
+            } else if (GamePreferences.instance.highscore > 10 && !GamePreferences.instance.firstStageCleared) {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
                 GamePreferences.instance.stage++;
                 GamePreferences.instance.firstStageCleared = true;
@@ -1000,6 +1027,11 @@ public class WorldController {
         } else {
             powerups.setActive(false);
         }
+    }
+
+    private void handleTutorialCompletedButton() {
+        GamePreferences.instance.secondTutorialCompleted = true;
+        pause = false;
     }
 
     private void playInstantPowerupSound(String type) {

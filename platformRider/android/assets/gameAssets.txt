@@ -2,6 +2,13 @@ gameAssets.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+secondTutorial
+  rotate: false
+  xy: 2, 484
+  size: 438, 184
+  orig: 438, 184
+  offset: 0, 0
+  index: -1
 splitparticle
   rotate: false
   xy: 899, 108

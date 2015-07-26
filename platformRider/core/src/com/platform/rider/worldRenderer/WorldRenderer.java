@@ -111,8 +111,16 @@ public class WorldRenderer {
         renderPowerButton(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
-        if(!GamePreferences.instance.tutorialCompleted) {
+        if(GamePreferences.instance.renderFirstTutorial) {
             renderTutorialArrow(batch);
+        }
+        if(GamePreferences.instance.firstTutorialCompleted && !GamePreferences.instance.secondTutorialCompleted){
+            if(worldController.secondTutorialCounter > 50) {
+                renderTutorialBox(batch);
+                worldController.pause = true;
+            }else{
+                worldController.secondTutorialCounter++;
+            }
         }
         batch.end();
     }
@@ -159,6 +167,10 @@ public class WorldRenderer {
             /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 2, 2, 0);*/
         //}
+    }
+
+    private void renderTutorialBox(SpriteBatch batch) {
+        worldController.tutorialBox.render(batch);
     }
 
     private void renderExplosion(SpriteBatch batch) {

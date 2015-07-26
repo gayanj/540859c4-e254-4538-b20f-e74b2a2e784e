@@ -14,7 +14,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-    private boolean paused;
 
     public GameScreen(Game game) {
         super(game);
@@ -23,7 +22,7 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
         // Do not update game world when paused.
-        if (!paused) {
+        if (!worldController.pause) {
             // Update game world by the time that has passed
             // since last rendered frame.
             worldController.update(deltaTime);
@@ -57,13 +56,13 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void pause() {
-        paused = true;
+        worldController.pause = true;
     }
 
     @Override
     public void resume() {
         super.resume();
         // Only called on Android!
-        paused = false;
+        worldController.pause = false;
     }
 }
