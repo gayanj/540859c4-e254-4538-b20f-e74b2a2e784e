@@ -140,7 +140,7 @@ public class Grid {
     public void Draw(Matrix4 projectionMatrix) {
         int width = points.length;
         int height = points[0].length;
-        Color color = new Color(30, 30, 139, 85);   // dark blue
+        Color color = new Color(30 / 255f, 30 / 255f, 139 / 255f, 1);   // dark blue
 
         for (int y = 1; y < height; y++) {
             for (int x = 1; x < width; x++) {
@@ -150,17 +150,17 @@ public class Grid {
                 if (x > 1) {
                     left = ToVec2(points[x - 1][y].position);
                     float thickness = y % 3 == 1 ? 3f : 1f;
-                    WorldRenderer.DrawDebugLine(left, p, thickness, Color.BLUE, projectionMatrix);
+                    WorldRenderer.DrawDebugLine(left, p, thickness, color, projectionMatrix);
                 }
                 if (y > 1) {
                     up = ToVec2(points[x][y - 1].position);
                     float thickness = x % 3 == 1 ? 3f : 1f;
-                    WorldRenderer.DrawDebugLine(up, p, thickness, Color.BLUE, projectionMatrix);
+                    WorldRenderer.DrawDebugLine(up, p, thickness, color, projectionMatrix);
                 }
                 if (x > 1 && y > 1) {
                     Vector2 upLeft = ToVec2(points[x - 1][y - 1].position);
-                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(up)).scl(0.5f), (new Vector2(left).add(p)).scl(0.5f), 1f, Color.BLUE, projectionMatrix);   // vertical line
-                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(left)).scl(0.5f), (new Vector2(up).add(p)).scl(0.5f), 1f, Color.BLUE, projectionMatrix);   // horizontal line
+                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(up)).scl(0.5f), (new Vector2(left).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // vertical line
+                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(left)).scl(0.5f), (new Vector2(up).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // horizontal line
                 }
             }
         }

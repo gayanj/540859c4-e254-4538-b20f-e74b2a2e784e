@@ -244,7 +244,7 @@ public class WorldRenderer {
     }
 
     private void renderHeroEnergy(SpriteBatch batch){
-        float x = 0;
+        float x = 10;
         float y = 0;
         int remainingEnergy = worldController.hero.getEnergy();
         if(remainingEnergy >= 0) {
