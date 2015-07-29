@@ -16,6 +16,7 @@ import com.platform.rider.main.AnyDirection;
 import com.platform.rider.screens.MenuScreen;
 import com.platform.rider.sprites.*;
 import com.platform.rider.utils.*;
+import com.platform.rider.utils.grid.Grid;
 
 import java.util.*;
 
@@ -39,6 +40,9 @@ public class WorldController {
     public Background background;
     public TutorialArrow tutorialArrow;
     public TutorialBox tutorialBox;
+    public Vector2 gridSpacing;
+    public Grid grid;
+    int maxGridPoints = 500;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -114,10 +118,20 @@ public class WorldController {
         camera = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, camera);
         initPhysics();
+        gridSpacing = new Vector2((float) Math.sqrt(camera.viewportWidth * camera.viewportHeight / maxGridPoints), (float) Math.sqrt(camera.viewportWidth * camera.viewportHeight / maxGridPoints));
+        grid = new Grid(new Rectangle(0, 0, camera.viewportWidth, camera.viewportHeight), gridSpacing);
         powerups = new Powerups(GameConstants.SUPER_FORCE, 2, Assets.instance.assetPowerup.super_force, true);
         instantPowerups = new InstantPowerups();
         world.setContactListener(new reactorContactListener());
-        AudioManager.instance.play(Assets.instance.music.background_music, 1);
+        Random r = new Random();
+        int musicTrackNumber = r.nextInt(3);
+        if (musicTrackNumber == 0) {
+            AudioManager.instance.play(Assets.instance.music.background_music, 1);
+        } else if (musicTrackNumber == 1) {
+            AudioManager.instance.play(Assets.instance.music.background_music2, 1);
+        } else if (musicTrackNumber == 2) {
+            AudioManager.instance.play(Assets.instance.music.background_music3, 1);
+        }
     }
 
     public void resize(int width, int height) {
@@ -350,6 +364,7 @@ public class WorldController {
                     firstTutorialCounter++;
                 }
             }
+            grid.Update();
             updateHero();
             updateParticles();
             updateSpikes();
@@ -364,6 +379,7 @@ public class WorldController {
                         getWidth() / 2,
                 (hero.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - hero.getSprite().getHeight() / 2
         );
+        grid.ApplyImplosiveForce(30f, new Vector2((hero.getSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(hero.getSprite().getY()) + (camera.viewportHeight / 2)), 100f);
     }
 
     private void updateDeltaTime(float scaleFactor) {
@@ -428,6 +444,7 @@ public class WorldController {
             if (startBonusCounter) {
                 particleStreakCount++;
                 bonusStreak++;
+                playKillStreakSounds(bonusStreak);
                 bonusCounter = 0;
             } else {
                 startBonusCounter = true;
@@ -813,6 +830,7 @@ public class WorldController {
                                 getWidth() / 2,
                         (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
                 );
+                grid.ApplyImplosiveForce(30f, new Vector2((particle.getSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(particle.getSprite().getY()) + (camera.viewportHeight / 2)), 100f);
             }
         }
     }
@@ -858,6 +876,7 @@ public class WorldController {
                         getWidth() / 2,
                 (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
         );
+        grid.ApplyImplosiveForce(30f, new Vector2((particle.getAnimatedSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(particle.getAnimatedSprite().getY()) + (camera.viewportHeight / 2)), 100f);
     }
 
     private void updateInvisibleParticles(Particle particle) {
@@ -1082,6 +1101,30 @@ public class WorldController {
             AudioManager.instance.play(Assets.instance.sounds.invincible);
         } else if (GameConstants.ARMOR.equals(type)) {
             AudioManager.instance.play(Assets.instance.sounds.armor);
+        }
+    }
+
+    private void playKillStreakSounds(int bonusStreak) {
+        if ((bonusStreak % 100) == 0) {
+            AudioManager.instance.play(Assets.instance.sounds.holyshit);
+        } else if (bonusStreak == 90) {
+            AudioManager.instance.play(Assets.instance.sounds.rampage);
+        } else if (bonusStreak == 80) {
+            AudioManager.instance.play(Assets.instance.sounds.ultrakill);
+        } else if (bonusStreak == 70) {
+            AudioManager.instance.play(Assets.instance.sounds.godlike);
+        } else if (bonusStreak == 60) {
+            AudioManager.instance.play(Assets.instance.sounds.monsterkill);
+        } else if (bonusStreak == 50) {
+            AudioManager.instance.play(Assets.instance.sounds.wickedsick);
+        } else if (bonusStreak == 40) {
+            AudioManager.instance.play(Assets.instance.sounds.unstoppable);
+        } else if (bonusStreak == 30) {
+            AudioManager.instance.play(Assets.instance.sounds.megakill);
+        } else if (bonusStreak == 20) {
+            AudioManager.instance.play(Assets.instance.sounds.dominating);
+        } else if (bonusStreak == 10) {
+            AudioManager.instance.play(Assets.instance.sounds.killingspree);
         }
     }
 

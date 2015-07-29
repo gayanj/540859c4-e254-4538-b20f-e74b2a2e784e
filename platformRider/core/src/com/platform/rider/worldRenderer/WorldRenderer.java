@@ -1,10 +1,14 @@
 package com.platform.rider.worldRenderer;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,6 +31,7 @@ public class WorldRenderer {
     private Matrix4 debugMatrix;
     private OrthographicCamera cameraGUI;
     private Viewport viewport;
+    private static ShapeRenderer debugRenderer;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -35,6 +40,7 @@ public class WorldRenderer {
 
     private void init() {
         batch = new SpriteBatch();
+        debugRenderer = new ShapeRenderer();
         b2debugRenderer = new Box2DDebugRenderer();
         cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
         viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, cameraGUI);
@@ -45,13 +51,19 @@ public class WorldRenderer {
 
     public void render() {
         renderWorld();
-        renderGui(batch);
+        renderGui();
     }
 
     private void renderWorld() {
         batch.setProjectionMatrix(worldController.camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(GameConstants.PIXELS_TO_METERS,
                 GameConstants.PIXELS_TO_METERS, 0);
+        batch.begin();
+        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+        worldController.grid.Draw(cameraGUI.combined);
+        debugRenderer.end();
+        batch.end();
+        //renderBackground(batch);
         batch.begin();
         if (!worldController.isGameOver()) {
             worldController.hero.render(batch);
@@ -99,7 +111,7 @@ public class WorldRenderer {
         //batch.dispose();
     }
 
-    private void renderGui(SpriteBatch batch) {
+    private void renderGui() {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
         // draw collected gold coins icon + text
@@ -109,7 +121,6 @@ public class WorldRenderer {
         // draw game over text
         renderGuiGameOverMessage(batch);
         renderPowerButton(batch);
-        //renderBackground(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
         if(GamePreferences.instance.renderFirstTutorial) {
@@ -263,5 +274,15 @@ public class WorldRenderer {
 
     private void renderTutorialArrow(SpriteBatch batch) {
         worldController.tutorialArrow.render(batch);
+    }
+
+    public static void DrawDebugLine(Vector2 start, Vector2 end, float lineWidth, Color color, Matrix4 projectionMatrix) {
+        Gdx.gl.glLineWidth(1);
+        debugRenderer.setProjectionMatrix(projectionMatrix);
+        //debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+        debugRenderer.setColor(color);
+        debugRenderer.line(start, end);
+        //debugRenderer.end();
+        Gdx.gl.glLineWidth(1);
     }
 }

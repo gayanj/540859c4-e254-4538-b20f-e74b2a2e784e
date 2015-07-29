@@ -388,6 +388,17 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Sound energy;
         public final Sound invincible;
 
+        public final Sound killingspree;
+        public final Sound dominating;
+        public final Sound megakill;
+        public final Sound unstoppable;
+        public final Sound wickedsick;
+        public final Sound monsterkill;
+        public final Sound godlike;
+        public final Sound ultrakill;
+        public final Sound rampage;
+        public final Sound holyshit;
+
         public AssetSounds (AssetManager assetManager) {
             particle_death = assetManager.get(GameConstants.PARTICLE_DEATH_SOUND, Sound.class);
             hero_death = assetManager.get(GameConstants.HERO_DEATH_SOUND, Sound.class);
@@ -397,16 +408,31 @@ public class Assets implements Disposable, AssetErrorListener {
             speed = assetManager.get(GameConstants.SPEED_SOUND, Sound.class);
             energy = assetManager.get(GameConstants.ENERGY_SOUND, Sound.class);
             invincible = assetManager.get(GameConstants.INVINCIBLE_SOUND, Sound.class);
+
+            killingspree = assetManager.get(GameConstants.KILLINGSPREE, Sound.class);
+            dominating = assetManager.get(GameConstants.DOMINATING, Sound.class);
+            megakill = assetManager.get(GameConstants.MEGAKILL, Sound.class);
+            unstoppable = assetManager.get(GameConstants.UNSTOPPABLE, Sound.class);
+            wickedsick = assetManager.get(GameConstants.WICKEDSICK, Sound.class);
+            monsterkill = assetManager.get(GameConstants.MONSTERKILL, Sound.class);
+            godlike = assetManager.get(GameConstants.GODLIKE, Sound.class);
+            ultrakill = assetManager.get(GameConstants.ULTRAKILL, Sound.class);
+            rampage = assetManager.get(GameConstants.RAMPAGE, Sound.class);
+            holyshit = assetManager.get(GameConstants.HOLYSHIT, Sound.class);
         }
     }
 
     public class AssetMusic {
         public final Music background_music;
+        public final Music background_music2;
+        public final Music background_music3;
         public final Music menu_music;
         public final Music alert;
 
         public AssetMusic (AssetManager assetManager) {
             background_music = assetManager.get(GameConstants.BACKGROUND_MUSIC, Music.class);
+            background_music2 = assetManager.get(GameConstants.BACKGROUND_MUSIC2, Music.class);
+            background_music3 = assetManager.get(GameConstants.BACKGROUND_MUSIC3, Music.class);
             menu_music = assetManager.get(GameConstants.MENU_MUSIC, Music.class);
             alert = assetManager.get(GameConstants.ALERT_SOUND, Music.class);
         }

@@ -139,8 +139,33 @@ public class LoadingScreen extends AbstractGameScreen {
                 Music.class);
         assetManager.load(GameConstants.BACKGROUND_MUSIC,
                 Music.class);
+        assetManager.load(GameConstants.BACKGROUND_MUSIC2,
+                Music.class);
+        assetManager.load(GameConstants.BACKGROUND_MUSIC3,
+                Music.class);
         assetManager.load(GameConstants.MENU_MUSIC,
                 Music.class);
+        //Kill streak sounds
+        assetManager.load(GameConstants.KILLINGSPREE,
+                Sound.class);
+        assetManager.load(GameConstants.DOMINATING,
+                Sound.class);
+        assetManager.load(GameConstants.MEGAKILL,
+                Sound.class);
+        assetManager.load(GameConstants.UNSTOPPABLE,
+                Sound.class);
+        assetManager.load(GameConstants.WICKEDSICK,
+                Sound.class);
+        assetManager.load(GameConstants.MONSTERKILL,
+                Sound.class);
+        assetManager.load(GameConstants.GODLIKE,
+                Sound.class);
+        assetManager.load(GameConstants.ULTRAKILL,
+                Sound.class);
+        assetManager.load(GameConstants.RAMPAGE,
+                Sound.class);
+        assetManager.load(GameConstants.HOLYSHIT,
+                Sound.class);
     }
 
     @Override

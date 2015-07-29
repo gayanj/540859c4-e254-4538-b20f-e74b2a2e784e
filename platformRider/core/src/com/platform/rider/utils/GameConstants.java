@@ -126,9 +126,46 @@ public class GameConstants {
     public static final String ALERT_SOUND =
             "sounds/alert.ogg";
 
+    // Kill streak sounds
+    public static final String KILLINGSPREE =
+            "sounds/killingspree.ogg";
+
+    public static final String DOMINATING =
+            "sounds/dominating.ogg";
+
+    public static final String MEGAKILL =
+            "sounds/megakill.ogg";
+
+    public static final String UNSTOPPABLE =
+            "sounds/unstoppable.ogg";
+
+    public static final String WICKEDSICK =
+            "sounds/wickedsick.ogg";
+
+    public static final String MONSTERKILL =
+            "sounds/monsterkill.ogg";
+
+    public static final String GODLIKE =
+            "sounds/godlike.ogg";
+
+    public static final String ULTRAKILL =
+            "sounds/ultrakill.ogg";
+
+    public static final String RAMPAGE =
+            "sounds/rampage.ogg";
+
+    public static final String HOLYSHIT =
+            "sounds/holyshit.ogg";
+
     // Location of description file for background music
     public static final String BACKGROUND_MUSIC =
             "music/background.ogg";
+
+    public static final String BACKGROUND_MUSIC2 =
+            "music/background2.ogg";
+
+    public static final String BACKGROUND_MUSIC3 =
+            "music/background3.ogg";
 
     // Location of description file for menu music
     public static final String MENU_MUSIC =
