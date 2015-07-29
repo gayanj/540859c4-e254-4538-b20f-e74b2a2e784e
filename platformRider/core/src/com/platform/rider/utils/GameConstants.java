@@ -167,6 +167,15 @@ public class GameConstants {
     public static final String BACKGROUND_MUSIC3 =
             "music/background3.ogg";
 
+    public static final String BACKGROUND_MUSIC4 =
+            "music/background4.ogg";
+
+    public static final String BACKGROUND_MUSIC5 =
+            "music/background5.ogg";
+
+    public static final String BACKGROUND_MUSIC6 =
+            "music/background6.ogg";
+
     // Location of description file for menu music
     public static final String MENU_MUSIC =
             "music/menu.ogg";

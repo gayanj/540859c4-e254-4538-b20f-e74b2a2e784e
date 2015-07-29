@@ -426,6 +426,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Music background_music;
         public final Music background_music2;
         public final Music background_music3;
+        public final Music background_music4;
+        public final Music background_music5;
         public final Music menu_music;
         public final Music alert;
 
@@ -433,6 +435,8 @@ public class Assets implements Disposable, AssetErrorListener {
             background_music = assetManager.get(GameConstants.BACKGROUND_MUSIC, Music.class);
             background_music2 = assetManager.get(GameConstants.BACKGROUND_MUSIC2, Music.class);
             background_music3 = assetManager.get(GameConstants.BACKGROUND_MUSIC3, Music.class);
+            background_music4 = assetManager.get(GameConstants.BACKGROUND_MUSIC4, Music.class);
+            background_music5 = assetManager.get(GameConstants.BACKGROUND_MUSIC5, Music.class);
             menu_music = assetManager.get(GameConstants.MENU_MUSIC, Music.class);
             alert = assetManager.get(GameConstants.ALERT_SOUND, Music.class);
         }

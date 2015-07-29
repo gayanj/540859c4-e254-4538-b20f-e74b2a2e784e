@@ -124,13 +124,17 @@ public class WorldController {
         instantPowerups = new InstantPowerups();
         world.setContactListener(new reactorContactListener());
         Random r = new Random();
-        int musicTrackNumber = r.nextInt(3);
+        int musicTrackNumber = r.nextInt(5);
         if (musicTrackNumber == 0) {
             AudioManager.instance.play(Assets.instance.music.background_music, 1);
         } else if (musicTrackNumber == 1) {
             AudioManager.instance.play(Assets.instance.music.background_music2, 1);
         } else if (musicTrackNumber == 2) {
             AudioManager.instance.play(Assets.instance.music.background_music3, 1);
+        }else if (musicTrackNumber == 3) {
+            AudioManager.instance.play(Assets.instance.music.background_music4, 1);
+        }else if (musicTrackNumber == 4) {
+            AudioManager.instance.play(Assets.instance.music.background_music5, 1);
         }
     }
 

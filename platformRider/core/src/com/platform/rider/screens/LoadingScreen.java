@@ -143,6 +143,10 @@ public class LoadingScreen extends AbstractGameScreen {
                 Music.class);
         assetManager.load(GameConstants.BACKGROUND_MUSIC3,
                 Music.class);
+        assetManager.load(GameConstants.BACKGROUND_MUSIC4,
+                Music.class);
+        assetManager.load(GameConstants.BACKGROUND_MUSIC5,
+                Music.class);
         assetManager.load(GameConstants.MENU_MUSIC,
                 Music.class);
         //Kill streak sounds
