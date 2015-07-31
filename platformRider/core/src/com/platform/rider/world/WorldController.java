@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -42,7 +43,7 @@ public class WorldController {
     public TutorialBox tutorialBox;
     public Vector2 gridSpacing;
     public Grid grid;
-    int maxGridPoints = 500;
+    int maxGridPoints = 455;
     public HashMap<String, ParticleBurstAnimation> particleBurstHashMap = new HashMap<String, ParticleBurstAnimation>();
     public HashMap<String, Power> powerupHashMap = new HashMap<String, Power>();
     public HashMap<String, Explosion> explosionHashMap = new HashMap<String, Explosion>();
@@ -71,6 +72,9 @@ public class WorldController {
     int firstTutorialCounter = 0;
     public int secondTutorialCounter = 0;
     boolean gameOver = false;
+    boolean renderKillStreak = false;
+    int killStreakCounter = 0;
+    int killStreakToRender;
     public boolean pause = false;
     Array<Vector2> splitParticlePosition = new Array<Vector2>();
 
@@ -342,6 +346,7 @@ public class WorldController {
             destroyDeathSaws();
             increaseDifficulty();
             checkBonusStreak();
+            checkKillStreak();
             checkPowerups();
             checkHeroEnergy();
             createRandomPowerup();
@@ -383,7 +388,8 @@ public class WorldController {
                         getWidth() / 2,
                 (hero.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - hero.getSprite().getHeight() / 2
         );
-        grid.ApplyImplosiveForce(30f, new Vector2((hero.getSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(hero.getSprite().getY()) + (camera.viewportHeight / 2)), 100f);
+        grid.ApplyDirectedForce(new Vector3(hero.getBody().getLinearVelocity(),0), new Vector3((hero.getSprite().getX() + hero.getSprite().
+                getWidth() / 2) + (camera.viewportWidth / 2), -(hero.getSprite().getY() + hero.getSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
     }
 
     private void updateDeltaTime(float scaleFactor) {
@@ -834,7 +840,8 @@ public class WorldController {
                                 getWidth() / 2,
                         (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
                 );
-                grid.ApplyImplosiveForce(30f, new Vector2((particle.getSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(particle.getSprite().getY()) + (camera.viewportHeight / 2)), 100f);
+                grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(),0), new Vector3((particle.getSprite().getX() + particle.getSprite().
+                        getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getSprite().getY() + particle.getSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
             }
         }
     }
@@ -880,7 +887,8 @@ public class WorldController {
                         getWidth() / 2,
                 (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
         );
-        grid.ApplyImplosiveForce(30f, new Vector2((particle.getAnimatedSprite().getX() + gridSpacing.x) + (camera.viewportWidth / 2), -(particle.getAnimatedSprite().getY()) + (camera.viewportHeight / 2)), 100f);
+        grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(),0), new Vector3((particle.getAnimatedSprite().getX() + particle.getAnimatedSprite().
+                getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getAnimatedSprite().getY() + particle.getAnimatedSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
     }
 
     private void updateInvisibleParticles(Particle particle) {
@@ -1111,24 +1119,53 @@ public class WorldController {
     private void playKillStreakSounds(int bonusStreak) {
         if ((bonusStreak % 100) == 0) {
             AudioManager.instance.play(Assets.instance.sounds.holyshit);
+            renderKillStreak = true;
+            killStreakToRender = 10;
         } else if (bonusStreak == 90) {
             AudioManager.instance.play(Assets.instance.sounds.rampage);
+            renderKillStreak = true;
+            killStreakToRender = 9;
         } else if (bonusStreak == 80) {
             AudioManager.instance.play(Assets.instance.sounds.ultrakill);
+            renderKillStreak = true;
+            killStreakToRender = 8;
         } else if (bonusStreak == 70) {
             AudioManager.instance.play(Assets.instance.sounds.godlike);
+            renderKillStreak = true;
+            killStreakToRender = 7;
         } else if (bonusStreak == 60) {
             AudioManager.instance.play(Assets.instance.sounds.monsterkill);
+            renderKillStreak = true;
+            killStreakToRender = 6;
         } else if (bonusStreak == 50) {
             AudioManager.instance.play(Assets.instance.sounds.wickedsick);
+            renderKillStreak = true;
+            killStreakToRender = 5;
         } else if (bonusStreak == 40) {
             AudioManager.instance.play(Assets.instance.sounds.unstoppable);
+            renderKillStreak = true;
+            killStreakToRender = 4;
         } else if (bonusStreak == 30) {
             AudioManager.instance.play(Assets.instance.sounds.megakill);
+            renderKillStreak = true;
+            killStreakToRender = 3;
         } else if (bonusStreak == 20) {
             AudioManager.instance.play(Assets.instance.sounds.dominating);
+            renderKillStreak = true;
+            killStreakToRender = 2;
         } else if (bonusStreak == 10) {
             AudioManager.instance.play(Assets.instance.sounds.killingspree);
+            renderKillStreak = true;
+            killStreakToRender = 1;
+        }
+    }
+
+    public void checkKillStreak(){
+        if(renderKillStreak && killStreakCounter < 100){
+            killStreakCounter++;
+        }else{
+            renderKillStreak = false;
+            killStreakCounter = 0;
         }
     }
 
@@ -1138,5 +1175,13 @@ public class WorldController {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean isRenderKillStreak() {
+        return renderKillStreak;
+    }
+
+    public int getKillStreakToRender() {
+        return killStreakToRender;
     }
 }

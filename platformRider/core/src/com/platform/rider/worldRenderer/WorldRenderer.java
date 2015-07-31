@@ -18,6 +18,7 @@ import com.platform.rider.utils.GameConstants;
 import com.platform.rider.utils.GamePreferences;
 import com.platform.rider.world.WorldController;
 
+import javax.microedition.khronos.opengles.GL10;
 import java.util.Map;
 
 /**
@@ -123,6 +124,9 @@ public class WorldRenderer {
         renderPowerButton(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
+        if (!worldController.isGameOver()) {
+            renderKillStreakText(batch);
+        }
         if(GamePreferences.instance.renderFirstTutorial) {
             renderTutorialArrow(batch);
         }
@@ -145,6 +149,13 @@ public class WorldRenderer {
                 x, y);
         Assets.instance.fonts.defaultNormal.draw(batch, "" + worldController.getScore(),
                 x, y + 40);
+
+        //TODO: Remove this from production code :)
+        Assets.instance.fonts.defaultNormal.draw(batch,
+                "FPS: ",cameraGUI.viewportWidth / 2 - 100, y);
+        Assets.instance.fonts.defaultNormal.draw(batch,
+                Gdx.graphics.getFramesPerSecond()+"",
+                cameraGUI.viewportWidth / 2, 0);
     }
 
     private void renderBonusSreak(SpriteBatch batch) {
@@ -167,7 +178,6 @@ public class WorldRenderer {
             BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
             fontGameOver.drawMultiLine(batch, "GAME OVER", x, y, 0,
                     BitmapFont.HAlignment.CENTER);
-            fontGameOver.setColor(1, 1, 1, 1);
         }
     }
 
@@ -277,12 +287,54 @@ public class WorldRenderer {
     }
 
     public static void DrawDebugLine(Vector2 start, Vector2 end, float lineWidth, Color color, Matrix4 projectionMatrix) {
-        Gdx.gl.glLineWidth(1);
+        Gdx.gl.glEnable(GL10.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glLineWidth(2);
         debugRenderer.setProjectionMatrix(projectionMatrix);
         //debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         debugRenderer.setColor(color);
         debugRenderer.line(start, end);
         //debugRenderer.end();
         Gdx.gl.glLineWidth(1);
+        Gdx.gl.glDisable(GL10.GL_BLEND);
+    }
+
+    public void renderKillStreakText(SpriteBatch batch){
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.isRenderKillStreak()) {
+            BitmapFont fontKillStreak = Assets.instance.fonts.defaultBig;
+            if(worldController.getKillStreakToRender() == 1) {
+                fontKillStreak.drawMultiLine(batch, "KILLING SPREE!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 2){
+                fontKillStreak.drawMultiLine(batch, "DOMINATING!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 3){
+                fontKillStreak.drawMultiLine(batch, "MEGA KILL!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 4){
+                fontKillStreak.drawMultiLine(batch, "UNSTOPPABLE!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 5){
+                fontKillStreak.drawMultiLine(batch, "WICKED SICK!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 6){
+                fontKillStreak.drawMultiLine(batch, "MONSTER KILL!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 7){
+                fontKillStreak.drawMultiLine(batch, "GODLIKE!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 8){
+                fontKillStreak.drawMultiLine(batch, "ULTRA KILL!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 9){
+                fontKillStreak.drawMultiLine(batch, "RAMPAGE!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }else if(worldController.getKillStreakToRender() == 10){
+                fontKillStreak.drawMultiLine(batch, "BEYOND GODLIKE!", x, y, 0,
+                        BitmapFont.HAlignment.CENTER);
+            }
+        }
     }
 }

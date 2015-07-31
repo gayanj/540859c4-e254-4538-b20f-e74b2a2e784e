@@ -1,13 +1,9 @@
 package com.platform.rider.utils;
 
 /**
- * Created by Gayan on 7/16/2015.
+ * Created by Gayan on 7/31/2015.
  */
-public interface IActivityRequestHandler {
-    public void showAds(boolean show);
-
-    public void showInterstitialAd();
-
+public interface IGoogleServices {
     public void signIn();
 
     public void signOut();

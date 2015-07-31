@@ -54,6 +54,7 @@ public class MenuScreen extends AbstractGameScreen{
         cameraGUI.setToOrtho(true,viewport.getWorldWidth(),viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
         AudioManager.instance.play(Assets.instance.music.menu_music, 1);
+        AnyDirection.myRequestHandler.signIn();
     }
 
     @Override

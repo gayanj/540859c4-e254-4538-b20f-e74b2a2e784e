@@ -3,10 +3,7 @@ package com.platform.rider.utils.grid;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 import com.platform.rider.worldRenderer.WorldRenderer;
 
 import java.util.ArrayList;
@@ -81,7 +78,7 @@ public class Grid {
         for (PointMass[] pointMasses : points) {
             for (PointMass pointMass : pointMasses) {
                 if (position.dst2(pointMass.position) < radius * radius)
-                    pointMass.ApplyForce(force.scl(10).scl(1 / (10 + position.dst(pointMass.position))));
+                    pointMass.ApplyForce(force.scl(20).scl(1 / (10 + position.dst(pointMass.position))));
             }
         }
     }
@@ -127,20 +124,10 @@ public class Grid {
         return brackets.scl(factor).add(new Vector2(screenSize).scl(0.5f));
     }
 
-    /*void drawLine(Vector2 start, Vector2 end, float lineWidth, Color color, Matrix4 projectionMatrix) {
-        //Gdx.gl.glLineWidth(lineWidth);
-        debugRenderer.setProjectionMatrix(projectionMatrix);
-        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
-        debugRenderer.setColor(Color.BLUE);
-        debugRenderer.line(start, end);
-        debugRenderer.end();
-        //Gdx.gl.glLineWidth(1);
-    }*/
-
     public void Draw(Matrix4 projectionMatrix) {
         int width = points.length;
         int height = points[0].length;
-        Color color = new Color(30 / 255f, 30 / 255f, 139 / 255f, 1);   // dark blue
+        Color color = new Color(0 / 255f, 43 / 255f, 255 / 255f, 0.2f);
 
         for (int y = 1; y < height; y++) {
             for (int x = 1; x < width; x++) {
