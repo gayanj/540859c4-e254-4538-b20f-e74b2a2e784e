@@ -73,6 +73,7 @@ public class WorldController {
     public int secondTutorialCounter = 0;
     boolean gameOver = false;
     boolean renderKillStreak = false;
+    boolean submitHighScore = false;
     int killStreakCounter = 0;
     int killStreakToRender;
     public boolean pause = false;
@@ -415,6 +416,7 @@ public class WorldController {
             score++;
             if (score > GamePreferences.instance.highscore) {
                 GamePreferences.instance.highscore = score;
+                submitHighScore = true;
             }
             if (GamePreferences.instance.highscore > 20 && !GamePreferences.instance.thirdStageCleared) {
                 createNewParticle(GameConstants.NORMAL_PARTICLE);
@@ -1085,6 +1087,10 @@ public class WorldController {
                 entry.getValue().getPooledEffects().clear();
             }
             GamePreferences.instance.save();
+            if(submitHighScore) {
+                AnyDirection.myRequestHandler.submitScore(GamePreferences.instance.highscore);
+                submitHighScore = false;
+            }
             backToMenu();
             //}
         }

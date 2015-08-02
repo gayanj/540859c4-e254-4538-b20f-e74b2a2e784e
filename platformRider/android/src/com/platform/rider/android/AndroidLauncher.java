@@ -32,11 +32,11 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     protected View gameView;
     private GameHelper _gameHelper;
     private final static int REQUEST_CODE_UNUSED = 9002;
+    private boolean isSignedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Create the GameHelper.
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -45,18 +45,20 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
         _gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
         _gameHelper.enableDebugLog(false);
-
         GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
             @Override
             public void onSignInSucceeded() {
+                isSignedIn = true;
             }
 
             @Override
             public void onSignInFailed() {
+                isSignedIn = false;
             }
         };
-
+        _gameHelper.setMaxAutoSignInAttempts(0);
         _gameHelper.setup(gameHelperListener);
+
         RelativeLayout layout = new RelativeLayout(this);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         layout.setLayoutParams(params);
@@ -149,6 +151,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     private void startAdvertising(AdView adView) {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+        adView.setVisibility(View.GONE);
     }
 
     @Override
@@ -225,7 +228,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
     @Override
     public boolean isSignedIn() {
-        return false;
+        return isSignedIn;
     }
 
     @Override

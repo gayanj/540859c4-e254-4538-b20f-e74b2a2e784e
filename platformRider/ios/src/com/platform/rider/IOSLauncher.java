@@ -29,4 +29,34 @@ public class IOSLauncher extends IOSApplication.Delegate implements IActivityReq
     public void showInterstitialAd() {
 
     }
+
+    @Override
+    public void signIn() {
+
+    }
+
+    @Override
+    public void signOut() {
+
+    }
+
+    @Override
+    public void rateGame() {
+
+    }
+
+    @Override
+    public void submitScore(long score) {
+
+    }
+
+    @Override
+    public void showScores() {
+
+    }
+
+    @Override
+    public boolean isSignedIn() {
+        return false;
+    }
 }

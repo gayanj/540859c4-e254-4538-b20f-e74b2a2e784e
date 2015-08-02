@@ -289,7 +289,7 @@ public class WorldRenderer {
     public static void DrawDebugLine(Vector2 start, Vector2 end, float lineWidth, Color color, Matrix4 projectionMatrix) {
         Gdx.gl.glEnable(GL10.GL_BLEND);
         Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glLineWidth(2);
+        Gdx.gl.glLineWidth(lineWidth);
         debugRenderer.setProjectionMatrix(projectionMatrix);
         //debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         debugRenderer.setColor(color);
