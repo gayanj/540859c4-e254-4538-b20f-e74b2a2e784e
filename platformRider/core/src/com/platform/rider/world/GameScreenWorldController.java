@@ -24,8 +24,8 @@ import java.util.*;
 /**
  * Created by Gayan on 3/23/2015.
  */
-public class WorldController {
-    private static final String TAG = WorldController.class.getName();
+public class GameScreenWorldController implements WorldControllerInterface{
+    private static final String TAG = GameScreenWorldController.class.getName();
     private Game game;
     public static float scaledWidth;
     public static float scaledHeight;
@@ -38,7 +38,6 @@ public class WorldController {
     public Powerups powerups;
     public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
-    public Background background;
     public TutorialArrow tutorialArrow;
     public TutorialBox tutorialBox;
     public Vector2 gridSpacing;
@@ -89,14 +88,15 @@ public class WorldController {
 
     public static float scale = 1;
 
-    public WorldController(Game game) {
+    public GameScreenWorldController(Game game) {
+        AnyDirection.myRequestHandler.showAds(false);
         scaledWidth = GameConstants.APP_WIDTH * 1.5f;
         scaledHeight = GameConstants.APP_HEIGHT * 1.5f;
         this.game = game;
         init();
     }
 
-    private void init() {
+    public void init() {
         initTouchpad();
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(touchPadHelper.getStage());
@@ -147,13 +147,12 @@ public class WorldController {
         viewport.update(width, height);
     }
 
-    private void initPhysics() {
+    public void initPhysics() {
         world = new World(new Vector2(0, 0), true);
         createHero();
         createParticles();
         createSpikes();
         createPowerButton();
-        createBackground();
         if (!GamePreferences.instance.firstTutorialCompleted) {
             createTutorialArrow();
             GamePreferences.instance.renderFirstTutorial = true;
@@ -206,13 +205,6 @@ public class WorldController {
         float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
         Vector2 position = new Vector2(x, y);
         powerupButton = new PowerupButton(position, world);
-    }
-
-    private void createBackground() {
-        float x = camera.viewportWidth / 2;
-        float y = camera.viewportHeight / 2;
-        Vector2 position = new Vector2(x, y);
-        background = new Background(position, world);
     }
 
     private void createTutorialArrow() {
@@ -394,7 +386,7 @@ public class WorldController {
     }
 
     private void updateDeltaTime(float scaleFactor) {
-        this.scale = scaleFactor;
+        scale = scaleFactor;
     }
 
     private void destroyParticles() {

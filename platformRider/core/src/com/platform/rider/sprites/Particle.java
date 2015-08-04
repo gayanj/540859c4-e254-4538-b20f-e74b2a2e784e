@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
-import com.platform.rider.world.WorldController;
+import com.platform.rider.world.GameScreenWorldController;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
@@ -214,7 +214,7 @@ public class Particle extends AbstractGameObject {
             if (invisibleCount < 300) {
                 if (invisible) {
                     animatedSprite.setAnimation(Assets.instance.assetAnimations.invisibleParticleAppearingAnimation);
-                    animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / WorldController.scale);
+                    animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / GameScreenWorldController.scale);
                     animatedSprite.draw(batch);
                     if (animatedSprite.isAnimationFinished()) {
                         animatedSprite.stop();
@@ -228,7 +228,7 @@ public class Particle extends AbstractGameObject {
                     }
                 } else {
                     animatedSprite.setAnimation(Assets.instance.assetAnimations.invisibleParticleDisappearingAnimation);
-                    animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / WorldController.scale);
+                    animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / GameScreenWorldController.scale);
                     animatedSprite.draw(batch);
                     if (animatedSprite.isAnimationFinished()) {
                         animatedSprite.stop();

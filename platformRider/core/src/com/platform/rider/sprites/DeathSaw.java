@@ -12,24 +12,25 @@ import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 /**
  * Created by Gayan on 5/9/2015.
  */
-public class DeathSaw extends AbstractGameObject{
+public class DeathSaw extends AbstractGameObject {
     int speedDelayCounter = 0;
     boolean speedIsSet = false;
     Vector2 speed;
+
     public DeathSaw(int xscale, int yscale, World world, String side, String userdata) {
         this.world = world;
         animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.deathSawAnimation);
         if (xscale == 0 && side.equals("R")) {
-            speed = new Vector2(-10,0);
+            speed = new Vector2(-10, 0);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         } else if (xscale == 0 && side.equals("L")) {
-            speed = new Vector2(10,0);
+            speed = new Vector2(10, 0);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
         } else if (yscale == 0 && side.equals("D")) {
-            speed = new Vector2(0,15);
+            speed = new Vector2(0, 15);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
         } else if (yscale == 0 && side.equals("U")) {
-            speed = new Vector2(0,-15);
+            speed = new Vector2(0, -15);
             animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
         }
 
@@ -50,7 +51,7 @@ public class DeathSaw extends AbstractGameObject{
 
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = GameConstants.SPRITE_3;
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_2|GameConstants.SPRITE_1;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_1;
 
         body.createFixture(fixtureDef);
         shape.dispose();
@@ -72,7 +73,7 @@ public class DeathSaw extends AbstractGameObject{
         this.position = position;
     }
 
-    public AnimatedSprite getAnimatedSprite(){
+    public AnimatedSprite getAnimatedSprite() {
         return this.animatedSprite;
     }
 
@@ -82,7 +83,7 @@ public class DeathSaw extends AbstractGameObject{
 
     @Override
     public void render(SpriteBatch batch) {
-        if(!speedIsSet) {
+        if (!speedIsSet) {
             if (speedDelayCounter > 15) {
                 body.setLinearVelocity(speed);
                 speedIsSet = true;

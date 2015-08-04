@@ -16,7 +16,7 @@ import com.platform.rider.assets.Assets;
 import com.platform.rider.sprites.*;
 import com.platform.rider.utils.GameConstants;
 import com.platform.rider.utils.GamePreferences;
-import com.platform.rider.world.WorldController;
+import com.platform.rider.world.GameScreenWorldController;
 
 import javax.microedition.khronos.opengles.GL10;
 import java.util.Map;
@@ -24,22 +24,22 @@ import java.util.Map;
 /**
  * Created by Gayan on 3/23/2015.
  */
-public class WorldRenderer {
-    private static final String TAG = WorldRenderer.class.getName();
+public class GameScreenWorldRenderer implements WorldRendererInterface{
+    private static final String TAG = GameScreenWorldRenderer.class.getName();
     private SpriteBatch batch;
-    private WorldController worldController;
+    private GameScreenWorldController gameScreenWorldController;
     private Box2DDebugRenderer b2debugRenderer;
     private Matrix4 debugMatrix;
     private OrthographicCamera cameraGUI;
     private Viewport viewport;
     private static ShapeRenderer debugRenderer;
 
-    public WorldRenderer(WorldController worldController) {
-        this.worldController = worldController;
+    public GameScreenWorldRenderer(GameScreenWorldController gameScreenWorldController) {
+        this.gameScreenWorldController = gameScreenWorldController;
         init();
     }
 
-    private void init() {
+    public void init() {
         batch = new SpriteBatch();
         debugRenderer = new ShapeRenderer();
         b2debugRenderer = new Box2DDebugRenderer();
@@ -56,18 +56,18 @@ public class WorldRenderer {
     }
 
     private void renderWorld() {
-        batch.setProjectionMatrix(worldController.camera.combined);
+        batch.setProjectionMatrix(gameScreenWorldController.camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(GameConstants.PIXELS_TO_METERS,
                 GameConstants.PIXELS_TO_METERS, 0);
         batch.begin();
         debugRenderer.begin(ShapeRenderer.ShapeType.Line);
-        worldController.grid.Draw(cameraGUI.combined);
+        //gameScreenWorldController.grid.Draw(cameraGUI.combined);
         debugRenderer.end();
         batch.end();
         //renderBackground(batch);
         batch.begin();
-        if (!worldController.isGameOver()) {
-            worldController.hero.render(batch);
+        if (!gameScreenWorldController.isGameOver()) {
+            gameScreenWorldController.hero.render(batch);
         }
         renderParticles();
         renderSpikes();
@@ -77,29 +77,29 @@ public class WorldRenderer {
         renderParticleBurst(batch);
         batch.end();
         //b2debugRenderer.render(worldController.world, debugMatrix);
-        worldController.touchPadHelper.render();
+        gameScreenWorldController.touchPadHelper.render();
     }
 
     private void renderParticles() {
-        for (Map.Entry<String, Particle> entry : worldController.particleHashMap.entrySet()) {
+        for (Map.Entry<String, Particle> entry : gameScreenWorldController.particleHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }
 
     private void renderSpikes() {
-        for (Map.Entry<String, Saw> entry : worldController.spikeHashMap.entrySet()) {
+        for (Map.Entry<String, Saw> entry : gameScreenWorldController.spikeHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }
 
     private void renderDeathSaws() {
-        for (Map.Entry<String, DeathSaw> entry : worldController.deathSawHashMap.entrySet()) {
+        for (Map.Entry<String, DeathSaw> entry : gameScreenWorldController.deathSawHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }
 
     private void renderPowerups() {
-        for (Map.Entry<String, Power> entry : worldController.powerupHashMap.entrySet()) {
+        for (Map.Entry<String, Power> entry : gameScreenWorldController.powerupHashMap.entrySet()) {
             entry.getValue().render(batch);
         }
     }
@@ -124,18 +124,18 @@ public class WorldRenderer {
         renderPowerButton(batch);
         renderPowerupInfo(batch);
         renderHeroEnergy(batch);
-        if (!worldController.isGameOver()) {
+        if (!gameScreenWorldController.isGameOver()) {
             renderKillStreakText(batch);
         }
         if(GamePreferences.instance.renderFirstTutorial) {
             renderTutorialArrow(batch);
         }
         if(GamePreferences.instance.firstTutorialCompleted && !GamePreferences.instance.secondTutorialCompleted){
-            if(worldController.secondTutorialCounter > 50) {
+            if(gameScreenWorldController.secondTutorialCounter > 50) {
                 renderTutorialBox(batch);
-                worldController.pause = true;
+                gameScreenWorldController.pause = true;
             }else{
-                worldController.secondTutorialCounter++;
+                gameScreenWorldController.secondTutorialCounter++;
             }
         }
         batch.end();
@@ -147,7 +147,7 @@ public class WorldRenderer {
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "SCORE",
                 x, y);
-        Assets.instance.fonts.defaultNormal.draw(batch, "" + worldController.getScore(),
+        Assets.instance.fonts.defaultNormal.draw(batch, "" + gameScreenWorldController.getScore(),
                 x, y + 40);
 
         //TODO: Remove this from production code :)
@@ -161,12 +161,12 @@ public class WorldRenderer {
     private void renderBonusSreak(SpriteBatch batch) {
         float x = cameraGUI.viewportWidth / 2 + 300;
         float y = 0;
-        if (worldController.getBonusStreak() > 0) {
+        if (gameScreenWorldController.getBonusStreak() > 0) {
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "COMBO",
                     x, y);
             Assets.instance.fonts.defaultNormal.draw(batch,
-                    worldController.getBonusStreak() + "X",
+                    gameScreenWorldController.getBonusStreak() + "X",
                     x, y + 40);
         }
     }
@@ -174,7 +174,7 @@ public class WorldRenderer {
     private void renderGuiGameOverMessage(SpriteBatch batch) {
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
-        if (worldController.isGameOver()) {
+        if (gameScreenWorldController.isGameOver()) {
             BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
             fontGameOver.drawMultiLine(batch, "GAME OVER", x, y, 0,
                     BitmapFont.HAlignment.CENTER);
@@ -185,45 +185,35 @@ public class WorldRenderer {
         //float x = 50;
         //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
         //if (!worldController.isGameOver()) {
-        worldController.powerupButton.render(batch);
-            /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
-                    x, y, 50, 50, 100, 100, 2, 2, 0);*/
-        //}
-    }
-
-    private void renderBackground(SpriteBatch batch) {
-        //float x = 50;
-        //float y = cameraGUI.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.getRotatedPackedHeight() - 50;
-        //if (!worldController.isGameOver()) {
-        worldController.background.render(batch);
+        gameScreenWorldController.powerupButton.render(batch);
             /*batch.draw(Assets.instance.assetLevelDecoration.powerbutton,
                     x, y, 50, 50, 100, 100, 2, 2, 0);*/
         //}
     }
 
     private void renderTutorialBox(SpriteBatch batch) {
-        worldController.tutorialBox.render(batch);
+        gameScreenWorldController.tutorialBox.render(batch);
     }
 
     private void renderExplosion(SpriteBatch batch) {
-        for (Map.Entry<String, Explosion> entry : worldController.explosionHashMap.entrySet()) {
+        for (Map.Entry<String, Explosion> entry : gameScreenWorldController.explosionHashMap.entrySet()) {
             if (entry.getValue().isBlast()) {
                 entry.getValue().render(batch);
                 if (entry.getValue().getAnimatedSprite().isAnimationFinished()) {
                     entry.getValue().setBlast(false);
-                    worldController.explosionsForRemoval.add(Integer.toString(entry.getValue().getHashMapIndex()));
+                    gameScreenWorldController.explosionsForRemoval.add(Integer.toString(entry.getValue().getHashMapIndex()));
                 }
             }
         }
     }
 
     private void renderParticleBurst(SpriteBatch batch) {
-        for (Map.Entry<String, ParticleBurstAnimation> entry : worldController.particleBurstHashMap.entrySet()) {
+        for (Map.Entry<String, ParticleBurstAnimation> entry : gameScreenWorldController.particleBurstHashMap.entrySet()) {
             if (entry.getValue().isBurst()) {
                 entry.getValue().render(batch);
                 if (entry.getValue().getAnimatedSprite().isAnimationFinished()) {
                     entry.getValue().setBurst(false);
-                    worldController.particleBurstsForRemoval.add(entry.getValue().getHashMapIndex());
+                    gameScreenWorldController.particleBurstsForRemoval.add(entry.getValue().getHashMapIndex());
                 }
             }
         }
@@ -232,8 +222,8 @@ public class WorldRenderer {
     private void renderPowerupInfo(SpriteBatch batch) {
         float x = cameraGUI.viewportWidth / 2 + 380;
         float y = 80;
-        if (worldController.powerups.isPickedUp() && worldController.powerups.getRemaining() >= 0) {
-            Sprite sprite = worldController.powerups.getSprite();
+        if (gameScreenWorldController.powerups.isPickedUp() && gameScreenWorldController.powerups.getRemaining() >= 0) {
+            Sprite sprite = gameScreenWorldController.powerups.getSprite();
             batch.draw(sprite,
                     x, y + 37,
                     sprite.getOriginX(), sprite.getOriginY(),
@@ -241,10 +231,10 @@ public class WorldRenderer {
                     sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
             );
             Assets.instance.fonts.defaultNormal.draw(batch,
-                    "X " + worldController.powerups.getRemaining(),
+                    "X " + gameScreenWorldController.powerups.getRemaining(),
                     x + 60, y + 37);
             //if(worldController.powerups.isActive()) {
-            int remainingTime = 50 - (worldController.powerups.getPowerCounter() / 10);
+            int remainingTime = 50 - (gameScreenWorldController.powerups.getPowerCounter() / 10);
             String timer = new String(new char[remainingTime]).replace("\0", "|");
             Assets.instance.fonts.energyOrange.draw(batch,
                     timer,
@@ -256,7 +246,7 @@ public class WorldRenderer {
     private void renderHeroEnergy(SpriteBatch batch){
         float x = 10;
         float y = 0;
-        int remainingEnergy = worldController.hero.getEnergy();
+        int remainingEnergy = gameScreenWorldController.hero.getEnergy();
         if(remainingEnergy >= 0) {
             String energy = new String(new char[remainingEnergy]).replace("\0", "|");
             Assets.instance.fonts.defaultNormal.draw(batch,
@@ -283,13 +273,13 @@ public class WorldRenderer {
     }
 
     private void renderTutorialArrow(SpriteBatch batch) {
-        worldController.tutorialArrow.render(batch);
+        gameScreenWorldController.tutorialArrow.render(batch);
     }
 
     public static void DrawDebugLine(Vector2 start, Vector2 end, float lineWidth, Color color, Matrix4 projectionMatrix) {
         Gdx.gl.glEnable(GL10.GL_BLEND);
         Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glLineWidth(lineWidth);
+        Gdx.gl.glLineWidth(1);
         debugRenderer.setProjectionMatrix(projectionMatrix);
         //debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         debugRenderer.setColor(color);
@@ -302,36 +292,36 @@ public class WorldRenderer {
     public void renderKillStreakText(SpriteBatch batch){
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
-        if (worldController.isRenderKillStreak()) {
+        if (gameScreenWorldController.isRenderKillStreak()) {
             BitmapFont fontKillStreak = Assets.instance.fonts.defaultBig;
-            if(worldController.getKillStreakToRender() == 1) {
+            if(gameScreenWorldController.getKillStreakToRender() == 1) {
                 fontKillStreak.drawMultiLine(batch, "KILLING SPREE!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 2){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 2){
                 fontKillStreak.drawMultiLine(batch, "DOMINATING!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 3){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 3){
                 fontKillStreak.drawMultiLine(batch, "MEGA KILL!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 4){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 4){
                 fontKillStreak.drawMultiLine(batch, "UNSTOPPABLE!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 5){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 5){
                 fontKillStreak.drawMultiLine(batch, "WICKED SICK!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 6){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 6){
                 fontKillStreak.drawMultiLine(batch, "MONSTER KILL!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 7){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 7){
                 fontKillStreak.drawMultiLine(batch, "GODLIKE!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 8){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 8){
                 fontKillStreak.drawMultiLine(batch, "ULTRA KILL!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 9){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 9){
                 fontKillStreak.drawMultiLine(batch, "RAMPAGE!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
-            }else if(worldController.getKillStreakToRender() == 10){
+            }else if(gameScreenWorldController.getKillStreakToRender() == 10){
                 fontKillStreak.drawMultiLine(batch, "BEYOND GODLIKE!", x, y, 0,
                         BitmapFont.HAlignment.CENTER);
             }

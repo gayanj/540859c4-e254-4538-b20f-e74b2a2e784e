@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.utils.GameConstants;
-import com.platform.rider.world.WorldController;
+import com.platform.rider.world.GameScreenWorldController;
 import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
@@ -118,7 +118,7 @@ public class Saw extends AbstractGameObject {
         //animatedBox2DSprite.draw(batch,this.getBody());
         //box2DSprite.draw(batch, body);
         //box2DSprite.draw(batch, fixture);
-        animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / WorldController.scale);
+        animatedSprite.getAnimation().setFrameDuration(GameConstants.FRAME_DURATION / GameScreenWorldController.scale);
         animatedSprite.draw(batch);
         //AnimatedBox2DSprite.draw(batch,getWorld());
     }

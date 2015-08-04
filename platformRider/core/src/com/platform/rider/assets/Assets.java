@@ -109,6 +109,13 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        TextureAtlas playButtonSawAnimationAtlas =
+                assetManager.get(GameConstants.TEXTURE_ATLAS_PLAY_BUTTON_SAW_ANIMATION);
+        // enable texture filtering for pixel smoothing
+        for (Texture t : playButtonSawAnimationAtlas.getTextures()) {
+            t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        }
+
         TextureAtlas suicideParticleAnimationAtlas =
                 assetManager.get(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION);
         // enable texture filtering for pixel smoothing
@@ -191,7 +198,8 @@ public class Assets implements Disposable, AssetErrorListener {
                 invisibleParticleAppearingAtlas, invisibleParticleDisappearingAtlas,
                 normalParticleDyingAnimationAtlas, splitParticleDyingAnimationAtlas,
                 invisibleParticleDyingAnimationAtlas, suicideParticleDyingAnimationAtlas,
-                heroParticleDyingAnimationAtlas,tutorialArrowAnimationAtlas);
+                heroParticleDyingAnimationAtlas,tutorialArrowAnimationAtlas,
+                playButtonSawAnimationAtlas);
         sounds = new AssetSounds(this.assetManager);
         music = new AssetMusic(this.assetManager);
     }
@@ -267,15 +275,13 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetLevelDecoration {
         public final TextureAtlas.AtlasRegion powerbutton;
+        public final TextureAtlas.AtlasRegion playbutton;
         public final TextureAtlas.AtlasRegion secondTutorial;
-        public final TextureAtlas.AtlasRegion energyLogo;
-        public final TextureAtlas.AtlasRegion background;
 
         public AssetLevelDecoration(TextureAtlas atlas) {
             powerbutton = atlas.findRegion("powerbutton");
+            playbutton = atlas.findRegion("playbutton");
             secondTutorial = atlas.findRegion("secondTutorial");
-            energyLogo = atlas.findRegion("energyLogo");
-            background = atlas.findRegion("background");
         }
     }
 
@@ -323,6 +329,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetAnimations {
         public final Animation spikeAnimation;
         public final Animation deathSawAnimation;
+        public final Animation playButtonSawAnimation;
         public final Animation suicideParticleAnimation;
         public final Animation explosionParticleAnimation;
         public final Animation invisibleParticleAppearingAnimation;
@@ -339,12 +346,15 @@ public class Assets implements Disposable, AssetErrorListener {
                                TextureAtlas invisibleParticleDisappearingAtlas, TextureAtlas normalParticleDyingAnimationAtlas,
                                TextureAtlas splitParticleDyingAnimationAtlas, TextureAtlas invisibleParticleDyingAnimationAtlas,
                                TextureAtlas suicideParticleDyingAnimationAtlas, TextureAtlas heroParticleDyingAnimationAtlas,
-                               TextureAtlas tutorialArrowAnimationAtlas) {
+                               TextureAtlas tutorialArrowAnimationAtlas,TextureAtlas playButtonSawAnimationAtlas) {
             spikeAnimation = new Animation(GameConstants.FRAME_DURATION, spikeAtlas.getRegions());
             spikeAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
             deathSawAnimation = new Animation(GameConstants.FRAME_DURATION, deathSawAtlas.getRegions());
             deathSawAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+            playButtonSawAnimation = new Animation(GameConstants.FRAME_DURATION, playButtonSawAnimationAtlas.getRegions());
+            playButtonSawAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
             suicideParticleAnimation = new Animation(GameConstants.FRAME_DURATION, suicideParticleAtlas.getRegions());
             suicideParticleAnimation.setPlayMode(Animation.PlayMode.LOOP);

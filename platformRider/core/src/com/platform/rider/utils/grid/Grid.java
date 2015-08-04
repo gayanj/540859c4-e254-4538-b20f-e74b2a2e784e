@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.*;
-import com.platform.rider.worldRenderer.WorldRenderer;
+import com.platform.rider.worldRenderer.GameScreenWorldRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,17 +137,17 @@ public class Grid {
                 if (x > 1) {
                     left = ToVec2(points[x - 1][y].position);
                     float thickness = y % 3 == 1 ? 3f : 1f;
-                    WorldRenderer.DrawDebugLine(left, p, thickness, color, projectionMatrix);
+                    GameScreenWorldRenderer.DrawDebugLine(left, p, thickness, color, projectionMatrix);
                 }
                 if (y > 1) {
                     up = ToVec2(points[x][y - 1].position);
                     float thickness = x % 3 == 1 ? 3f : 1f;
-                    WorldRenderer.DrawDebugLine(up, p, thickness, color, projectionMatrix);
+                    GameScreenWorldRenderer.DrawDebugLine(up, p, thickness, color, projectionMatrix);
                 }
                 if (x > 1 && y > 1) {
                     Vector2 upLeft = ToVec2(points[x - 1][y - 1].position);
-                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(up)).scl(0.5f), (new Vector2(left).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // vertical line
-                    WorldRenderer.DrawDebugLine((new Vector2(upLeft).add(left)).scl(0.5f), (new Vector2(up).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // horizontal line
+                    GameScreenWorldRenderer.DrawDebugLine((new Vector2(upLeft).add(up)).scl(0.5f), (new Vector2(left).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // vertical line
+                    GameScreenWorldRenderer.DrawDebugLine((new Vector2(upLeft).add(left)).scl(0.5f), (new Vector2(up).add(p)).scl(0.5f), 1f, color, projectionMatrix);   // horizontal line
                 }
             }
         }

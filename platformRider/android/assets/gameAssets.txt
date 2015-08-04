@@ -4,112 +4,105 @@ filter: Linear,Linear
 repeat: none
 secondTutorial
   rotate: false
-  xy: 1084, 2
+  xy: 2, 2
   size: 438, 184
   orig: 438, 184
   offset: 0, 0
   index: -1
 splitparticle
   rotate: false
-  xy: 230, 1924
+  xy: 244, 210
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 armor
   rotate: false
-  xy: 704, 1924
+  xy: 350, 292
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 super_force
   rotate: false
-  xy: 548, 1924
+  xy: 442, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-energyLogo
-  rotate: false
-  xy: 1657, 2
-  size: 92, 159
-  orig: 92, 159
-  offset: 0, 0
-  index: -1
 slow_motion
   rotate: false
-  xy: 600, 1924
+  xy: 442, 106
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 invincibility
   rotate: false
-  xy: 652, 1924
+  xy: 350, 188
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 hero
   rotate: false
-  xy: 442, 1924
+  xy: 402, 316
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
+playbutton
+  rotate: false
+  xy: 2, 210
+  size: 134, 152
+  orig: 152, 152
+  offset: 10, 0
+  index: -1
 powerbutton
   rotate: false
-  xy: 2, 1924
+  xy: 135, 364
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 336, 1924
+  xy: 402, 210
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 mass_death
   rotate: false
-  xy: 600, 1976
+  xy: 442, 158
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 spike
   rotate: false
-  xy: 1524, 2
+  xy: 2, 364
   size: 131, 130
   orig: 131, 132
   offset: 0, 1
   index: -1
 suicideparticle
   rotate: false
-  xy: 124, 1924
+  xy: 138, 210
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
-background
-  rotate: false
-  xy: 2, 2
-  size: 1080, 1920
-  orig: 1080, 1920
-  offset: 0, 0
-  index: -1
 energy
   rotate: false
-  xy: 652, 1976
+  xy: 350, 240
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 speed
   rotate: false
-  xy: 548, 1976
+  xy: 442, 54
   size: 50, 50
   orig: 50, 50
   offset: 0, 0

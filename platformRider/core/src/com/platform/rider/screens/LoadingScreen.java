@@ -89,6 +89,9 @@ public class LoadingScreen extends AbstractGameScreen {
         assetManager.load(GameConstants.TEXTURE_ATLAS_DEATH_SAW_ANIMATION,
                 TextureAtlas.class);
         // load texture atlas
+        assetManager.load(GameConstants.TEXTURE_ATLAS_PLAY_BUTTON_SAW_ANIMATION,
+                TextureAtlas.class);
+        // load texture atlas
         assetManager.load(GameConstants.TEXTURE_ATLAS_SUICIDE_PARTICAL_ANIMATION,
                 TextureAtlas.class);
         // load texture atlas

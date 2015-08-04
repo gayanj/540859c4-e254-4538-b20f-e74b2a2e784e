@@ -4,442 +4,442 @@ filter: Linear,Linear
 repeat: none
 deathSpikeAnimation_
   rotate: false
-  xy: 556, 282
-  size: 136, 138
-  orig: 188, 188
-  offset: 26, 25
-  index: 5
-deathSpikeAnimation_
-  rotate: false
-  xy: 554, 422
-  size: 136, 136
-  orig: 188, 188
-  offset: 26, 26
-  index: 40
-deathSpikeAnimation_
-  rotate: false
-  xy: 830, 694
-  size: 136, 136
-  orig: 188, 188
-  offset: 25, 26
-  index: 34
-deathSpikeAnimation_
-  rotate: false
-  xy: 682, 972
+  xy: 274, 824
   size: 134, 134
   orig: 188, 188
   offset: 27, 27
+  index: 5
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 552
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 40
+deathSpikeAnimation_
+  rotate: false
+  xy: 682, 548
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 34
+deathSpikeAnimation_
+  rotate: false
+  xy: 270, 960
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
   index: 17
 deathSpikeAnimation_
   rotate: false
-  xy: 416, 834
-  size: 134, 136
+  xy: 690, 276
+  size: 134, 134
   orig: 188, 188
-  offset: 27, 26
+  offset: 27, 27
   index: 59
 deathSpikeAnimation_
   rotate: false
-  xy: 554, 698
+  xy: 830, 140
   size: 136, 134
   orig: 188, 188
   offset: 26, 27
   index: 12
 deathSpikeAnimation_
   rotate: false
-  xy: 562, 142
-  size: 138, 138
+  xy: 278, 140
+  size: 136, 136
   orig: 188, 188
-  offset: 25, 25
+  offset: 26, 26
   index: 7
 deathSpikeAnimation_
   rotate: false
-  xy: 280, 282
-  size: 136, 138
+  xy: 274, 552
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 26
+  offset: 27, 27
   index: 36
 deathSpikeAnimation_
   rotate: false
-  xy: 140, 560
-  size: 136, 136
+  xy: 818, 548
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 27
+  offset: 26, 28
   index: 29
 deathSpikeAnimation_
   rotate: false
-  xy: 694, 282
-  size: 136, 136
+  xy: 554, 276
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 26
+  offset: 27, 27
   index: 60
 deathSpikeAnimation_
   rotate: false
-  xy: 842, 142
-  size: 138, 136
-  orig: 188, 188
-  offset: 24, 26
-  index: 54
-deathSpikeAnimation_
-  rotate: false
-  xy: 278, 698
+  xy: 278, 2
   size: 136, 136
   orig: 188, 188
   offset: 26, 26
+  index: 54
+deathSpikeAnimation_
+  rotate: false
+  xy: 546, 820
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
   index: 2
 deathSpikeAnimation_
   rotate: false
-  xy: 702, 2
-  size: 138, 138
+  xy: 410, 548
+  size: 134, 134
   orig: 188, 188
-  offset: 24, 26
+  offset: 27, 27
   index: 41
 deathSpikeAnimation_
   rotate: false
-  xy: 552, 834
-  size: 134, 136
+  xy: 546, 548
+  size: 134, 134
   orig: 188, 188
   offset: 27, 27
   index: 35
 deathSpikeAnimation_
   rotate: false
-  xy: 416, 560
+  xy: 830, 2
   size: 136, 136
   orig: 188, 188
-  offset: 26, 26
+  offset: 25, 26
   index: 24
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 972
-  size: 134, 134
+  xy: 682, 954
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 48
 deathSpikeAnimation_
   rotate: false
-  xy: 142, 2
-  size: 138, 138
+  xy: 414, 412
+  size: 134, 134
   orig: 188, 188
-  offset: 24, 25
+  offset: 27, 27
   index: 56
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 698
-  size: 136, 136
+  xy: 818, 684
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 26
+  offset: 27, 27
   index: 13
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 420
-  size: 136, 138
+  xy: 138, 552
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 26
+  offset: 26, 27
   index: 37
 deathSpikeAnimation_
   rotate: false
-  xy: 842, 2
-  size: 138, 138
+  xy: 2, 688
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 26
+  offset: 27, 27
   index: 26
 deathSpikeAnimation_
   rotate: false
-  xy: 138, 836
-  size: 134, 134
+  xy: 816, 820
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 61
 deathSpikeAnimation_
   rotate: false
-  xy: 694, 420
-  size: 136, 136
-  orig: 188, 188
-  offset: 25, 26
-  index: 55
-deathSpikeAnimation_
-  rotate: false
-  xy: 2, 1380
-  size: 134, 134
-  orig: 188, 188
-  offset: 27, 27
-  index: 3
-deathSpikeAnimation_
-  rotate: false
-  xy: 274, 972
-  size: 134, 134
-  orig: 188, 188
-  offset: 27, 27
-  index: 32
-deathSpikeAnimation_
-  rotate: false
-  xy: 2, 142
-  size: 138, 138
-  orig: 188, 188
-  offset: 25, 26
-  index: 25
-deathSpikeAnimation_
-  rotate: false
-  xy: 832, 556
+  xy: 140, 2
   size: 136, 136
   orig: 188, 188
   offset: 26, 26
+  index: 55
+deathSpikeAnimation_
+  rotate: false
+  xy: 140, 278
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 3
+deathSpikeAnimation_
+  rotate: false
+  xy: 812, 1088
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 32
+deathSpikeAnimation_
+  rotate: false
+  xy: 138, 688
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 25
+deathSpikeAnimation_
+  rotate: false
+  xy: 686, 412
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
   index: 49
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 2
-  size: 138, 138
+  xy: 826, 276
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 25
+  offset: 27, 27
   index: 57
 deathSpikeAnimation_
   rotate: false
-  xy: 282, 142
-  size: 138, 138
+  xy: 410, 820
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 25
+  offset: 27, 27
   index: 10
 deathSpikeAnimation_
   rotate: false
-  xy: 278, 422
-  size: 136, 136
+  xy: 822, 412
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 27
+  offset: 27, 27
   index: 44
 deathSpikeAnimation_
   rotate: false
-  xy: 278, 560
-  size: 136, 136
+  xy: 554, 140
+  size: 136, 134
   orig: 188, 188
-  offset: 26, 27
+  offset: 25, 27
   index: 27
 deathSpikeAnimation_
   rotate: false
-  xy: 422, 2
-  size: 138, 138
+  xy: 550, 412
+  size: 134, 134
   orig: 188, 188
-  offset: 24, 25
+  offset: 27, 27
   index: 52
 deathSpikeAnimation_
   rotate: false
-  xy: 136, 1652
+  xy: 2, 1094
   size: 132, 132
   orig: 188, 188
   offset: 28, 28
   index: 0
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 560
-  size: 136, 136
+  xy: 678, 1088
+  size: 132, 132
   orig: 188, 188
-  offset: 26, 26
+  offset: 28, 28
   index: 33
 deathSpikeAnimation_
   rotate: false
-  xy: 142, 142
-  size: 138, 138
+  xy: 692, 140
+  size: 136, 134
   orig: 188, 188
-  offset: 25, 26
+  offset: 26, 27
   index: 22
 deathSpikeAnimation_
   rotate: false
-  xy: 138, 972
-  size: 134, 134
+  xy: 410, 956
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 46
 deathSpikeAnimation_
   rotate: false
-  xy: 418, 282
-  size: 136, 138
+  xy: 416, 276
+  size: 136, 134
   orig: 188, 188
-  offset: 26, 25
+  offset: 26, 27
   index: 11
 deathSpikeAnimation_
   rotate: false
-  xy: 140, 422
-  size: 136, 136
+  xy: 544, 956
+  size: 132, 132
   orig: 188, 188
-  offset: 26, 26
+  offset: 28, 28
   index: 45
 deathSpikeAnimation_
   rotate: false
-  xy: 692, 696
-  size: 136, 136
+  xy: 682, 684
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 27
+  offset: 27, 27
   index: 18
 deathSpikeAnimation_
   rotate: false
-  xy: 282, 2
-  size: 138, 138
+  xy: 274, 416
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 25
+  offset: 27, 27
   index: 53
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 1516
-  size: 134, 134
+  xy: 806, 1222
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 1
 deathSpikeAnimation_
   rotate: false
-  xy: 410, 972
-  size: 134, 134
+  xy: 136, 960
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 30
 deathSpikeAnimation_
   rotate: false
-  xy: 842, 280
-  size: 138, 136
+  xy: 2, 140
+  size: 136, 136
   orig: 188, 188
-  offset: 25, 27
+  offset: 26, 26
   index: 23
 deathSpikeAnimation_
   rotate: false
-  xy: 140, 698
+  xy: 140, 140
   size: 136, 136
   orig: 188, 188
   offset: 26, 26
   index: 8
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 1652
+  xy: 816, 954
   size: 132, 132
   orig: 188, 188
   offset: 28, 28
   index: 47
 deathSpikeAnimation_
   rotate: false
-  xy: 562, 2
-  size: 138, 138
+  xy: 2, 414
+  size: 134, 136
   orig: 188, 188
-  offset: 24, 26
+  offset: 27, 26
   index: 42
 deathSpikeAnimation_
   rotate: false
-  xy: 546, 972
-  size: 134, 134
+  xy: 138, 414
+  size: 134, 136
   orig: 188, 188
   offset: 27, 27
   index: 19
 deathSpikeAnimation_
   rotate: false
-  xy: 274, 836
-  size: 134, 134
+  xy: 278, 278
+  size: 134, 136
   orig: 188, 188
-  offset: 27, 27
+  offset: 27, 26
   index: 50
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 1786
+  xy: 2, 960
   size: 132, 132
   orig: 188, 188
   offset: 28, 28
   index: 31
 deathSpikeAnimation_
   rotate: false
-  xy: 554, 560
-  size: 136, 136
+  xy: 546, 684
+  size: 134, 134
   orig: 188, 188
-  offset: 26, 27
+  offset: 27, 27
   index: 20
 deathSpikeAnimation_
   rotate: false
-  xy: 422, 142
-  size: 138, 138
+  xy: 2, 824
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 25
+  offset: 27, 27
   index: 9
 deathSpikeAnimation_
   rotate: false
-  xy: 830, 832
-  size: 136, 136
+  xy: 672, 1222
+  size: 132, 132
   orig: 188, 188
-  offset: 26, 26
+  offset: 28, 28
   index: 14
 deathSpikeAnimation_
   rotate: false
-  xy: 142, 282
-  size: 136, 138
+  xy: 692, 2
+  size: 136, 136
   orig: 188, 188
-  offset: 26, 26
+  offset: 25, 26
   index: 38
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 836
-  size: 134, 134
+  xy: 682, 820
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 62
 deathSpikeAnimation_
   rotate: false
-  xy: 824, 970
-  size: 134, 136
+  xy: 2, 278
+  size: 136, 134
   orig: 188, 188
-  offset: 27, 26
+  offset: 26, 27
   index: 4
 deathSpikeAnimation_
   rotate: false
-  xy: 416, 422
+  xy: 416, 2
   size: 136, 136
   orig: 188, 188
-  offset: 25, 27
+  offset: 25, 26
   index: 43
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 1108
-  size: 134, 134
+  xy: 404, 1090
+  size: 132, 132
   orig: 188, 188
-  offset: 27, 27
+  offset: 28, 28
   index: 16
 deathSpikeAnimation_
   rotate: false
-  xy: 416, 698
+  xy: 416, 140
   size: 136, 134
   orig: 188, 188
-  offset: 25, 27
+  offset: 26, 27
   index: 51
 deathSpikeAnimation_
   rotate: false
-  xy: 2, 282
-  size: 138, 136
+  xy: 274, 688
+  size: 134, 134
   orig: 188, 188
-  offset: 25, 26
+  offset: 27, 27
   index: 21
 deathSpikeAnimation_
   rotate: false
-  xy: 832, 418
+  xy: 2, 2
   size: 136, 136
   orig: 188, 188
   offset: 26, 26
   index: 58
 deathSpikeAnimation_
   rotate: false
-  xy: 702, 142
-  size: 138, 138
-  orig: 188, 188
-  offset: 25, 25
-  index: 6
-deathSpikeAnimation_
-  rotate: false
-  xy: 2, 1244
+  xy: 138, 824
   size: 134, 134
   orig: 188, 188
   offset: 27, 27
+  index: 6
+deathSpikeAnimation_
+  rotate: false
+  xy: 538, 1090
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
   index: 15
 deathSpikeAnimation_
   rotate: false
-  xy: 692, 558
+  xy: 554, 2
   size: 136, 136
   orig: 188, 188
-  offset: 25, 26
+  offset: 26, 26
   index: 39
 deathSpikeAnimation_
   rotate: false
-  xy: 688, 834
-  size: 134, 136
+  xy: 410, 684
+  size: 134, 134
   orig: 188, 188
   offset: 27, 27
   index: 28

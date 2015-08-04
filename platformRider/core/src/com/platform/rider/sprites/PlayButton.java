@@ -7,20 +7,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 
 /**
- * Created by Gayan on 7/26/2015.
+ * Created by Gayan on 8/3/2015.
  */
-public class Background extends AbstractGameObject {
+public class PlayButton extends AbstractGameObject {
 
-    public Background(Vector2 position, World world) {
+    public PlayButton(Vector2 position, World world) {
         this.world = world;
         this.position = position;
-        textureRegion = Assets.instance.assetLevelDecoration.background;
+        textureRegion = Assets.instance.assetLevelDecoration.playbutton;
         sprite = new Sprite(textureRegion);
-        sprite.setSize(sprite.getWidth() * 2, sprite.getHeight() * 2);
+        sprite.setSize(sprite.getWidth(), sprite.getHeight());
         sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
     }
 
-    public Sprite getSprite(){
+    public Sprite getSprite() {
         return this.sprite;
     }
 
