@@ -46,6 +46,10 @@ public class PlayButtonSaw extends AbstractGameObject {
         return body;
     }
 
+    public AnimatedSprite getAnimatedSprite(){
+        return animatedSprite;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         animatedSprite.draw(batch);

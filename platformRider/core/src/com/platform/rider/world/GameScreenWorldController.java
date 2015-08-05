@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.main.AnyDirection;
-import com.platform.rider.screens.MenuScreen;
+import com.platform.rider.screens.GameScreen;
 import com.platform.rider.sprites.*;
 import com.platform.rider.utils.*;
 import com.platform.rider.utils.grid.Grid;
@@ -38,6 +38,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
     public Powerups powerups;
     public InstantPowerups instantPowerups;
     public PowerupButton powerupButton;
+    public RetryButton retryButton;
+    public PlayButtonSaw playButtonSaw;
     public TutorialArrow tutorialArrow;
     public TutorialBox tutorialBox;
     public Vector2 gridSpacing;
@@ -115,6 +117,12 @@ public class GameScreenWorldController implements WorldControllerInterface{
                         handleTutorialCompletedButton();
                     }
                 }
+                if(gameOver){
+                    Rectangle retryButtonBound = retryButton.getSprite().getBoundingRectangle();
+                    if (OverlapTester.pointInRectangle(retryButtonBound, touchPoint)) {
+                        handleGameOver();
+                    }
+                }
                 return true;
             }
         });
@@ -153,6 +161,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
         createParticles();
         createSpikes();
         createPowerButton();
+        createRetryButton();
+        createPlayButtonSaw();
         if (!GamePreferences.instance.firstTutorialCompleted) {
             createTutorialArrow();
             GamePreferences.instance.renderFirstTutorial = true;
@@ -205,6 +215,19 @@ public class GameScreenWorldController implements WorldControllerInterface{
         float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
         Vector2 position = new Vector2(x, y);
         powerupButton = new PowerupButton(position, world);
+    }
+
+    private void createRetryButton() {
+        float x = camera.viewportWidth / 2;
+        float y = camera.viewportHeight / 2;
+        Vector2 position = new Vector2(x, y);
+        retryButton = new RetryButton(position, world);
+    }
+
+    private void createPlayButtonSaw() {
+        float x = camera.viewportWidth / 2;
+        float y = camera.viewportHeight / 2;
+        playButtonSaw = new PlayButtonSaw(x, y, world);
     }
 
     private void createTutorialArrow() {
@@ -328,7 +351,6 @@ public class GameScreenWorldController implements WorldControllerInterface{
             destroyParticles();
             AudioManager.instance.stopMusic();
             AudioManager.instance.stopAlertSound();
-            handleGameOver();
             gameOverCounter++;
         } else {
             world.step(deltaTime * scale, 8, 3);
@@ -488,6 +510,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
         particleHashMap.clear();
         destroyHero();
         destroySaws();
+        destroyPlayButtonSaw();
     }
 
     private void destroyHero() {
@@ -521,6 +544,14 @@ public class GameScreenWorldController implements WorldControllerInterface{
             deathSawHashMap.remove(deathSawKey);
         }
         deathSawsForRemoval.clear();
+    }
+
+    private void destroyPlayButtonSaw() {
+        final Array<JointEdge> list = playButtonSaw.getBody().getJointList();
+        while (list.size > 0) {
+            world.destroyJoint(list.get(0).joint);
+        }
+        world.destroyBody(playButtonSaw.getBody());
     }
 
     private void destroyExplosions() {
@@ -1048,7 +1079,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
     private void backToMenu() {
         // switch to menu screen
         AnyDirection.myRequestHandler.showInterstitialAd();
-        game.setScreen(new MenuScreen(game));
+        game.setScreen(new GameScreen(game));
     }
 
     public boolean isGameOver() {
@@ -1056,14 +1087,6 @@ public class GameScreenWorldController implements WorldControllerInterface{
     }
 
     public void handleGameOver() {
-        if (gameOver && Gdx.input.justTouched()) {
-            Vector2 touchPoint = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-            Rectangle gameoverBound = new Rectangle(
-                    (GameConstants.APP_WIDTH / 2) - (Assets.instance.fonts.defaultBig.getCache().getBounds().width / 2),
-                    (GameConstants.APP_HEIGHT / 2),
-                    Assets.instance.fonts.defaultBig.getCache().getBounds().width,
-                    Assets.instance.fonts.defaultBig.getCache().getBounds().height);
-            //if (OverlapTester.pointInRectangle(gameoverBound, touchPoint)) {
             destroyAllParticles();
             GameConstants.NORMAL_PARTICAL_SPEED = 5f;
             GameConstants.SPLIT_PARTICAL_TIME = 200;
@@ -1084,8 +1107,6 @@ public class GameScreenWorldController implements WorldControllerInterface{
                 submitHighScore = false;
             }
             backToMenu();
-            //}
-        }
     }
 
     private void deployPowerup() {

@@ -276,11 +276,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetLevelDecoration {
         public final TextureAtlas.AtlasRegion powerbutton;
         public final TextureAtlas.AtlasRegion playbutton;
+        public final TextureAtlas.AtlasRegion retrybutton;
         public final TextureAtlas.AtlasRegion secondTutorial;
 
         public AssetLevelDecoration(TextureAtlas atlas) {
             powerbutton = atlas.findRegion("powerbutton");
             playbutton = atlas.findRegion("playbutton");
+            retrybutton = atlas.findRegion("retryButton");
             secondTutorial = atlas.findRegion("secondTutorial");
         }
     }

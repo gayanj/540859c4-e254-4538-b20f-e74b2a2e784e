@@ -11,14 +11,14 @@ secondTutorial
   index: -1
 splitparticle
   rotate: false
-  xy: 244, 210
+  xy: 292, 240
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 armor
   rotate: false
-  xy: 350, 292
+  xy: 363, 452
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -39,21 +39,28 @@ slow_motion
   index: -1
 invincibility
   rotate: false
-  xy: 350, 188
+  xy: 363, 188
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 hero
   rotate: false
-  xy: 402, 316
+  xy: 363, 346
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
-playbutton
+retryButton
   rotate: false
   xy: 2, 210
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+playbutton
+  rotate: false
+  xy: 156, 210
   size: 134, 152
   orig: 152, 152
   offset: 10, 0
@@ -67,7 +74,7 @@ powerbutton
   index: -1
 particle
   rotate: false
-  xy: 402, 210
+  xy: 398, 240
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -88,14 +95,14 @@ spike
   index: -1
 suicideparticle
   rotate: false
-  xy: 138, 210
+  xy: 257, 364
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 energy
   rotate: false
-  xy: 350, 240
+  xy: 292, 188
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
