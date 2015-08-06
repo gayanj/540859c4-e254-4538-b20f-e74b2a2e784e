@@ -1176,6 +1176,10 @@ public class GameScreenWorldController implements WorldControllerInterface{
             AudioManager.instance.play(Assets.instance.sounds.killingspree);
             renderKillStreak = true;
             killStreakToRender = 1;
+            if(!GamePreferences.instance.killingSpreeAchievementUnlocked){
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.KILLING_SPREE_ACHIEVEMENT);
+                GamePreferences.instance.killingSpreeAchievementUnlocked = true;
+            }
         }
     }
 

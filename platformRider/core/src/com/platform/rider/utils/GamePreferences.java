@@ -19,6 +19,7 @@ public class GamePreferences {
     public boolean firstStageCleared;
     public boolean secondStageCleared;
     public boolean thirdStageCleared;
+    public boolean killingSpreeAchievementUnlocked;
     public int stage;
     public int highscore;
     public int normalParticlesDestroyed;
@@ -43,6 +44,7 @@ public class GamePreferences {
         firstStageCleared = prefs.getBoolean("firstStageCleared", false);
         secondStageCleared = prefs.getBoolean("secondStageCleared", false);
         thirdStageCleared = prefs.getBoolean("thirdStageCleared", false);
+        killingSpreeAchievementUnlocked = prefs.getBoolean("killingSpreeAchievementUnlocked", false);
         stage = prefs.getInteger("stage", 0);
         highscore = prefs.getInteger("highscore", 0);
         normalParticlesDestroyed = prefs.getInteger("normalParticlesDestroyed", 0);
@@ -61,6 +63,7 @@ public class GamePreferences {
         prefs.putBoolean("firstStageCleared", firstStageCleared);
         prefs.putBoolean("secondStageCleared", secondStageCleared);
         prefs.putBoolean("thirdStageCleared", thirdStageCleared);
+        prefs.putBoolean("killingSpreeAchievementUnlocked", killingSpreeAchievementUnlocked);
         prefs.putInteger("stage", stage);
         prefs.putInteger("highscore", highscore);
         prefs.putInteger("normalParticlesDestroyed", normalParticlesDestroyed);

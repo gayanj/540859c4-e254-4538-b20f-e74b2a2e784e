@@ -19,10 +19,11 @@ import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.platform.rider.main.AnyDirection;
+import com.platform.rider.utils.GameConstants;
 import com.platform.rider.utils.IActivityRequestHandler;
 import com.platform.rider.utils.IGoogleServices;
 
-public class AndroidLauncher extends AndroidApplication implements IActivityRequestHandler{
+public class AndroidLauncher extends AndroidApplication implements IActivityRequestHandler {
     private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8464762813805843/8327434010";
     private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-8464762813805843/8323270010";
     private final int SHOW_ADS = 1;
@@ -211,9 +212,9 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     public void submitScore(long score) {
         if (isSignedIn()) {
             Games.Leaderboards.submitScore(_gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(_gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
         } else {
 // Maybe sign in here then redirect to submitting score?
+            this.signIn();
         }
     }
 
@@ -223,6 +224,28 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
             startActivityForResult(Games.Leaderboards.getLeaderboardIntent(_gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
         else {
 // Maybe sign in here then redirect to showing scores?
+            this.signIn();
+        }
+    }
+
+    @Override
+    public void unlockAchievement(String achievementId) {
+        if (isSignedIn()) {
+            if (GameConstants.KILLING_SPREE_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_killing_spree));
+            }
+        }else {
+            this.signIn();
+        }
+    }
+
+    @Override
+    public void showAchievements() {
+        if (isSignedIn())
+            startActivityForResult(Games.Achievements.getAchievementsIntent(_gameHelper.getApiClient()), REQUEST_CODE_UNUSED);
+        else {
+// Maybe sign in here then redirect to showing scores?
+            this.signIn();
         }
     }
 

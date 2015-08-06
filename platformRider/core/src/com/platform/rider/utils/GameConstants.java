@@ -194,4 +194,7 @@ public class GameConstants {
     public static final String SPEED = "speed";
     public static final String INVINCIBILITY = "invincibility";
     public static final String ARMOR = "armor";
+
+    //Achievement Constants
+    public static final String KILLING_SPREE_ACHIEVEMENT = "achievement_killing_spree";
 }

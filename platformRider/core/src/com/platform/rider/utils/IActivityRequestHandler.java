@@ -18,5 +18,9 @@ public interface IActivityRequestHandler {
 
     public void showScores();
 
+    public void unlockAchievement(String achievementId);
+
+    public void showAchievements();
+
     public boolean isSignedIn();
 }

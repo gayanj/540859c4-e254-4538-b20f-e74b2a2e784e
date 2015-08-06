@@ -2,114 +2,128 @@ gameAssets.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-secondTutorial
+hero
   rotate: false
-  xy: 2, 2
-  size: 438, 184
-  orig: 438, 184
-  offset: 0, 0
-  index: -1
-splitparticle
-  rotate: false
-  xy: 292, 240
+  xy: 108, 557
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
-armor
+spike
   rotate: false
-  xy: 363, 452
+  xy: 308, 251
+  size: 131, 130
+  orig: 131, 132
+  offset: 0, 1
+  index: -1
+energy
+  rotate: false
+  xy: 441, 262
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-super_force
+particle
   rotate: false
-  xy: 442, 2
+  xy: 398, 535
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+playbutton
+  rotate: false
+  xy: 156, 403
+  size: 134, 152
+  orig: 152, 152
+  offset: 10, 0
+  index: -1
+trophy
+  rotate: false
+  xy: 156, 251
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+splitparticle
+  rotate: false
+  xy: 292, 535
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+invincibility
+  rotate: false
+  xy: 443, 210
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 slow_motion
   rotate: false
-  xy: 442, 106
+  xy: 443, 106
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-invincibility
+secondTutorial
   rotate: false
-  xy: 363, 188
+  xy: 2, 2
+  size: 439, 247
+  orig: 439, 247
+  offset: 0, 0
+  index: -1
+armor
+  rotate: false
+  xy: 441, 314
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hero
+leaderboard
   rotate: false
-  xy: 363, 346
-  size: 104, 104
-  orig: 104, 104
+  xy: 308, 383
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+super_force
+  rotate: false
+  xy: 443, 2
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
 retryButton
   rotate: false
-  xy: 2, 210
+  xy: 2, 251
   size: 152, 152
   orig: 152, 152
   offset: 0, 0
   index: -1
-playbutton
-  rotate: false
-  xy: 156, 210
-  size: 134, 152
-  orig: 152, 152
-  offset: 10, 0
-  index: -1
 powerbutton
   rotate: false
-  xy: 135, 364
+  xy: 2, 405
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
-particle
-  rotate: false
-  xy: 398, 240
-  size: 104, 104
-  orig: 104, 104
-  offset: 0, 0
-  index: -1
 mass_death
   rotate: false
-  xy: 442, 158
+  xy: 443, 158
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: -1
-spike
-  rotate: false
-  xy: 2, 364
-  size: 131, 130
-  orig: 131, 132
-  offset: 0, 1
   index: -1
 suicideparticle
   rotate: false
-  xy: 257, 364
+  xy: 2, 527
   size: 104, 104
   orig: 104, 104
-  offset: 0, 0
-  index: -1
-energy
-  rotate: false
-  xy: 292, 188
-  size: 50, 50
-  orig: 50, 50
   offset: 0, 0
   index: -1
 speed
   rotate: false
-  xy: 442, 54
+  xy: 443, 54
   size: 50, 50
   orig: 50, 50
   offset: 0, 0

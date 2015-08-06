@@ -55,6 +55,16 @@ public class DesktopLauncher implements IActivityRequestHandler, IGoogleServices
     }
 
     @Override
+    public void unlockAchievement(String achievementId) {
+
+    }
+
+    @Override
+    public void showAchievements() {
+
+    }
+
+    @Override
     public boolean isSignedIn() {
         return false;
     }

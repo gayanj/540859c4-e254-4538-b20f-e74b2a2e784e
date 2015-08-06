@@ -46,12 +46,22 @@ public class MenuScreenWorldRenderer implements WorldRendererInterface {
         renderPlayButtonSaw();
         renderGuiPlayButton();
         renderParticles();
+        renderAchievementButton();
+        renderLeaderBoardButton();
         renderParticleBurst();
         batch.end();
     }
 
     private void renderGuiPlayButton () {
         menuScreenWorldController.playButton.render(batch);
+    }
+
+    private void renderAchievementButton(){
+        menuScreenWorldController.achievementButton.render(batch);
+    }
+
+    private void renderLeaderBoardButton(){
+        menuScreenWorldController.leaderBoardButton.render(batch);
     }
 
     private void renderPlayButtonSaw(){

@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -13,10 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.main.AnyDirection;
 import com.platform.rider.screens.GameScreen;
-import com.platform.rider.sprites.Particle;
-import com.platform.rider.sprites.ParticleBurstAnimation;
-import com.platform.rider.sprites.PlayButton;
-import com.platform.rider.sprites.PlayButtonSaw;
+import com.platform.rider.sprites.*;
 import com.platform.rider.utils.AudioManager;
 import com.platform.rider.utils.GameConstants;
 import com.platform.rider.utils.OverlapTester;
@@ -33,6 +31,8 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     public World world;
     public PlayButton playButton;
     public PlayButtonSaw playButtonSaw;
+    public AchievementButton achievementButton;
+    public LeaderBoardButton leaderBoardButton;
     public ParticleBurstAnimation particleBurstAnimation;
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
     public List<String> normalParticlesForRemoval = new ArrayList<String>();
@@ -52,13 +52,20 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     public void init() {
         InputAdapter inputAdapter = new InputAdapter() {
             public boolean touchUp(int x, int y, int pointer, int button) {
-                float xTouchScale = cameraGUI.viewportWidth / Gdx.graphics.getWidth();
-                float yTouchScale = cameraGUI.viewportHeight / Gdx.graphics.getHeight();
-                Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
+                Vector3 touchPoint = new Vector3(x, y, 0);
+                cameraGUI.unproject(touchPoint);
                 Rectangle playButtonBound = playButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(playButtonBound, touchPoint)) {
+                if (OverlapTester.pointInRectangle(playButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
                     destroyPlayButtonSaw();
                     game.setScreen(new GameScreen(game));
+                }
+                Rectangle achievementButtonBound = achievementButton.getSprite().getBoundingRectangle();
+                if (OverlapTester.pointInRectangle(achievementButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
+                    AnyDirection.myRequestHandler.showAchievements();
+                }
+                Rectangle leaderBoardButtonBound = leaderBoardButton.getSprite().getBoundingRectangle();
+                if (OverlapTester.pointInRectangle(leaderBoardButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
+                    AnyDirection.myRequestHandler.showScores();
                 }
                 return true;
             }
@@ -83,6 +90,8 @@ public class MenuScreenWorldController implements WorldControllerInterface {
         world = new World(new Vector2(0, 0), true);
         createPlayButtonSaw();
         createPlayButton();
+        createAchievementButton();
+        createLeaderBoardButton();
     }
 
     private void createPlayButton() {
@@ -96,6 +105,20 @@ public class MenuScreenWorldController implements WorldControllerInterface {
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
         playButtonSaw = new PlayButtonSaw(x, y, world);
+    }
+
+    private void createAchievementButton() {
+        float x = cameraGUI.viewportWidth / 2 + 200;
+        float y = cameraGUI.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        achievementButton = new AchievementButton(position, world);
+    }
+
+    private void createLeaderBoardButton() {
+        float x = cameraGUI.viewportWidth / 2 - 200;
+        float y = cameraGUI.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        leaderBoardButton = new LeaderBoardButton(position, world);
     }
 
     private void createNewParticle(String type) {
@@ -135,28 +158,28 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     }
 
     private void createSplitParticles() {
-        if(splitParticleCreationCounter > 10) {
+        if (splitParticleCreationCounter > 10) {
             createNewParticle(GameConstants.SPLIT_PARTICLE);
             splitParticleCreationCounter = 0;
-        }else{
+        } else {
             splitParticleCreationCounter++;
         }
     }
 
     private void createSuicideParticles() {
-        if(suicideParticleCreationCounter > 10) {
+        if (suicideParticleCreationCounter > 10) {
             createNewParticle(GameConstants.SUICIDE_PARTICLE);
             suicideParticleCreationCounter = 0;
-        }else{
+        } else {
             suicideParticleCreationCounter++;
         }
     }
 
     private void createNormalParticles() {
-        if(normalParticleCreationCounter > 10) {
+        if (normalParticleCreationCounter > 10) {
             createNewParticle(GameConstants.NORMAL_PARTICLE);
             normalParticleCreationCounter = 0;
-        }else{
+        } else {
             normalParticleCreationCounter++;
         }
     }
@@ -222,7 +245,7 @@ public class MenuScreenWorldController implements WorldControllerInterface {
                         normalParticlesForRemoval.add(particle.getBody().getUserData().toString());
                     }
                 }
-            }else {
+            } else {
                 particle.getSprite().setPosition((particle.getBody().getPosition().x * GameConstants.PIXELS_TO_METERS) - particle.getSprite().
                                 getWidth() / 2,
                         (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2

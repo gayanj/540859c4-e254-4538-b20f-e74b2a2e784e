@@ -56,6 +56,16 @@ public class IOSLauncher extends IOSApplication.Delegate implements IActivityReq
     }
 
     @Override
+    public void unlockAchievement(String achievementId) {
+
+    }
+
+    @Override
+    public void showAchievements() {
+
+    }
+
+    @Override
     public boolean isSignedIn() {
         return false;
     }

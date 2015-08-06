@@ -54,6 +54,16 @@ public class HtmlLauncher extends GwtApplication implements IActivityRequestHand
     }
 
     @Override
+    public void unlockAchievement(String achievementId) {
+
+    }
+
+    @Override
+    public void showAchievements() {
+
+    }
+
+    @Override
     public boolean isSignedIn() {
         return false;
     }
