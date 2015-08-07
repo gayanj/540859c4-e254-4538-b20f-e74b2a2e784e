@@ -2,11 +2,9 @@ package com.platform.rider.worldRenderer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.sprites.Particle;
 import com.platform.rider.sprites.ParticleBurstAnimation;
-import com.platform.rider.utils.GameConstants;
 import com.platform.rider.world.MenuScreenWorldController;
 
 import java.util.Map;
@@ -29,7 +27,7 @@ public class MenuScreenWorldRenderer implements WorldRendererInterface {
     public void init() {
         batch = new SpriteBatch();
         cameraGUI = menuScreenWorldController.cameraGUI;
-        viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, cameraGUI);
+        viewport = menuScreenWorldController.viewport;
         cameraGUI.position.set(0, 0, 0);
         cameraGUI.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();

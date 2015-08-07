@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -27,7 +26,7 @@ import java.util.*;
 public class MenuScreenWorldController implements WorldControllerInterface {
     private Game game;
     public OrthographicCamera cameraGUI;
-    private Viewport viewport;
+    public Viewport viewport;
     public World world;
     public PlayButton playButton;
     public PlayButtonSaw playButtonSaw;
@@ -52,8 +51,8 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     public void init() {
         InputAdapter inputAdapter = new InputAdapter() {
             public boolean touchUp(int x, int y, int pointer, int button) {
-                Vector3 touchPoint = new Vector3(x, y, 0);
-                cameraGUI.unproject(touchPoint);
+                Vector2 touchPoint = new Vector2(x, y);
+                viewport.unproject(touchPoint);
                 Rectangle playButtonBound = playButton.getSprite().getBoundingRectangle();
                 if (OverlapTester.pointInRectangle(playButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
                     destroyPlayButtonSaw();
@@ -62,10 +61,12 @@ public class MenuScreenWorldController implements WorldControllerInterface {
                 Rectangle achievementButtonBound = achievementButton.getSprite().getBoundingRectangle();
                 if (OverlapTester.pointInRectangle(achievementButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
                     AnyDirection.myRequestHandler.showAchievements();
+                    System.out.println("achievementButtonBound");
                 }
                 Rectangle leaderBoardButtonBound = leaderBoardButton.getSprite().getBoundingRectangle();
                 if (OverlapTester.pointInRectangle(leaderBoardButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
                     AnyDirection.myRequestHandler.showScores();
+                    System.out.println("leaderBoardButtonBound");
                 }
                 return true;
             }
