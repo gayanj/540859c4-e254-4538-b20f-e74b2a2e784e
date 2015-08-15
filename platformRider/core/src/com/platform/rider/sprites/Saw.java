@@ -22,25 +22,25 @@ public class Saw extends AbstractGameObject {
         animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.spikeAnimation);
         //sprite = new Sprite(textureRegion);
         if (xscale == 0 && side.equals("R")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (xscale == 0 && side.equals("L")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2), (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (yscale == 0 && side.equals("D")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2));
         } else if (yscale == 0 && side.equals("U")) {
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT);
         } else if (side.equals("RT")) {
             animatedSprite.setSize(animatedSprite.getWidth() * 0.7f, animatedSprite.getHeight() * 0.7f);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (side.equals("LT")) {
             animatedSprite.setSize(animatedSprite.getWidth() * 0.7f, animatedSprite.getHeight() * 0.7f);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (side.equals("RB")) {
             animatedSprite.setSize(animatedSprite.getWidth() * 0.6f, animatedSprite.getHeight() * 0.6f);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (side.equals("LB")) {
             animatedSprite.setSize(animatedSprite.getWidth() * 0.6f, animatedSprite.getHeight() * 0.6f);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * -xscale, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         }
 
         bodyDef.type = BodyDef.BodyType.StaticBody;

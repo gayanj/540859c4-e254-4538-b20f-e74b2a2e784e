@@ -38,7 +38,7 @@ public class Hero extends AbstractGameObject {
     private void init(Vector2 position, World world) {
         this.world = world;
         this.position = position;
-        this.energy = 90;
+        this.energy = 80;
         textureRegion = Assets.instance.assetHero.hero;
         particleEffect.load(Gdx.files.internal("particleEffects/heroParticleEffect.p"), Gdx.files.internal("particleEffects/"));
         particleEffectPool = new ParticleEffectPool(particleEffect, 1, 2);
@@ -46,7 +46,7 @@ public class Hero extends AbstractGameObject {
         invincibleParticleEffectPool = new ParticleEffectPool(invincibleParticleEffect, 1, 2);
         sprite = new Sprite(textureRegion);
         sprite.setSize(sprite.getWidth() * GameConstants.PARTICLE_SPRITE_SCALE, sprite.getHeight()*GameConstants.PARTICLE_SPRITE_SCALE);
-        sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
+        sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
 
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) /

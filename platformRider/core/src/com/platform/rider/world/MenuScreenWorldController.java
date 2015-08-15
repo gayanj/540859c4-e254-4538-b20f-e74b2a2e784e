@@ -32,6 +32,7 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     public PlayButtonSaw playButtonSaw;
     public AchievementButton achievementButton;
     public LeaderBoardButton leaderBoardButton;
+    public RatingButton ratingButton;
     public ParticleBurstAnimation particleBurstAnimation;
     public HashMap<String, Particle> particleHashMap = new HashMap<String, Particle>();
     public List<String> normalParticlesForRemoval = new ArrayList<String>();
@@ -54,19 +55,21 @@ public class MenuScreenWorldController implements WorldControllerInterface {
                 Vector2 touchPoint = new Vector2(x, y);
                 viewport.unproject(touchPoint);
                 Rectangle playButtonBound = playButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(playButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
+                if (OverlapTester.pointInRectangle(playButtonBound, touchPoint)) {
                     destroyPlayButtonSaw();
                     game.setScreen(new GameScreen(game));
                 }
                 Rectangle achievementButtonBound = achievementButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(achievementButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
+                if (OverlapTester.pointInRectangle(achievementButtonBound, touchPoint)) {
                     AnyDirection.myRequestHandler.showAchievements();
-                    System.out.println("achievementButtonBound");
                 }
                 Rectangle leaderBoardButtonBound = leaderBoardButton.getSprite().getBoundingRectangle();
-                if (OverlapTester.pointInRectangle(leaderBoardButtonBound, new Vector2(touchPoint.x, touchPoint.y))) {
+                if (OverlapTester.pointInRectangle(leaderBoardButtonBound, touchPoint)) {
                     AnyDirection.myRequestHandler.showScores();
-                    System.out.println("leaderBoardButtonBound");
+                }
+                Rectangle ratingButtonBound = ratingButton.getSprite().getBoundingRectangle();
+                if (OverlapTester.pointInRectangle(ratingButtonBound, touchPoint)) {
+                    AnyDirection.myRequestHandler.rateGame();
                 }
                 return true;
             }
@@ -78,7 +81,6 @@ public class MenuScreenWorldController implements WorldControllerInterface {
         world.setContactListener(new menuScreenContactListener());
         AudioManager.instance.play(Assets.instance.music.menu_music, 1);
         AnyDirection.myRequestHandler.showAds(true);
-        AnyDirection.myRequestHandler.signIn();
     }
 
     @Override
@@ -93,6 +95,7 @@ public class MenuScreenWorldController implements WorldControllerInterface {
         createPlayButton();
         createAchievementButton();
         createLeaderBoardButton();
+        createRatingButton();
     }
 
     private void createPlayButton() {
@@ -109,26 +112,33 @@ public class MenuScreenWorldController implements WorldControllerInterface {
     }
 
     private void createAchievementButton() {
-        float x = cameraGUI.viewportWidth / 2 + 200;
+        float x = cameraGUI.viewportWidth / 2 + 250;
         float y = cameraGUI.viewportHeight / 2 - 300;
         Vector2 position = new Vector2(x, y);
         achievementButton = new AchievementButton(position, world);
     }
 
     private void createLeaderBoardButton() {
-        float x = cameraGUI.viewportWidth / 2 - 200;
+        float x = cameraGUI.viewportWidth / 2 - 250;
         float y = cameraGUI.viewportHeight / 2 - 300;
         Vector2 position = new Vector2(x, y);
         leaderBoardButton = new LeaderBoardButton(position, world);
     }
 
+    private void createRatingButton() {
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        ratingButton = new RatingButton(position, world);
+    }
+
     private void createNewParticle(String type) {
         Random r = new Random();
-        int xLow = -(Math.round(cameraGUI.viewportWidth) / 2);
+        int xLow = 0;
         int xHigh = Math.round(cameraGUI.viewportWidth);
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(Math.round(cameraGUI.viewportHeight) / 2);
+        int yLow = 0;
         int yHigh = Math.round(cameraGUI.viewportHeight);
         int yR = r.nextInt(yHigh - yLow) + yLow;
 

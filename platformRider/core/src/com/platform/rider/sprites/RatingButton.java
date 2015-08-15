@@ -7,20 +7,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.platform.rider.assets.Assets;
 
 /**
- * Created by Gayan on 7/24/2015.
+ * Created by Gayan on 8/15/2015.
  */
-public class TutorialBox extends AbstractGameObject {
+public class RatingButton extends AbstractGameObject {
 
-    public TutorialBox(Vector2 position, World world) {
+    public RatingButton(Vector2 position, World world) {
         this.world = world;
         this.position = position;
-        textureRegion = Assets.instance.assetLevelDecoration.secondTutorial;
+        textureRegion = Assets.instance.assetLevelDecoration.ratingButton;
         sprite = new Sprite(textureRegion);
-        sprite.setSize(sprite.getWidth() * 2, sprite.getHeight() * 2);
+        sprite.setSize(sprite.getWidth(), sprite.getHeight());
         sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
     }
 
-    public Sprite getSprite(){
+    public Sprite getSprite() {
         return this.sprite;
     }
 

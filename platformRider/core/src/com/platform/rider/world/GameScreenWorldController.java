@@ -24,13 +24,13 @@ import java.util.*;
 /**
  * Created by Gayan on 3/23/2015.
  */
-public class GameScreenWorldController implements WorldControllerInterface{
+public class GameScreenWorldController implements WorldControllerInterface {
     private static final String TAG = GameScreenWorldController.class.getName();
     private Game game;
     public static float scaledWidth;
     public static float scaledHeight;
     public OrthographicCamera camera;
-    private Viewport viewport;
+    public Viewport viewport;
     public World world;
     public Hero hero;
     public Explosion explosion;
@@ -42,6 +42,9 @@ public class GameScreenWorldController implements WorldControllerInterface{
     public PlayButtonSaw playButtonSaw;
     public TutorialArrow tutorialArrow;
     public TutorialBox tutorialBox;
+    public AchievementButton achievementButton;
+    public LeaderBoardButton leaderBoardButton;
+    public RatingButton ratingButton;
     public Vector2 gridSpacing;
     public Grid grid;
     int maxGridPoints = 455;
@@ -75,6 +78,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
     boolean gameOver = false;
     boolean renderKillStreak = false;
     boolean submitHighScore = false;
+    boolean playButtonSawCreated = false;
     int killStreakCounter = 0;
     int killStreakToRender;
     public boolean pause = false;
@@ -104,9 +108,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
         multiplexer.addProcessor(touchPadHelper.getStage());
         multiplexer.addProcessor(new InputAdapter() {
             public boolean touchUp(int x, int y, int pointer, int button) {
-                float xTouchScale = camera.viewportWidth / Gdx.graphics.getWidth();
-                float yTouchScale = camera.viewportHeight / Gdx.graphics.getHeight();
-                Vector2 touchPoint = new Vector2(x * xTouchScale, y * yTouchScale);
+                Vector2 touchPoint = new Vector2(x, y);
+                viewport.unproject(touchPoint);
                 Rectangle powerupBound = powerupButton.getSprite().getBoundingRectangle();
                 if (OverlapTester.pointInRectangle(powerupBound, touchPoint)) {
                     deployPowerup();
@@ -117,7 +120,19 @@ public class GameScreenWorldController implements WorldControllerInterface{
                         handleTutorialCompletedButton();
                     }
                 }
-                if(gameOver){
+                if (gameOver) {
+                    Rectangle achievementButtonBound = achievementButton.getSprite().getBoundingRectangle();
+                    if (OverlapTester.pointInRectangle(achievementButtonBound, touchPoint)) {
+                        AnyDirection.myRequestHandler.showAchievements();
+                    }
+                    Rectangle leaderBoardButtonBound = leaderBoardButton.getSprite().getBoundingRectangle();
+                    if (OverlapTester.pointInRectangle(leaderBoardButtonBound, touchPoint)) {
+                        AnyDirection.myRequestHandler.showScores();
+                    }
+                    Rectangle ratingButtonBound = ratingButton.getSprite().getBoundingRectangle();
+                    if (OverlapTester.pointInRectangle(ratingButtonBound, touchPoint)) {
+                        AnyDirection.myRequestHandler.rateGame();
+                    }
                     Rectangle retryButtonBound = retryButton.getSprite().getBoundingRectangle();
                     if (OverlapTester.pointInRectangle(retryButtonBound, touchPoint)) {
                         handleGameOver();
@@ -144,9 +159,9 @@ public class GameScreenWorldController implements WorldControllerInterface{
             AudioManager.instance.play(Assets.instance.music.background_music2, 1);
         } else if (musicTrackNumber == 2) {
             AudioManager.instance.play(Assets.instance.music.background_music3, 1);
-        }else if (musicTrackNumber == 3) {
+        } else if (musicTrackNumber == 3) {
             AudioManager.instance.play(Assets.instance.music.background_music4, 1);
-        }else if (musicTrackNumber == 4) {
+        } else if (musicTrackNumber == 4) {
             AudioManager.instance.play(Assets.instance.music.background_music5, 1);
         }
     }
@@ -162,7 +177,6 @@ public class GameScreenWorldController implements WorldControllerInterface{
         createSpikes();
         createPowerButton();
         createRetryButton();
-        createPlayButtonSaw();
         if (!GamePreferences.instance.firstTutorialCompleted) {
             createTutorialArrow();
             GamePreferences.instance.renderFirstTutorial = true;
@@ -177,7 +191,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
     }
 
     private void createHero() {
-        hero = new Hero(new Vector2(0, 0), world);
+        hero = new Hero(new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2), world);
     }
 
     private void createExplosion(int explosionIndex) {
@@ -198,12 +212,12 @@ public class GameScreenWorldController implements WorldControllerInterface{
 
     private void createPowerUp(String type) {
         Random r = new Random();
-        int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
-        int xHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int xLow = 100;
+        int xHigh = Math.round(camera.viewportWidth) - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
-        int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
+        int yLow = 350;
+        int yHigh = Math.round(camera.viewportHeight) - 350;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Power power = new Power(position, world, type, "power" + powerUpsCreated);
@@ -212,7 +226,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
 
     private void createPowerButton() {
         float x = Assets.instance.assetLevelDecoration.powerbutton.packedWidth;
-        float y = camera.viewportHeight - Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
+        float y = Assets.instance.assetLevelDecoration.powerbutton.packedHeight;
         Vector2 position = new Vector2(x, y);
         powerupButton = new PowerupButton(position, world);
     }
@@ -225,14 +239,17 @@ public class GameScreenWorldController implements WorldControllerInterface{
     }
 
     private void createPlayButtonSaw() {
-        float x = camera.viewportWidth / 2;
-        float y = camera.viewportHeight / 2;
-        playButtonSaw = new PlayButtonSaw(x, y, world);
+        if (!playButtonSawCreated) {
+            float x = camera.viewportWidth / 2;
+            float y = camera.viewportHeight / 2;
+            playButtonSaw = new PlayButtonSaw(x, y, world);
+            playButtonSawCreated = true;
+        }
     }
 
     private void createTutorialArrow() {
         float x = camera.viewportWidth - 123;
-        float y = camera.viewportHeight - 130;
+        float y = 120;
         Vector2 position = new Vector2(x, y);
         tutorialArrow = new TutorialArrow(position, world);
     }
@@ -244,14 +261,35 @@ public class GameScreenWorldController implements WorldControllerInterface{
         tutorialBox = new TutorialBox(position, world);
     }
 
+    private void createAchievementButton() {
+        float x = camera.viewportWidth / 2 + 250;
+        float y = camera.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        achievementButton = new AchievementButton(position, world);
+    }
+
+    private void createLeaderBoardButton() {
+        float x = camera.viewportWidth / 2 - 250;
+        float y = camera.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        leaderBoardButton = new LeaderBoardButton(position, world);
+    }
+
+    private void createRatingButton() {
+        float x = camera.viewportWidth / 2;
+        float y = camera.viewportHeight / 2 - 300;
+        Vector2 position = new Vector2(x, y);
+        ratingButton = new RatingButton(position, world);
+    }
+
     private void createNewParticle(String type) {
         Random r = new Random();
-        int xLow = -(GameConstants.APP_WIDTH / 2 - 100);
-        int xHigh = GameConstants.APP_WIDTH / 2 - 100;
+        int xLow = 100;
+        int xHigh = Math.round(camera.viewportWidth) - 100;
         int xR = r.nextInt(xHigh - xLow) + xLow;
 
-        int yLow = -(GameConstants.APP_HEIGHT / 2 - 350);
-        int yHigh = GameConstants.APP_HEIGHT / 2 - 350;
+        int yLow = 350;
+        int yHigh = Math.round(camera.viewportHeight) - 350;
         int yR = r.nextInt(yHigh - yLow) + yLow;
         Vector2 position = new Vector2(xR, yR);
         Particle particle = new Particle(position, world, totalParticlesCreated, type);
@@ -348,6 +386,10 @@ public class GameScreenWorldController implements WorldControllerInterface{
 
     public void update(float deltaTime) {
         if (gameOver) {
+            createPlayButtonSaw();
+            createAchievementButton();
+            createLeaderBoardButton();
+            createRatingButton();
             destroyParticles();
             AudioManager.instance.stopMusic();
             AudioManager.instance.stopAlertSound();
@@ -403,8 +445,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
                         getWidth() / 2,
                 (hero.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - hero.getSprite().getHeight() / 2
         );
-        grid.ApplyDirectedForce(new Vector3(hero.getBody().getLinearVelocity(),0), new Vector3((hero.getSprite().getX() + hero.getSprite().
-                getWidth() / 2) + (camera.viewportWidth / 2), -(hero.getSprite().getY() + hero.getSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
+        grid.ApplyDirectedForce(new Vector3(hero.getBody().getLinearVelocity(), 0), new Vector3((hero.getSprite().getX() + hero.getSprite().
+                getWidth() / 2) + (camera.viewportWidth / 2), -(hero.getSprite().getY() + hero.getSprite().getHeight() / 2) + (camera.viewportHeight / 2), 0), 80);
     }
 
     private void updateDeltaTime(float scaleFactor) {
@@ -666,7 +708,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
             if (!normalParticlesForRemoval.contains(entry.getValue().getBody().getUserData().toString())) {
                 normalParticlesForRemoval.add(entry.getValue().getBody().getUserData().toString());
             }
-            if (hero.getEnergy() < 85) {
+            if (hero.getEnergy() < 75) {
                 hero.setEnergy(hero.getEnergy() + 5);
             }
         }
@@ -674,7 +716,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
     }
 
     private void activateEnergyBoost() {
-        hero.setEnergy(90);
+        hero.setEnergy(80);
     }
 
     private void activateSpeedBoost() {
@@ -865,8 +907,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
                                 getWidth() / 2,
                         (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getSprite().getHeight() / 2
                 );
-                grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(),0), new Vector3((particle.getSprite().getX() + particle.getSprite().
-                        getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getSprite().getY() + particle.getSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
+                grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(), 0), new Vector3((particle.getSprite().getX() + particle.getSprite().
+                        getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getSprite().getY() + particle.getSprite().getHeight() / 2) + (camera.viewportHeight / 2), 0), 80);
             }
         }
     }
@@ -899,8 +941,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
                     (deathSaw.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - deathSaw.getAnimatedSprite().getHeight() / 2
             );
             if (deathSaw.getAnimatedSprite().getX() < (-deathSaw.getAnimatedSprite().getWidth()) - GameConstants.APP_WIDTH / 2
-                    || deathSaw.getAnimatedSprite().getX() > (deathSaw.getAnimatedSprite().getWidth()) + GameConstants.APP_WIDTH / 2
-                    || deathSaw.getAnimatedSprite().getY() > (deathSaw.getAnimatedSprite().getHeight()) + GameConstants.APP_HEIGHT / 2
+                    || deathSaw.getAnimatedSprite().getX() > (deathSaw.getAnimatedSprite().getWidth()) + GameConstants.APP_WIDTH
+                    || deathSaw.getAnimatedSprite().getY() > (deathSaw.getAnimatedSprite().getHeight()) + GameConstants.APP_HEIGHT
                     || deathSaw.getAnimatedSprite().getY() < (-deathSaw.getAnimatedSprite().getHeight()) - GameConstants.APP_HEIGHT / 2) {
                 deathSawsForRemoval.add(deathSaw.getBody().getUserData().toString());
             }
@@ -912,8 +954,8 @@ public class GameScreenWorldController implements WorldControllerInterface{
                         getWidth() / 2,
                 (particle.getBody().getPosition().y * GameConstants.PIXELS_TO_METERS) - particle.getAnimatedSprite().getHeight() / 2
         );
-        grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(),0), new Vector3((particle.getAnimatedSprite().getX() + particle.getAnimatedSprite().
-                getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getAnimatedSprite().getY() + particle.getAnimatedSprite().getHeight() / 2) + (camera.viewportHeight / 2),0), 80);
+        grid.ApplyDirectedForce(new Vector3(particle.getBody().getLinearVelocity(), 0), new Vector3((particle.getAnimatedSprite().getX() + particle.getAnimatedSprite().
+                getWidth() / 2) + (camera.viewportWidth / 2), -(particle.getAnimatedSprite().getY() + particle.getAnimatedSprite().getHeight() / 2) + (camera.viewportHeight / 2), 0), 80);
     }
 
     private void updateInvisibleParticles(Particle particle) {
@@ -985,13 +1027,13 @@ public class GameScreenWorldController implements WorldControllerInterface{
                         AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
                     }
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
-                    if (GameConstants.NORMAL_PARTICLE.equals(type) && hero.getEnergy() < 85) {
+                    if (GameConstants.NORMAL_PARTICLE.equals(type) && hero.getEnergy() < 75) {
                         hero.setEnergy(hero.getEnergy() + 5);
-                    } else if (GameConstants.SPLIT_PARTICLE.equals(type) && hero.getEnergy() < 84) {
+                    } else if (GameConstants.SPLIT_PARTICLE.equals(type) && hero.getEnergy() < 74) {
                         hero.setEnergy(hero.getEnergy() + 6);
-                    } else if (GameConstants.SUICIDE_PARTICLE.equals(type) && hero.getEnergy() < 80) {
+                    } else if (GameConstants.SUICIDE_PARTICLE.equals(type) && hero.getEnergy() < 70) {
                         hero.setEnergy(hero.getEnergy() + 10);
-                    } else if (GameConstants.INVISIBLE_PARTICLE.equals(type) && hero.getEnergy() < 70) {
+                    } else if (GameConstants.INVISIBLE_PARTICLE.equals(type) && hero.getEnergy() < 60) {
                         hero.setEnergy(hero.getEnergy() + 20);
                     }
                 }
@@ -1050,7 +1092,7 @@ public class GameScreenWorldController implements WorldControllerInterface{
                     createParticleBurst(contact.getFixtureB().getBody().getUserData().toString(), contact.getFixtureB().getBody().getPosition(), particleHashMap.get(contact.getFixtureB().getBody().getUserData().toString()).getType());
                     AudioManager.instance.playParticleDeathSound(Assets.instance.sounds.particle_death);
                     normalParticlesForRemoval.add(contact.getFixtureB().getBody().getUserData().toString());
-                    if (hero.getEnergy() < 85) {
+                    if (hero.getEnergy() < 75) {
                         hero.setEnergy(hero.getEnergy() + 5);
                     }
                 }
@@ -1086,27 +1128,31 @@ public class GameScreenWorldController implements WorldControllerInterface{
         return gameOver;
     }
 
-    public void handleGameOver() {
-            destroyAllParticles();
-            GameConstants.NORMAL_PARTICAL_SPEED = 5f;
-            GameConstants.SPLIT_PARTICAL_TIME = 200;
-            GameConstants.SUICIDE_PARTICAL_COUNT = 1;
-            GameConstants.DEATH_SAW_TIME = 500;
-            GameConstants.HERO_SPEED = 5f;
+    public boolean isPlayButtonSawCreated() {
+        return playButtonSawCreated;
+    }
 
-            //Reset all particle effects
-            for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
-                for (int i = entry.getValue().getPooledEffects().size - 1; i >= 0; i--) {
-                    entry.getValue().getPooledEffects().get(i).free();
-                }
-                entry.getValue().getPooledEffects().clear();
+    public void handleGameOver() {
+        destroyAllParticles();
+        GameConstants.NORMAL_PARTICAL_SPEED = 5f;
+        GameConstants.SPLIT_PARTICAL_TIME = 200;
+        GameConstants.SUICIDE_PARTICAL_COUNT = 1;
+        GameConstants.DEATH_SAW_TIME = 500;
+        GameConstants.HERO_SPEED = 5f;
+
+        //Reset all particle effects
+        for (Map.Entry<String, Particle> entry : particleHashMap.entrySet()) {
+            for (int i = entry.getValue().getPooledEffects().size - 1; i >= 0; i--) {
+                entry.getValue().getPooledEffects().get(i).free();
             }
-            GamePreferences.instance.save();
-            if(submitHighScore) {
-                AnyDirection.myRequestHandler.submitScore(GamePreferences.instance.highscore);
-                submitHighScore = false;
-            }
-            backToMenu();
+            entry.getValue().getPooledEffects().clear();
+        }
+        GamePreferences.instance.save();
+        if (submitHighScore) {
+            AnyDirection.myRequestHandler.submitScore(GamePreferences.instance.highscore);
+            submitHighScore = false;
+        }
+        backToMenu();
     }
 
     private void deployPowerup() {
@@ -1176,17 +1222,17 @@ public class GameScreenWorldController implements WorldControllerInterface{
             AudioManager.instance.play(Assets.instance.sounds.killingspree);
             renderKillStreak = true;
             killStreakToRender = 1;
-            if(!GamePreferences.instance.killingSpreeAchievementUnlocked){
+            if (!GamePreferences.instance.killingSpreeAchievementUnlocked) {
                 AnyDirection.myRequestHandler.unlockAchievement(GameConstants.KILLING_SPREE_ACHIEVEMENT);
                 GamePreferences.instance.killingSpreeAchievementUnlocked = true;
             }
         }
     }
 
-    public void checkKillStreak(){
-        if(renderKillStreak && killStreakCounter < 100){
+    public void checkKillStreak() {
+        if (renderKillStreak && killStreakCounter < 100) {
             killStreakCounter++;
-        }else{
+        } else {
             renderKillStreak = false;
             killStreakCounter = 0;
         }

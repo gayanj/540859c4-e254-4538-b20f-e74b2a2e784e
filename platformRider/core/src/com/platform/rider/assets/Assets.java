@@ -279,6 +279,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion retrybutton;
         public final TextureAtlas.AtlasRegion achievementbutton;
         public final TextureAtlas.AtlasRegion leaderboardbutton;
+        public final TextureAtlas.AtlasRegion ratingButton;
         public final TextureAtlas.AtlasRegion secondTutorial;
 
         public AssetLevelDecoration(TextureAtlas atlas) {
@@ -287,6 +288,7 @@ public class Assets implements Disposable, AssetErrorListener {
             retrybutton = atlas.findRegion("retryButton");
             achievementbutton = atlas.findRegion("trophy");
             leaderboardbutton = atlas.findRegion("leaderboard");
+            ratingButton = atlas.findRegion("star");
             secondTutorial = atlas.findRegion("secondTutorial");
         }
     }
@@ -303,19 +305,19 @@ public class Assets implements Disposable, AssetErrorListener {
         public AssetFonts() {
             // create three fonts for different sizes
             energyRed = new BitmapFont(
-                    Gdx.files.internal("fonts/energyRed.fnt"), true);
+                    Gdx.files.internal("fonts/energyRed.fnt"), false);
             energyGreen = new BitmapFont(
-                    Gdx.files.internal("fonts/energyGreen.fnt"), true);
+                    Gdx.files.internal("fonts/energyGreen.fnt"), false);
             energyYellow = new BitmapFont(
-                    Gdx.files.internal("fonts/energyYellow.fnt"), true);
+                    Gdx.files.internal("fonts/energyYellow.fnt"), false);
             energyOrange = new BitmapFont(
-                    Gdx.files.internal("fonts/energyOrange.fnt"), true);
+                    Gdx.files.internal("fonts/energyOrange.fnt"), false);
             defaultSmall = new BitmapFont(
-                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+                    Gdx.files.internal("fonts/bitmap.fnt"), false);
             defaultNormal = new BitmapFont(
-                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+                    Gdx.files.internal("fonts/bitmap.fnt"), false);
             defaultBig = new BitmapFont(
-                    Gdx.files.internal("fonts/bitmap.fnt"), true);
+                    Gdx.files.internal("fonts/bitmap.fnt"), false);
             // set font sizes
             defaultSmall.setScale(0.75f);
             defaultNormal.setScale(1.0f);

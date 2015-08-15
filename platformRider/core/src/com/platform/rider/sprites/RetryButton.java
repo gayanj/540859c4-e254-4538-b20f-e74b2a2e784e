@@ -16,7 +16,6 @@ public class RetryButton extends AbstractGameObject {
         this.position = position;
         textureRegion = Assets.instance.assetLevelDecoration.retrybutton;
         sprite = new Sprite(textureRegion);
-        sprite.setFlip(false,true);
         sprite.setSize(sprite.getWidth() * 1.2f, sprite.getHeight() * 1.2f);
         sprite.setPosition(-sprite.getWidth() / 2 + position.x, -sprite.getHeight() / 2 + position.y);
     }

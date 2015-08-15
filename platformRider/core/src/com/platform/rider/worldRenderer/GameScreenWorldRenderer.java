@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platform.rider.assets.Assets;
 import com.platform.rider.sprites.*;
@@ -43,10 +42,10 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
         batch = new SpriteBatch();
         debugRenderer = new ShapeRenderer();
         b2debugRenderer = new Box2DDebugRenderer();
-        cameraGUI = new OrthographicCamera(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT);
-        viewport = new FitViewport(GameConstants.APP_WIDTH, GameConstants.APP_HEIGHT, cameraGUI);
+        cameraGUI = gameScreenWorldController.camera;
+        viewport = gameScreenWorldController.viewport;
         cameraGUI.position.set(0, 0, 0);
-        cameraGUI.setToOrtho(true, viewport.getWorldWidth(), viewport.getWorldHeight()); // flip y-axis
+        cameraGUI.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight()); // flip y-axis
         cameraGUI.update();
     }
 
@@ -115,15 +114,15 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
     private void renderGui() {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
-        // draw collected gold coins icon + text
-        // (anchored to top left edge)
         renderGuiScore();
         renderBonusSreak();
-        // draw game over text
-        if (gameScreenWorldController.isGameOver()) {
+        if (gameScreenWorldController.isGameOver() && gameScreenWorldController.isPlayButtonSawCreated()) {
             renderGuiGameOverMessage();
             renderPlayButtonSaw();
             renderRetryButton();
+            renderAchievementButton();
+            renderLeaderBoardButton();
+            renderRatingButton();
         }
         renderPowerButton();
         renderPowerupInfo();
@@ -147,37 +146,37 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
 
     private void renderGuiScore() {
         float x = 10;
-        float y = 0;
+        float y = cameraGUI.viewportHeight;
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "SCORE",
                 x, y);
         Assets.instance.fonts.defaultNormal.draw(batch, "" + gameScreenWorldController.getScore(),
-                x, y + 40);
+                x, y - 40);
 
         //TODO: Remove this from production code :)
         Assets.instance.fonts.defaultNormal.draw(batch,
                 "FPS: ", cameraGUI.viewportWidth / 2 - 100, y);
         Assets.instance.fonts.defaultNormal.draw(batch,
                 Gdx.graphics.getFramesPerSecond() + "",
-                cameraGUI.viewportWidth / 2, 0);
+                cameraGUI.viewportWidth / 2, y);
     }
 
     private void renderBonusSreak() {
         float x = cameraGUI.viewportWidth / 2 + 300;
-        float y = 0;
+        float y = cameraGUI.viewportHeight;
         if (gameScreenWorldController.getBonusStreak() > 0) {
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "COMBO",
                     x, y);
             Assets.instance.fonts.defaultNormal.draw(batch,
                     gameScreenWorldController.getBonusStreak() + "X",
-                    x, y + 40);
+                    x, y - 40);
         }
     }
 
     private void renderGuiGameOverMessage() {
         float x = cameraGUI.viewportWidth / 2;
-        float y = cameraGUI.viewportHeight / 2 - 300;
+        float y = cameraGUI.viewportHeight / 2 + 300;
         BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
         fontGameOver.drawMultiLine(batch, "GAME OVER", x, y, 0,
                 BitmapFont.HAlignment.CENTER);
@@ -193,6 +192,18 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
 
     private void renderPlayButtonSaw() {
         gameScreenWorldController.playButtonSaw.render(batch);
+    }
+
+    private void renderAchievementButton(){
+        gameScreenWorldController.achievementButton.render(batch);
+    }
+
+    private void renderLeaderBoardButton(){
+        gameScreenWorldController.leaderBoardButton.render(batch);
+    }
+
+    private void renderRatingButton(){
+        gameScreenWorldController.ratingButton.render(batch);
     }
 
     private void renderTutorialBox() {
@@ -225,53 +236,53 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
 
     private void renderPowerupInfo() {
         float x = cameraGUI.viewportWidth / 2 + 380;
-        float y = 80;
+        float y = cameraGUI.viewportHeight - 80;
         if (gameScreenWorldController.powerups.isPickedUp() && gameScreenWorldController.powerups.getRemaining() >= 0) {
             Sprite sprite = gameScreenWorldController.powerups.getSprite();
             batch.draw(sprite,
-                    x, y + 37,
+                    x, y - 37 - sprite.getHeight(),
                     sprite.getOriginX(), sprite.getOriginY(),
                     sprite.getWidth(), sprite.getHeight(),
                     sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation()
             );
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "X " + gameScreenWorldController.powerups.getRemaining(),
-                    x + 60, y + 37);
+                    x + 60, y - 37);
             //if(worldController.powerups.isActive()) {
             int remainingTime = 50 - (gameScreenWorldController.powerups.getPowerCounter() / 10);
             String timer = new String(new char[remainingTime]).replace("\0", "|");
             Assets.instance.fonts.energyOrange.draw(batch,
                     timer,
-                    x + 60, y + 100);
+                    x + 60, y - 100);
             //}
         }
     }
 
     private void renderHeroEnergy() {
         float x = 10;
-        float y = 0;
+        float y = cameraGUI.viewportHeight;
         int remainingEnergy = gameScreenWorldController.hero.getEnergy();
         if (remainingEnergy >= 0) {
             String energy = new String(new char[remainingEnergy]).replace("\0", "|");
             Assets.instance.fonts.defaultNormal.draw(batch,
                     "ENERGY",
-                    x, y + 100);
+                    x, y - 100);
             if (remainingEnergy >= 60) {
                 Assets.instance.fonts.energyGreen.draw(batch,
                         energy,
-                        x, y + 140);
+                        x, y - 140);
             } else if (remainingEnergy >= 40) {
                 Assets.instance.fonts.energyYellow.draw(batch,
                         energy,
-                        x, y + 140);
+                        x, y - 140);
             } else if (remainingEnergy >= 20) {
                 Assets.instance.fonts.energyOrange.draw(batch,
                         energy,
-                        x, y + 140);
+                        x, y - 140);
             } else if (remainingEnergy >= 0) {
                 Assets.instance.fonts.energyRed.draw(batch,
                         energy,
-                        x, y + 140);
+                        x, y - 140);
             }
         }
     }

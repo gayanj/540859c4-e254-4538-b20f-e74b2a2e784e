@@ -46,6 +46,7 @@ public class MenuScreenWorldRenderer implements WorldRendererInterface {
         renderParticles();
         renderAchievementButton();
         renderLeaderBoardButton();
+        renderRatingButton();
         renderParticleBurst();
         batch.end();
     }
@@ -60,6 +61,10 @@ public class MenuScreenWorldRenderer implements WorldRendererInterface {
 
     private void renderLeaderBoardButton(){
         menuScreenWorldController.leaderBoardButton.render(batch);
+    }
+
+    private void renderRatingButton(){
+        menuScreenWorldController.ratingButton.render(batch);
     }
 
     private void renderPlayButtonSaw(){

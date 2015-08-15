@@ -25,7 +25,6 @@ public class Powerups {
     }
     public void createSprite(TextureRegion textureRegion){
         sprite = new Sprite(textureRegion);
-        sprite.setFlip(false,true);
     }
 
     public Sprite getSprite() {

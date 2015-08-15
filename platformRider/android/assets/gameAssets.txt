@@ -2,9 +2,16 @@ gameAssets.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+star
+  rotate: false
+  xy: 308, 383
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
 hero
   rotate: false
-  xy: 108, 557
+  xy: 108, 661
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -25,14 +32,14 @@ energy
   index: -1
 particle
   rotate: false
-  xy: 398, 535
+  xy: 244, 657
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 playbutton
   rotate: false
-  xy: 156, 403
+  xy: 2, 405
   size: 134, 152
   orig: 152, 152
   offset: 10, 0
@@ -46,7 +53,7 @@ trophy
   index: -1
 splitparticle
   rotate: false
-  xy: 292, 535
+  xy: 2, 559
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -81,16 +88,9 @@ armor
   index: -1
 leaderboard
   rotate: false
-  xy: 308, 383
+  xy: 156, 403
   size: 150, 150
   orig: 150, 150
-  offset: 0, 0
-  index: -1
-super_force
-  rotate: false
-  xy: 443, 2
-  size: 50, 50
-  orig: 50, 50
   offset: 0, 0
   index: -1
 retryButton
@@ -100,9 +100,16 @@ retryButton
   orig: 152, 152
   offset: 0, 0
   index: -1
+super_force
+  rotate: false
+  xy: 443, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 powerbutton
   rotate: false
-  xy: 2, 405
+  xy: 308, 535
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
@@ -116,7 +123,7 @@ mass_death
   index: -1
 suicideparticle
   rotate: false
-  xy: 2, 527
+  xy: 138, 555
   size: 104, 104
   orig: 104, 104
   offset: 0, 0

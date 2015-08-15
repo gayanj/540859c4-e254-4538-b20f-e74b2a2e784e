@@ -204,7 +204,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     @Override
     public void rateGame() {
 // Replace the end of the URL with the package of your game
-        String str = "https://play.google.com/store/apps/details?id=org.fortheloss.plunderperil";
+        String str = "https://play.google.com/store/apps/details?id=com.NyanDoge";
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
     }
 

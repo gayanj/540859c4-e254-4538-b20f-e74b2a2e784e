@@ -22,16 +22,16 @@ public class DeathSaw extends AbstractGameObject {
         animatedSprite = new AnimatedSprite(Assets.instance.assetAnimations.deathSawAnimation);
         if (xscale == 0 && side.equals("R")) {
             speed = new Vector2(-10, 0);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) + GameConstants.APP_WIDTH, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (xscale == 0 && side.equals("L")) {
             speed = new Vector2(10, 0);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) - GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2), (-animatedSprite.getHeight() / 2) * yscale + GameConstants.APP_HEIGHT);
         } else if (yscale == 0 && side.equals("D")) {
             speed = new Vector2(0, 15);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) - GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight()));
         } else if (yscale == 0 && side.equals("U")) {
             speed = new Vector2(0, -15);
-            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH / 2, (-animatedSprite.getHeight() / 2) + GameConstants.APP_HEIGHT / 2);
+            animatedSprite.setPosition((-animatedSprite.getWidth() / 2) * xscale + GameConstants.APP_WIDTH, (-animatedSprite.getHeight()) + GameConstants.APP_HEIGHT );
         }
 
         bodyDef.type = BodyDef.BodyType.KinematicBody;
