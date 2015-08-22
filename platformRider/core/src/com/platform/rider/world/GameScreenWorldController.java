@@ -832,7 +832,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
     }
 
     private void createRandomPowerup() {
-        if (powerUpCounter > 1000) {
+        if (powerUpCounter > 2000) {
             Random r = new Random();
             int powerUpNumber = r.nextInt(3);
             if (powerUpNumber == 0) {
@@ -1186,38 +1186,74 @@ public class GameScreenWorldController implements WorldControllerInterface {
             AudioManager.instance.play(Assets.instance.sounds.holyshit);
             renderKillStreak = true;
             killStreakToRender = 10;
+            if (!GamePreferences.instance.holyShitAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.HOLYSHIT_ACHIEVEMENT);
+                GamePreferences.instance.holyShitAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 90) {
             AudioManager.instance.play(Assets.instance.sounds.rampage);
             renderKillStreak = true;
             killStreakToRender = 9;
+            if (!GamePreferences.instance.rampageAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.RAMPAGE_ACHIEVEMENT);
+                GamePreferences.instance.rampageAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 80) {
             AudioManager.instance.play(Assets.instance.sounds.ultrakill);
             renderKillStreak = true;
             killStreakToRender = 8;
+            if (!GamePreferences.instance.ultraKillAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.ULTRAKILL_ACHIEVEMENT);
+                GamePreferences.instance.ultraKillAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 70) {
             AudioManager.instance.play(Assets.instance.sounds.godlike);
             renderKillStreak = true;
             killStreakToRender = 7;
+            if (!GamePreferences.instance.godLikeAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.GODLIKE_ACHIEVEMENT);
+                GamePreferences.instance.godLikeAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 60) {
             AudioManager.instance.play(Assets.instance.sounds.monsterkill);
             renderKillStreak = true;
             killStreakToRender = 6;
+            if (!GamePreferences.instance.monsterKillAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.MONSTERKILL_ACHIEVEMENT);
+                GamePreferences.instance.monsterKillAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 50) {
             AudioManager.instance.play(Assets.instance.sounds.wickedsick);
             renderKillStreak = true;
             killStreakToRender = 5;
+            if (!GamePreferences.instance.wickedSickAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.WICKEDSICK_ACHIEVEMENT);
+                GamePreferences.instance.wickedSickAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 40) {
             AudioManager.instance.play(Assets.instance.sounds.unstoppable);
             renderKillStreak = true;
             killStreakToRender = 4;
+            if (!GamePreferences.instance.unstoppableAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.UNSTOPPABLE_ACHIEVEMENT);
+                GamePreferences.instance.unstoppableAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 30) {
             AudioManager.instance.play(Assets.instance.sounds.megakill);
             renderKillStreak = true;
             killStreakToRender = 3;
+            if (!GamePreferences.instance.megaKillAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.MEGAKILL_ACHIEVEMENT);
+                GamePreferences.instance.megaKillAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 20) {
             AudioManager.instance.play(Assets.instance.sounds.dominating);
             renderKillStreak = true;
             killStreakToRender = 2;
+            if (!GamePreferences.instance.dominatingAchievementUnlocked) {
+                AnyDirection.myRequestHandler.unlockAchievement(GameConstants.DOMINATING_ACHIEVEMENT);
+                GamePreferences.instance.dominatingAchievementUnlocked = true;
+            }
         } else if (bonusStreak == 10) {
             AudioManager.instance.play(Assets.instance.sounds.killingspree);
             renderKillStreak = true;

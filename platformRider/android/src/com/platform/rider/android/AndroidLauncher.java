@@ -233,8 +233,26 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
         if (isSignedIn()) {
             if (GameConstants.KILLING_SPREE_ACHIEVEMENT.equals(achievementId)) {
                 Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_killing_spree));
+            } else if (GameConstants.DOMINATING_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_dominating));
+            } else if (GameConstants.MEGAKILL_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_mega_kill));
+            } else if (GameConstants.UNSTOPPABLE_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_unstoppable));
+            } else if (GameConstants.WICKEDSICK_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_wicked_sick));
+            } else if (GameConstants.MONSTERKILL_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_monster_kill));
+            } else if (GameConstants.GODLIKE_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_god_like));
+            } else if (GameConstants.ULTRAKILL_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_ultra_kill));
+            } else if (GameConstants.RAMPAGE_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_rampage));
+            } else if (GameConstants.HOLYSHIT_ACHIEVEMENT.equals(achievementId)) {
+                Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_beyond_god_like));
             }
-        }else {
+        } else {
             this.signIn();
         }
     }

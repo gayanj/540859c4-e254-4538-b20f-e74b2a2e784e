@@ -197,4 +197,13 @@ public class GameConstants {
 
     //Achievement Constants
     public static final String KILLING_SPREE_ACHIEVEMENT = "achievement_killing_spree";
+    public static final String DOMINATING_ACHIEVEMENT = "achievement_dominating";
+    public static final String MEGAKILL_ACHIEVEMENT = "achievement_mega_kill";
+    public static final String UNSTOPPABLE_ACHIEVEMENT = "achievement_unstoppable";
+    public static final String WICKEDSICK_ACHIEVEMENT = "achievement_wicked_sick";
+    public static final String MONSTERKILL_ACHIEVEMENT = "achievement_monster_kill";
+    public static final String GODLIKE_ACHIEVEMENT = "achievement_god_like";
+    public static final String ULTRAKILL_ACHIEVEMENT = "achievement_ultra_kill";
+    public static final String RAMPAGE_ACHIEVEMENT = "achievement_rampage";
+    public static final String HOLYSHIT_ACHIEVEMENT = "achievement_beyond_god_like";
 }

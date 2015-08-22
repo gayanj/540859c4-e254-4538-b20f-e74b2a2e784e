@@ -68,7 +68,7 @@ public class Power extends AbstractGameObject {
         }else if(GameConstants.ENERGY.equals(type) || GameConstants.SPEED.equals(type) || GameConstants.INVINCIBILITY.equals(type) || GameConstants.ARMOR.equals(type)){
             fixtureDef.filter.categoryBits = GameConstants.SPRITE_7;
         }
-        fixtureDef.filter.maskBits = GameConstants.SPRITE_2;
+        fixtureDef.filter.maskBits = GameConstants.SPRITE_2 | GameConstants.SPRITE_8;
 
         body.createFixture(fixtureDef);
         shape.dispose();

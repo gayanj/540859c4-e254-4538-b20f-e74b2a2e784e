@@ -3,4 +3,13 @@
     <string name="app_id">308351420530</string>
     <string name="leaderboard_id">CgkI8pC12fwIEAIQAA</string>
     <string name="achievement_killing_spree">CgkI8pC12fwIEAIQAg</string>
+    <string name="achievement_dominating">CgkI8pC12fwIEAIQAw</string>
+    <string name="achievement_mega_kill">CgkI8pC12fwIEAIQBA</string>
+    <string name="achievement_unstoppable">CgkI8pC12fwIEAIQBQ</string>
+    <string name="achievement_wicked_sick">CgkI8pC12fwIEAIQBg</string>
+    <string name="achievement_monster_kill">CgkI8pC12fwIEAIQBw</string>
+    <string name="achievement_god_like">CgkI8pC12fwIEAIQCA</string>
+    <string name="achievement_ultra_kill">CgkI8pC12fwIEAIQCQ</string>
+    <string name="achievement_rampage">CgkI8pC12fwIEAIQCg</string>
+    <string name="achievement_beyond_god_like">CgkI8pC12fwIEAIQCw</string>
 </resources>

@@ -123,6 +123,7 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
             renderAchievementButton();
             renderLeaderBoardButton();
             renderRatingButton();
+            renderHighScore();
         }
         renderPowerButton();
         renderPowerupInfo();
@@ -179,6 +180,14 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
         float y = cameraGUI.viewportHeight / 2 + 300;
         BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
         fontGameOver.drawMultiLine(batch, "GAME OVER", x, y, 0,
+                BitmapFont.HAlignment.CENTER);
+    }
+
+    private void renderHighScore() {
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2 - 500;
+        BitmapFont fontHighScore = Assets.instance.fonts.defaultBig;
+        fontHighScore.drawMultiLine(batch, "BEST " + GamePreferences.instance.highscore, x, y, 0,
                 BitmapFont.HAlignment.CENTER);
     }
 
