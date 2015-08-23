@@ -832,7 +832,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
     }
 
     private void createRandomPowerup() {
-        if (powerUpCounter > 2000) {
+        if (GamePreferences.instance.spawnInvisibleParticles && powerUpCounter > 2000) {
             Random r = new Random();
             int powerUpNumber = r.nextInt(3);
             if (powerUpNumber == 0) {
@@ -849,14 +849,14 @@ public class GameScreenWorldController implements WorldControllerInterface {
     }
 
     private void createRandomInstantPowerup() {
-        if (instantPowerUpCounter > 1000) {
+        if (GamePreferences.instance.spawnInvisibleParticles && instantPowerUpCounter > 1000) {
             Random r = new Random();
             int powerUpNumber = r.nextInt(4);
-            if (powerUpNumber == 0) {
+            if (powerUpNumber == 0 && hero.getEnergy() < 70) {
                 createPowerUp(GameConstants.ENERGY);
             } else if (powerUpNumber == 1) {
                 createPowerUp(GameConstants.SPEED);
-            } else if (powerUpNumber == 2) {
+            } else if (powerUpNumber == 2 && GamePreferences.instance.holyShitAchievementUnlocked && score % 10000 == 0) {
                 createPowerUp(GameConstants.INVINCIBILITY);
             } else if (powerUpNumber == 3) {
                 createPowerUp(GameConstants.ARMOR);
@@ -1157,10 +1157,11 @@ public class GameScreenWorldController implements WorldControllerInterface {
 
     private void deployPowerup() {
         if (!powerups.isActive() && powerups.getRemaining() > 0) {
-            //powerups.setType(GameConstants.SUPER_FORCE);
             powerups.setActive(true);
+            powerupButton.getSprite().setRegion(Assets.instance.assetLevelDecoration.powerbutton_pressed);
         } else {
             powerups.setActive(false);
+            powerupButton.getSprite().setRegion(Assets.instance.assetLevelDecoration.powerbutton);
         }
     }
 

@@ -153,13 +153,6 @@ public class GameScreenWorldRenderer implements WorldRendererInterface {
                 x, y);
         Assets.instance.fonts.defaultNormal.draw(batch, "" + gameScreenWorldController.getScore(),
                 x, y - 40);
-
-        //TODO: Remove this from production code :)
-        Assets.instance.fonts.defaultNormal.draw(batch,
-                "FPS: ", cameraGUI.viewportWidth / 2 - 100, y);
-        Assets.instance.fonts.defaultNormal.draw(batch,
-                Gdx.graphics.getFramesPerSecond() + "",
-                cameraGUI.viewportWidth / 2, y);
     }
 
     private void renderBonusSreak() {

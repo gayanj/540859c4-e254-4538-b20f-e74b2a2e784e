@@ -11,7 +11,7 @@ star
   index: -1
 hero
   rotate: false
-  xy: 108, 661
+  xy: 366, 657
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -32,7 +32,7 @@ energy
   index: -1
 particle
   rotate: false
-  xy: 244, 657
+  xy: 260, 657
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -53,7 +53,7 @@ trophy
   index: -1
 splitparticle
   rotate: false
-  xy: 2, 559
+  xy: 2, 665
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
@@ -109,7 +109,7 @@ super_force
   index: -1
 powerbutton
   rotate: false
-  xy: 308, 535
+  xy: 138, 555
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
@@ -123,9 +123,16 @@ mass_death
   index: -1
 suicideparticle
   rotate: false
-  xy: 138, 555
+  xy: 2, 559
   size: 104, 104
   orig: 104, 104
+  offset: 0, 0
+  index: -1
+powerbutton_pressed
+  rotate: false
+  xy: 308, 535
+  size: 120, 120
+  orig: 120, 120
   offset: 0, 0
   index: -1
 speed

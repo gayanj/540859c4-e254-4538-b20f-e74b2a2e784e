@@ -275,6 +275,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class AssetLevelDecoration {
         public final TextureAtlas.AtlasRegion powerbutton;
+        public final TextureAtlas.AtlasRegion powerbutton_pressed;
         public final TextureAtlas.AtlasRegion playbutton;
         public final TextureAtlas.AtlasRegion retrybutton;
         public final TextureAtlas.AtlasRegion achievementbutton;
@@ -284,6 +285,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public AssetLevelDecoration(TextureAtlas atlas) {
             powerbutton = atlas.findRegion("powerbutton");
+            powerbutton_pressed = atlas.findRegion("powerbutton_pressed");
             playbutton = atlas.findRegion("playbutton");
             retrybutton = atlas.findRegion("retryButton");
             achievementbutton = atlas.findRegion("trophy");

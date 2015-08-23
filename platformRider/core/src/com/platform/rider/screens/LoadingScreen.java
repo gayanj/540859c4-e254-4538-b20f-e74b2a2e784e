@@ -46,6 +46,7 @@ public class LoadingScreen extends AbstractGameScreen {
     public void show() {
         // Tell the manager to load assets for the loading screen
         assetManager.load("data/loading.pack", TextureAtlas.class);
+        assetManager.load("data/logo.txt", TextureAtlas.class);
         // Wait until they are finished loading
         assetManager.finishLoading();
 
@@ -54,9 +55,10 @@ public class LoadingScreen extends AbstractGameScreen {
 
         // Get our textureatlas from the manager
         TextureAtlas atlas = assetManager.get("data/loading.pack", TextureAtlas.class);
+        TextureAtlas atlas2 = assetManager.get("data/logo.txt", TextureAtlas.class);
 
         // Grab the regions from the atlas and create some images
-        logo = new Image(atlas.findRegion("libgdx-logo"));
+        logo = new Image(atlas2.findRegion("Splashscreentext"));
         loadingFrame = new Image(atlas.findRegion("loading-frame"));
         loadingBarHidden = new Image(atlas.findRegion("loading-bar-hidden"));
         screenBg = new Image(atlas.findRegion("screen-bg"));
@@ -240,6 +242,7 @@ public class LoadingScreen extends AbstractGameScreen {
     public void hide() {
         // Dispose the loading assets as we no longer need them
         assetManager.unload("data/loading.pack");
+        assetManager.unload("data/logo.txt");
     }
 
     @Override
