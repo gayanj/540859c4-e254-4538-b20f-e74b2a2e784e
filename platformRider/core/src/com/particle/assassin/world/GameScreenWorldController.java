@@ -370,20 +370,20 @@ public class GameScreenWorldController implements WorldControllerInterface {
             int hposition = r.nextInt((GameConstants.APP_WIDTH / 130) - 2 - 2) + 2;
             if (side == 0) {//R
                 int yscale = 2 * (vposition + 1);
-                DeathSaw deathSaw = new DeathSaw(0, yscale, world, "R", "R" + vposition);
-                deathSawHashMap.put("R" + vposition, deathSaw);
+                DeathSaw deathSaw = new DeathSaw(0, yscale, world, "R", "DeathSaw_R" + vposition);
+                deathSawHashMap.put("DeathSaw_R" + vposition, deathSaw);
             } else if (side == 1) {//L
                 int yscale = 2 * (vposition + 1);
-                DeathSaw deathSaw = new DeathSaw(0, yscale, world, "L", "L" + vposition);
-                deathSawHashMap.put("L" + vposition, deathSaw);
+                DeathSaw deathSaw = new DeathSaw(0, yscale, world, "L", "DeathSaw_L" + vposition);
+                deathSawHashMap.put("DeathSaw_L" + vposition, deathSaw);
             } else if (side == 2) {//U
                 int xscale = 2 * (hposition + 1);
-                DeathSaw deathSaw = new DeathSaw(xscale, 0, world, "U", "U" + hposition);
-                deathSawHashMap.put("U" + hposition, deathSaw);
+                DeathSaw deathSaw = new DeathSaw(xscale, 0, world, "U", "DeathSaw_U" + hposition);
+                deathSawHashMap.put("DeathSaw_U" + hposition, deathSaw);
             } else if (side == 3) {//D
                 int xscale = 2 * (hposition + 1);
-                DeathSaw deathSaw = new DeathSaw(xscale, 0, world, "D", "D" + hposition);
-                deathSawHashMap.put("D" + hposition, deathSaw);
+                DeathSaw deathSaw = new DeathSaw(xscale, 0, world, "D", "DeathSaw_D" + hposition);
+                deathSawHashMap.put("DeathSaw_D" + hposition, deathSaw);
             }
             deathSawCounter = 0;
         } else {
@@ -786,7 +786,10 @@ public class GameScreenWorldController implements WorldControllerInterface {
 
                 if ("hero".equals(body.getUserData().toString())) {
                     gameOver = true;
-                } else if (!body.getUserData().toString().contains("power".toLowerCase()) && !normalParticlesForRemoval.contains(body.getUserData().toString())) {
+                } else if (!body.getUserData().toString().contains("power".toLowerCase()) &&
+                        !body.getUserData().toString().contains("saw".toLowerCase()) &&
+                        !body.getUserData().toString().contains("DeathSaw_".toLowerCase()) &&
+                        !normalParticlesForRemoval.contains(body.getUserData().toString())) {
                     normalParticlesForRemoval.add(body.getUserData().toString());
                 }
             }
