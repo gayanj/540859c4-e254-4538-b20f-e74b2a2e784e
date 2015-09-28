@@ -60,8 +60,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 60.0
-highMax: 60.0
+highMin: 50.0
+highMax: 50.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -82,11 +82,11 @@ active: false
 - Tint - 
 colorsCount: 6
 colors0: 0.0
-colors1: 0.015686275
-colors2: 1.0
+colors1: 0.32156864
+colors2: 0.6117647
 colors3: 0.0
-colors4: 1.0
-colors5: 0.91764706
+colors4: 0.32156864
+colors5: 0.6117647
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -96,14 +96,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 0.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -112,4 +108,4 @@ additive: false
 behind: false
 premultipliedAlpha: false
 - Image Path -
-splitparticle.png
+normalparticle.png

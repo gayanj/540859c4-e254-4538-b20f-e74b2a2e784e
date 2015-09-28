@@ -60,8 +60,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 30.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -108,12 +108,12 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 1.0
+colors0: 0.6
 colors1: 0.0
-colors2: 0.9529412
-colors3: 1.0
-colors4: 1.0
-colors5: 1.0
+colors2: 0.77254903
+colors3: 0.60784316
+colors4: 0.0
+colors5: 0.77254903
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -123,14 +123,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -204,8 +200,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 30.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -243,12 +239,12 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.0
-colors1: 0.8901961
-colors2: 1.0
-colors3: 1.0
-colors4: 1.0
-colors5: 1.0
+colors0: 0.44313726
+colors1: 0.92156863
+colors2: 0.87058824
+colors3: 0.44313726
+colors4: 0.92156863
+colors5: 0.87058824
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -258,14 +254,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -339,8 +331,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 30.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -356,7 +348,7 @@ highMin: 100.0
 highMax: 100.0
 relative: false
 scalingCount: 1
-scaling0: 0.7647059
+scaling0: 0.74509805
 timelineCount: 1
 timeline0: 0.0
 - Angle - 
@@ -378,12 +370,12 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 1.0
-colors1: 0.0
-colors2: 0.0
-colors3: 1.0
-colors4: 1.0
-colors5: 1.0
+colors0: 0.8509804
+colors1: 0.06666667
+colors2: 0.015686275
+colors3: 0.8509804
+colors4: 0.07450981
+colors5: 0.015686275
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -393,14 +385,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -474,8 +462,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 30.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -491,7 +479,7 @@ highMin: 100.0
 highMax: 100.0
 relative: false
 scalingCount: 1
-scaling0: 0.50980395
+scaling0: 0.49019608
 timelineCount: 1
 timeline0: 0.0
 - Angle - 
@@ -513,12 +501,12 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 1.0
-colors1: 0.9372549
-colors2: 0.0
-colors3: 1.0
-colors4: 1.0
-colors5: 1.0
+colors0: 0.99607843
+colors1: 0.9098039
+colors2: 0.003921569
+colors3: 0.99607843
+colors4: 0.9098039
+colors5: 0.003921569
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -528,14 +516,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -609,8 +593,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 30.0
+highMin: 20.0
+highMax: 20.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -626,7 +610,7 @@ highMin: 100.0
 highMax: 100.0
 relative: false
 scalingCount: 1
-scaling0: 0.29411766
+scaling0: 0.27450982
 timelineCount: 1
 timeline0: 0.0
 - Angle - 
@@ -663,14 +647,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false
@@ -744,8 +724,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 60.0
-highMax: 60.0
+highMin: 50.0
+highMax: 50.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -780,14 +760,10 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 3
-scaling0: 0.0
-scaling1: 1.0
-scaling2: 0.0
-timelineCount: 3
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.20547946
-timeline2: 1.0
 - Options - 
 attached: false
 continuous: false

@@ -2,142 +2,156 @@ gameAssets.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-star
-  rotate: false
-  xy: 308, 383
-  size: 150, 150
-  orig: 150, 150
-  offset: 0, 0
-  index: -1
 hero
   rotate: false
-  xy: 366, 657
+  xy: 564, 1924
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
+star
+  rotate: false
+  xy: 1684, 492
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 spike
   rotate: false
-  xy: 308, 251
+  xy: 1286, 641
   size: 131, 130
   orig: 131, 132
   offset: 0, 1
   index: -1
+logo
+  rotate: false
+  xy: 1084, 2
+  size: 864, 488
+  orig: 1024, 512
+  offset: 78, 14
+  index: -1
 energy
   rotate: false
-  xy: 441, 262
+  xy: 774, 1976
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 260, 657
+  xy: 458, 1924
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 playbutton
   rotate: false
-  xy: 2, 405
+  xy: 1886, 646
   size: 134, 152
-  orig: 152, 152
-  offset: 10, 0
+  orig: 134, 152
+  offset: 0, 0
   index: -1
 trophy
   rotate: false
-  xy: 156, 251
-  size: 150, 150
-  orig: 150, 150
-  offset: 0, 0
-  index: -1
-splitparticle
-  rotate: false
-  xy: 2, 665
-  size: 104, 104
-  orig: 104, 104
+  xy: 1482, 492
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: -1
 invincibility
   rotate: false
-  xy: 443, 210
+  xy: 774, 1924
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
+splitparticle
+  rotate: false
+  xy: 352, 1924
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
 slow_motion
   rotate: false
-  xy: 443, 106
+  xy: 722, 1924
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 secondTutorial
   rotate: false
-  xy: 2, 2
-  size: 439, 247
-  orig: 439, 247
+  xy: 1084, 492
+  size: 396, 147
+  orig: 396, 147
   offset: 0, 0
   index: -1
 armor
   rotate: false
-  xy: 441, 314
+  xy: 826, 1924
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 leaderboard
   rotate: false
-  xy: 156, 403
-  size: 150, 150
-  orig: 150, 150
+  xy: 1084, 641
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 2
+  size: 1080, 1920
+  orig: 1080, 1920
   offset: 0, 0
   index: -1
 retryButton
   rotate: false
-  xy: 2, 251
+  xy: 1886, 492
   size: 152, 152
   orig: 152, 152
   offset: 0, 0
   index: -1
 super_force
   rotate: false
-  xy: 443, 2
+  xy: 670, 1924
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 powerbutton
   rotate: false
-  xy: 138, 555
+  xy: 124, 1924
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 mass_death
   rotate: false
-  xy: 443, 158
+  xy: 722, 1976
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 suicideparticle
   rotate: false
-  xy: 2, 559
+  xy: 246, 1924
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 powerbutton_pressed
   rotate: false
-  xy: 308, 535
+  xy: 2, 1924
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 speed
   rotate: false
-  xy: 443, 54
+  xy: 670, 1976
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
