@@ -1,0 +1,11 @@
+logo.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Splashscreentext
+  rotate: false
+  xy: 2, 2
+  size: 515, 51
+  orig: 543, 77
+  offset: 14, 13
+  index: -1
