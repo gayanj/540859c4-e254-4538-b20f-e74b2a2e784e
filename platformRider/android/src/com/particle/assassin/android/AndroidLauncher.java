@@ -20,11 +20,12 @@ import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.particle.assassin.main.AnyDirection;
 import com.particle.assassin.utils.GameConstants;
+import com.particle.assassin.utils.GamePreferences;
 import com.particle.assassin.utils.IActivityRequestHandler;
 
 public class AndroidLauncher extends AndroidApplication implements IActivityRequestHandler {
-    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8464762813805843/8327434010";
-    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-8464762813805843/8323270010";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8464762813805843/5625420417";
+    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-8464762813805843/7102153616";
     private final int SHOW_ADS = 1;
     private final int HIDE_ADS = 0;
     protected AdView adView;
@@ -49,6 +50,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
             @Override
             public void onSignInSucceeded() {
                 isSignedIn = true;
+                uploadPreviousGameData();
             }
 
             @Override
@@ -202,8 +204,8 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 
     @Override
     public void rateGame() {
-// Replace the end of the URL with the package of your game
-        String str = "https://play.google.com/store/apps/details?id=com.NyanDoge";
+        // Replace the end of the URL with the package of your game
+        String str = "https://play.google.com/store/apps/details?id=com.particle.assassin.android";
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
     }
 
@@ -211,9 +213,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     public void submitScore(long score) {
         if (isSignedIn()) {
             Games.Leaderboards.submitScore(_gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-        } else {
-// Maybe sign in here then redirect to submitting score?
-            this.signIn();
         }
     }
 
@@ -222,7 +221,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
         if (isSignedIn())
             startActivityForResult(Games.Leaderboards.getLeaderboardIntent(_gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
         else {
-// Maybe sign in here then redirect to showing scores?
+            // Maybe sign in here then redirect to showing scores?
             this.signIn();
         }
     }
@@ -251,8 +250,6 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
             } else if (GameConstants.HOLYSHIT_ACHIEVEMENT.equals(achievementId)) {
                 Games.Achievements.unlock(_gameHelper.getApiClient(), getString(R.string.achievement_beyond_god_like));
             }
-        } else {
-            this.signIn();
         }
     }
 
@@ -261,7 +258,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
         if (isSignedIn())
             startActivityForResult(Games.Achievements.getAchievementsIntent(_gameHelper.getApiClient()), REQUEST_CODE_UNUSED);
         else {
-// Maybe sign in here then redirect to showing scores?
+            // Maybe sign in here then redirect to showing scores?
             this.signIn();
         }
     }
@@ -269,6 +266,43 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
     @Override
     public boolean isSignedIn() {
         return isSignedIn;
+    }
+
+    @Override
+    public void uploadPreviousGameData() {
+        if (GamePreferences.instance.highscore > 0) {
+            submitScore(GamePreferences.instance.highscore);
+        }
+        if (GamePreferences.instance.killingSpreeAchievementUnlocked) {
+            unlockAchievement(GameConstants.KILLING_SPREE_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.dominatingAchievementUnlocked) {
+            unlockAchievement(GameConstants.DOMINATING_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.megaKillAchievementUnlocked) {
+            unlockAchievement(GameConstants.MEGAKILL_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.unstoppableAchievementUnlocked) {
+            unlockAchievement(GameConstants.UNSTOPPABLE_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.wickedSickAchievementUnlocked) {
+            unlockAchievement(GameConstants.WICKEDSICK_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.monsterKillAchievementUnlocked) {
+            unlockAchievement(GameConstants.MONSTERKILL_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.godLikeAchievementUnlocked) {
+            unlockAchievement(GameConstants.GODLIKE_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.ultraKillAchievementUnlocked) {
+            unlockAchievement(GameConstants.ULTRAKILL_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.rampageAchievementUnlocked) {
+            unlockAchievement(GameConstants.RAMPAGE_ACHIEVEMENT);
+        }
+        if (GamePreferences.instance.holyShitAchievementUnlocked) {
+            unlockAchievement(GameConstants.HOLYSHIT_ACHIEVEMENT);
+        }
     }
 
     @Override

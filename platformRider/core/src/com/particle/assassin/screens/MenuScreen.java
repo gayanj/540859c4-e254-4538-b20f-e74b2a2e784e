@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.particle.assassin.main.AnyDirection;
+import com.particle.assassin.utils.GamePreferences;
 import com.particle.assassin.world.MenuScreenWorldController;
 import com.particle.assassin.worldRenderer.MenuScreenWorldRenderer;
 
@@ -38,6 +39,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        GamePreferences.instance.load();
         AnyDirection.myRequestHandler.signIn();
         menuScreenWorldController = new MenuScreenWorldController(game);
         menuScreenWorldRenderer = new MenuScreenWorldRenderer(menuScreenWorldController);

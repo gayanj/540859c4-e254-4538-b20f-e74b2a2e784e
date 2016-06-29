@@ -10,6 +10,7 @@ public class GamePreferences {
     public static final GamePreferences instance =
             new GamePreferences();
 
+    public boolean previousGameDataUploaded;
     public boolean firstTutorialCompleted;
     public boolean secondTutorialCompleted;
     public boolean renderFirstTutorial;
@@ -44,6 +45,7 @@ public class GamePreferences {
     }
 
     public void load() {
+        previousGameDataUploaded = prefs.getBoolean("previousGameDataUploaded", false);
         firstTutorialCompleted = prefs.getBoolean("firstTutorialCompleted", false);
         secondTutorialCompleted = prefs.getBoolean("secondTutorialCompleted", false);
         renderFirstTutorial = prefs.getBoolean("renderFirstTutorial", false);
@@ -72,6 +74,7 @@ public class GamePreferences {
     }
 
     public void save() {
+        prefs.putBoolean("previousGameDataUploaded", previousGameDataUploaded);
         prefs.putBoolean("firstTutorialCompleted", firstTutorialCompleted);
         prefs.putBoolean("secondTutorialCompleted", secondTutorialCompleted);
         prefs.putBoolean("renderFirstTutorial", renderFirstTutorial);

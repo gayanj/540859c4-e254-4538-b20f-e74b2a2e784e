@@ -23,4 +23,6 @@ public interface IActivityRequestHandler {
     public void showAchievements();
 
     public boolean isSignedIn();
+
+    public void uploadPreviousGameData();
 }

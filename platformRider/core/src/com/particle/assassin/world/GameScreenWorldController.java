@@ -691,6 +691,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
         if (hero.getEnergy() <= 0) {
             createParticleBurst("-1", hero.getBody().getPosition(), GameConstants.HERO_PARTICLE);
             AudioManager.instance.play(Assets.instance.sounds.hero_death);
+            saveGameProgress();
             gameOver = true;
         } else if (hero.getEnergy() <= 20) {
             AudioManager.instance.playAlertSound(Assets.instance.music.alert, 0.3f);
@@ -785,6 +786,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
                 }
 
                 if ("hero".equals(body.getUserData().toString())) {
+                    saveGameProgress();
                     gameOver = true;
                 } else if (!body.getUserData().toString().contains("power".toLowerCase()) &&
                         !body.getUserData().toString().contains("saw".toLowerCase()) &&
@@ -1054,6 +1056,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
                 if (!gameOver) {
                     createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                     AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    saveGameProgress();
                     gameOver = true;
                 }
             }
@@ -1062,6 +1065,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
                 if (!gameOver) {
                     createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                     AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    saveGameProgress();
                     gameOver = true;
                 }
             }
@@ -1113,6 +1117,7 @@ public class GameScreenWorldController implements WorldControllerInterface {
                 if (!gameOver) {
                     createParticleBurst("-1", contact.getFixtureA().getBody().getPosition(), GameConstants.HERO_PARTICLE);
                     AudioManager.instance.play(Assets.instance.sounds.hero_death);
+                    saveGameProgress();
                     gameOver = true;
                 }
             }
@@ -1158,12 +1163,15 @@ public class GameScreenWorldController implements WorldControllerInterface {
             }
             entry.getValue().getPooledEffects().clear();
         }
+        backToMenu();
+    }
+
+    private void saveGameProgress(){
         GamePreferences.instance.save();
         if (submitHighScore) {
             AnyDirection.myRequestHandler.submitScore(GamePreferences.instance.highscore);
             submitHighScore = false;
         }
-        backToMenu();
     }
 
     private void deployPowerup() {

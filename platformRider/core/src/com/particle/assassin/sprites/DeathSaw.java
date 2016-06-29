@@ -84,7 +84,7 @@ public class DeathSaw extends AbstractGameObject {
     @Override
     public void render(SpriteBatch batch) {
         if (!speedIsSet) {
-            if (speedDelayCounter > 15) {
+            if (speedDelayCounter > 25) {
                 body.setLinearVelocity(speed);
                 speedIsSet = true;
             } else {
