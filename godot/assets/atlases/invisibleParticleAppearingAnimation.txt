@@ -1,0 +1,235 @@
+invisibleParticleAppearingAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 1
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 323
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 22
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 323
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 9
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 26
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 12
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 323
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 16
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 2
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 23
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 6
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 27
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 13
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 30
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 17
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 323
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 3
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 24
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 20
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 7
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 323
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 28
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 14
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 10
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 31
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 18
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 4
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 0
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 25
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 21
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 8
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 29
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 216, 323
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: 63
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 216
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 15
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 2, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 11
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 323, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 19
+invisibleParticleAppearingAnimation_
+  rotate: false
+  xy: 109, 109
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 5

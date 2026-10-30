@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/trail.gd" id="1"]
+
+[node name="Trail" type="GPUParticles2D"]
+amount = 120
+lifetime = 0.2
+local_coords = false
+script = ExtResource("1")

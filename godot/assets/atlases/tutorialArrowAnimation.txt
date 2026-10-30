@@ -1,0 +1,445 @@
+tutorialArrowAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 54
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 33
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 22
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1685
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 16
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 9
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 11
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 1379
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 0
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 45
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 39
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 28
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 61
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 55
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 30
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 23
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1532
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 17
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1685
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 6
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 1
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 42
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 36
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 29
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 52
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 31
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 20
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 14
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1532
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 7
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 48
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 43
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 58
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 37
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 26
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 53
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 21
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1838
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 15
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 4
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 49
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 40
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 59
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 34
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 27
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 50
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 12
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1838
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 5
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 46
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 62
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 41
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 56
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 35
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 24
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1379
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 18
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 155
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 51
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 13
+tutorialArrowAnimation_
+  rotate: false
+  xy: 622, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 2
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 308
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 47
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 57
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 767
+  size: 153, 151
+  orig: 201, 201
+  offset: 27, 22
+  index: 32
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 920
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 25
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 19
+tutorialArrowAnimation_
+  rotate: false
+  xy: 157, 1379
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 8
+tutorialArrowAnimation_
+  rotate: false
+  xy: 777, 1073
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 10
+tutorialArrowAnimation_
+  rotate: false
+  xy: 467, 1226
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 3
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 461
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 44
+tutorialArrowAnimation_
+  rotate: false
+  xy: 2, 614
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 38
+tutorialArrowAnimation_
+  rotate: false
+  xy: 312, 2
+  size: 153, 151
+  orig: 201, 201
+  offset: 28, 22
+  index: 60

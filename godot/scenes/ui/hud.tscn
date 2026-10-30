@@ -1,0 +1,259 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/BebasNeue.otf" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dash_button.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/ui/buff_bar.gd" id="12"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/retryButton.tres" id="4"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/leaderboard.tres" id="5"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/star.tres" id="6"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/trophy.tres" id="7"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/secondTutorial.tres" id="8"]
+[ext_resource type="Script" path="res://scripts/fx/neon_disc.gd" id="9"]
+[ext_resource type="Material" path="res://assets/shaders/silhouette_ui.tres" id="10"]
+[ext_resource type="Script" path="res://scripts/ui/energy_dial.gd" id="11"]
+
+[sub_resource type="LabelSettings" id="score"]
+font = ExtResource("2")
+font_size = 120
+font_color = Color(1.6, 0.42, 0.38, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="combo"]
+font = ExtResource("2")
+font_size = 56
+font_color = Color(1.6, 1.3, 0.4, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="blades"]
+font = ExtResource("2")
+font_size = 32
+font_color = Color(1, 1, 1, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="toast"]
+font = ExtResource("2")
+font_size = 60
+font_color = Color(1, 1, 1, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="LabelSettings" id="big"]
+font = ExtResource("2")
+font_size = 200
+font_color = Color(1.6, 0.42, 0.38, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 0.7)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="EnergyDial" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = 180.0
+offset_bottom = 180.0
+mouse_filter = 2
+script = ExtResource("11")
+ring_width = 8.0
+
+[node name="ScoreValue" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 240.0
+offset_top = 80.0
+offset_right = 840.0
+offset_bottom = 220.0
+pivot_offset = Vector2(300, 70)
+text = "0"
+label_settings = SubResource("score")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combo" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 430.0
+offset_top = 215.0
+offset_right = 650.0
+offset_bottom = 290.0
+mouse_filter = 2
+
+[node name="ComboValue" type="Label" parent="Root/Combo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 60.0
+text = "x7"
+label_settings = SubResource("combo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComboBlades" type="Label" parent="Root/Combo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 70.0
+offset_right = 220.0
+offset_bottom = 110.0
+text = "1 BLADE"
+label_settings = SubResource("blades")
+horizontal_alignment = 1
+
+[node name="ComboBarBg" type="ColorRect" parent="Root/Combo"]
+layout_mode = 0
+offset_top = 62.0
+offset_right = 220.0
+offset_bottom = 68.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.1)
+
+[node name="ComboBar" type="ColorRect" parent="Root/Combo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 62.0
+offset_right = 220.0
+offset_bottom = 68.0
+mouse_filter = 2
+color = Color(1.6, 1.3, 0.4, 1)
+
+[node name="Points" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Toast" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 240.0
+offset_top = 300.0
+offset_right = 840.0
+offset_bottom = 370.0
+pivot_offset = Vector2(300, 35)
+text = "KILLING SPREE!"
+label_settings = SubResource("toast")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DashButton" parent="Root" instance=ExtResource("3")]
+unique_name_in_owner = true
+
+[node name="BuffBar" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1080.0
+offset_bottom = 400.0
+mouse_filter = 2
+script = ExtResource("12")
+
+[node name="GameOver" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="GameOverLabel" type="Label" parent="Root/GameOver"]
+layout_mode = 0
+offset_top = 440.0
+offset_right = 1080.0
+offset_bottom = 680.0
+text = "GAME OVER"
+label_settings = SubResource("big")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BestLabel" type="Label" parent="Root/GameOver"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 1340.0
+offset_right = 1080.0
+offset_bottom = 1580.0
+text = "BEST 0"
+label_settings = SubResource("big")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="TextureButton" parent="Root/GameOver"]
+unique_name_in_owner = true
+modulate = Color(1.6, 0.5, 0.45, 1)
+layout_mode = 0
+offset_left = 464.0
+offset_top = 884.0
+offset_right = 616.0
+offset_bottom = 1036.0
+texture_normal = ExtResource("4")
+
+[node name="LeaderboardButton" type="TextureButton" parent="Root/GameOver"]
+unique_name_in_owner = true
+material = ExtResource("10")
+layout_mode = 0
+offset_left = 190.0
+offset_top = 1160.0
+offset_right = 390.0
+offset_bottom = 1360.0
+texture_normal = ExtResource("5")
+
+[node name="Disc" type="Control" parent="Root/GameOver/LeaderboardButton"]
+script = ExtResource("9")
+
+[node name="RateButton" type="TextureButton" parent="Root/GameOver"]
+unique_name_in_owner = true
+material = ExtResource("10")
+layout_mode = 0
+offset_left = 440.0
+offset_top = 1160.0
+offset_right = 640.0
+offset_bottom = 1360.0
+texture_normal = ExtResource("6")
+
+[node name="Disc" type="Control" parent="Root/GameOver/RateButton"]
+script = ExtResource("9")
+
+[node name="TrophyButton" type="TextureButton" parent="Root/GameOver"]
+unique_name_in_owner = true
+material = ExtResource("10")
+layout_mode = 0
+offset_left = 690.0
+offset_top = 1160.0
+offset_right = 890.0
+offset_bottom = 1360.0
+texture_normal = ExtResource("7")
+
+[node name="Disc" type="Control" parent="Root/GameOver/TrophyButton"]
+script = ExtResource("9")
+
+[node name="Tutorial" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TutorialCard" type="TextureButton" parent="Root/Tutorial"]
+unique_name_in_owner = true
+material = ExtResource("10")
+layout_mode = 0
+offset_left = 342.0
+offset_top = 886.0
+offset_right = 738.0
+offset_bottom = 1033.0
+texture_normal = ExtResource("8")

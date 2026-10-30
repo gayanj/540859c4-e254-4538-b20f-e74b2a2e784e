@@ -1,0 +1,445 @@
+deathSpikeAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+deathSpikeAnimation_
+  rotate: false
+  xy: 274, 824
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 5
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 552
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 40
+deathSpikeAnimation_
+  rotate: false
+  xy: 682, 548
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 34
+deathSpikeAnimation_
+  rotate: false
+  xy: 270, 960
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 17
+deathSpikeAnimation_
+  rotate: false
+  xy: 690, 276
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 59
+deathSpikeAnimation_
+  rotate: false
+  xy: 830, 140
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 12
+deathSpikeAnimation_
+  rotate: false
+  xy: 278, 140
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 7
+deathSpikeAnimation_
+  rotate: false
+  xy: 274, 552
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 36
+deathSpikeAnimation_
+  rotate: false
+  xy: 818, 548
+  size: 134, 134
+  orig: 188, 188
+  offset: 26, 28
+  index: 29
+deathSpikeAnimation_
+  rotate: false
+  xy: 554, 276
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 60
+deathSpikeAnimation_
+  rotate: false
+  xy: 278, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 54
+deathSpikeAnimation_
+  rotate: false
+  xy: 546, 820
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 2
+deathSpikeAnimation_
+  rotate: false
+  xy: 410, 548
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 41
+deathSpikeAnimation_
+  rotate: false
+  xy: 546, 548
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 35
+deathSpikeAnimation_
+  rotate: false
+  xy: 830, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 25, 26
+  index: 24
+deathSpikeAnimation_
+  rotate: false
+  xy: 682, 954
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 48
+deathSpikeAnimation_
+  rotate: false
+  xy: 414, 412
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 56
+deathSpikeAnimation_
+  rotate: false
+  xy: 818, 684
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 13
+deathSpikeAnimation_
+  rotate: false
+  xy: 138, 552
+  size: 134, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 37
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 688
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 26
+deathSpikeAnimation_
+  rotate: false
+  xy: 816, 820
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 61
+deathSpikeAnimation_
+  rotate: false
+  xy: 140, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 55
+deathSpikeAnimation_
+  rotate: false
+  xy: 140, 278
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 3
+deathSpikeAnimation_
+  rotate: false
+  xy: 812, 1088
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 32
+deathSpikeAnimation_
+  rotate: false
+  xy: 138, 688
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 25
+deathSpikeAnimation_
+  rotate: false
+  xy: 686, 412
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 49
+deathSpikeAnimation_
+  rotate: false
+  xy: 826, 276
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 57
+deathSpikeAnimation_
+  rotate: false
+  xy: 410, 820
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 10
+deathSpikeAnimation_
+  rotate: false
+  xy: 822, 412
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 44
+deathSpikeAnimation_
+  rotate: false
+  xy: 554, 140
+  size: 136, 134
+  orig: 188, 188
+  offset: 25, 27
+  index: 27
+deathSpikeAnimation_
+  rotate: false
+  xy: 550, 412
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 52
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 1094
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 0
+deathSpikeAnimation_
+  rotate: false
+  xy: 678, 1088
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 33
+deathSpikeAnimation_
+  rotate: false
+  xy: 692, 140
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 22
+deathSpikeAnimation_
+  rotate: false
+  xy: 410, 956
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 46
+deathSpikeAnimation_
+  rotate: false
+  xy: 416, 276
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 11
+deathSpikeAnimation_
+  rotate: false
+  xy: 544, 956
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 45
+deathSpikeAnimation_
+  rotate: false
+  xy: 682, 684
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 18
+deathSpikeAnimation_
+  rotate: false
+  xy: 274, 416
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 53
+deathSpikeAnimation_
+  rotate: false
+  xy: 806, 1222
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 1
+deathSpikeAnimation_
+  rotate: false
+  xy: 136, 960
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 30
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 140
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 23
+deathSpikeAnimation_
+  rotate: false
+  xy: 140, 140
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 8
+deathSpikeAnimation_
+  rotate: false
+  xy: 816, 954
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 47
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 414
+  size: 134, 136
+  orig: 188, 188
+  offset: 27, 26
+  index: 42
+deathSpikeAnimation_
+  rotate: false
+  xy: 138, 414
+  size: 134, 136
+  orig: 188, 188
+  offset: 27, 27
+  index: 19
+deathSpikeAnimation_
+  rotate: false
+  xy: 278, 278
+  size: 134, 136
+  orig: 188, 188
+  offset: 27, 26
+  index: 50
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 960
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 31
+deathSpikeAnimation_
+  rotate: false
+  xy: 546, 684
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 20
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 824
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 9
+deathSpikeAnimation_
+  rotate: false
+  xy: 672, 1222
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 14
+deathSpikeAnimation_
+  rotate: false
+  xy: 692, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 25, 26
+  index: 38
+deathSpikeAnimation_
+  rotate: false
+  xy: 682, 820
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 62
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 278
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 4
+deathSpikeAnimation_
+  rotate: false
+  xy: 416, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 25, 26
+  index: 43
+deathSpikeAnimation_
+  rotate: false
+  xy: 404, 1090
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 16
+deathSpikeAnimation_
+  rotate: false
+  xy: 416, 140
+  size: 136, 134
+  orig: 188, 188
+  offset: 26, 27
+  index: 51
+deathSpikeAnimation_
+  rotate: false
+  xy: 274, 688
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 21
+deathSpikeAnimation_
+  rotate: false
+  xy: 2, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 58
+deathSpikeAnimation_
+  rotate: false
+  xy: 138, 824
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 6
+deathSpikeAnimation_
+  rotate: false
+  xy: 538, 1090
+  size: 132, 132
+  orig: 188, 188
+  offset: 28, 28
+  index: 15
+deathSpikeAnimation_
+  rotate: false
+  xy: 554, 2
+  size: 136, 136
+  orig: 188, 188
+  offset: 26, 26
+  index: 39
+deathSpikeAnimation_
+  rotate: false
+  xy: 410, 684
+  size: 134, 134
+  orig: 188, 188
+  offset: 27, 27
+  index: 28

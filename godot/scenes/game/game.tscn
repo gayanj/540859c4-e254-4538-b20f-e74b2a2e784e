@@ -1,0 +1,63 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/game.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/game/arena.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/game/spawner.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/game/powerup_manager.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/game/score_tracker.gd" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/entities/hero.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/touch_joystick.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/fx/world_fx.tscn" id="9"]
+[ext_resource type="SpriteFrames" path="res://assets/animations/tutorialArrowAnimation.tres" id="10"]
+[ext_resource type="Script" path="res://scripts/fx/saw_blade.gd" id="11"]
+[ext_resource type="Material" path="res://assets/shaders/silhouette_ui.tres" id="12"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1")
+
+[node name="WorldFx" parent="." instance=ExtResource("9")]
+
+[node name="Arena" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="DeathSaws" type="Node2D" parent="."]
+
+[node name="Hero" parent="." instance=ExtResource("6")]
+position = Vector2(540, 960)
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="TutorialArrow" type="AnimatedSprite2D" parent="."]
+material = ExtResource("12")
+position = Vector2(957, 1800)
+sprite_frames = ExtResource("10")
+
+[node name="GameOverSaw" type="Node2D" parent="."]
+visible = false
+position = Vector2(540, 960)
+script = ExtResource("11")
+radius = 150.5
+teeth = 28
+rim_color = Color(1.15, 0.26, 0.2, 1)
+spin_speed = 2.5
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="PowerupManager" type="Node" parent="."]
+script = ExtResource("4")
+
+[node name="ScoreTracker" type="Node" parent="."]
+script = ExtResource("5")
+
+[node name="HUD" parent="." instance=ExtResource("7")]
+
+[node name="Controls" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="TouchJoystick" parent="Controls" instance=ExtResource("8")]

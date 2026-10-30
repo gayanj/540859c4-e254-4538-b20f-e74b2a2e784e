@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="GameTheme" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/theme/game_theme.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "fruit"
+display_name = "FRUIT NINJA"
+hero_style = 1
+particle_style = 1
+saw_style = 1
+burst_style = 1
+grid_style = 1
+clear_color = Color(0.13, 0.1, 0.08, 1)
+grid_color = Color(0.42, 0.3, 0.2, 0.55)
+hero = Color(1.0, 1.0, 1.05, 1)
+hero_invincible = Color(1.0, 0.85, 0.3, 1)
+normal = Color(0.95, 0.18, 0.12, 1)
+split = Color(0.35, 0.72, 0.18, 1)
+suicide = Color(1.0, 0.78, 0.1, 1)
+invisible = Color(0.55, 0.3, 0.6, 1)
+saw = Color(0.62, 0.66, 0.72, 1)
+death_saw = Color(0.95, 0.5, 0.15, 1)
+explosion = Color(1.0, 0.6, 0.15, 1)
+ui = Color(1.0, 0.95, 0.85, 1)
+shockwave = Color(1.0, 0.85, 0.3, 1)
+glow_intensity = 0.25
+glow_bloom = 0.02
+trail_alpha = 0.5
+ribbon_points = 12
+flame_outer = Color(0.88, 0.18, 0.05, 1)
+flame_mid = Color(1.0, 0.58, 0.12, 1)
+flame_core = Color(1.0, 0.95, 0.6, 1)

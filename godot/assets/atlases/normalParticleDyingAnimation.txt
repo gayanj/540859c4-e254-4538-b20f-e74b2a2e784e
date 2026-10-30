@@ -1,0 +1,88 @@
+normalParticleDyingAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+normalParticleDyingAnimation
+  rotate: false
+  xy: 804, 372
+  size: 136, 136
+  orig: 640, 480
+  offset: 254, 181
+  index: 2
+normalParticleDyingAnimation
+  rotate: false
+  xy: 782, 510
+  size: 230, 230
+  orig: 640, 480
+  offset: 209, 135
+  index: 5
+normalParticleDyingAnimation
+  rotate: false
+  xy: 414, 390
+  size: 366, 364
+  orig: 640, 480
+  offset: 140, 64
+  index: 10
+normalParticleDyingAnimation
+  rotate: false
+  xy: 804, 204
+  size: 168, 166
+  orig: 640, 480
+  offset: 239, 166
+  index: 3
+normalParticleDyingAnimation
+  rotate: false
+  xy: 414, 2
+  size: 388, 386
+  orig: 640, 480
+  offset: 126, 51
+  index: 11
+normalParticleDyingAnimation
+  rotate: false
+  xy: 782, 742
+  size: 104, 104
+  orig: 640, 480
+  offset: 269, 197
+  index: 1
+normalParticleDyingAnimation
+  rotate: false
+  xy: 2, 752
+  size: 316, 316
+  orig: 640, 480
+  offset: 168, 90
+  index: 8
+normalParticleDyingAnimation
+  rotate: false
+  xy: 610, 848
+  size: 260, 260
+  orig: 640, 480
+  offset: 195, 120
+  index: 6
+normalParticleDyingAnimation
+  rotate: false
+  xy: 2, 410
+  size: 342, 340
+  orig: 640, 480
+  offset: 153, 77
+  index: 9
+normalParticleDyingAnimation
+  rotate: false
+  xy: 804, 2
+  size: 200, 200
+  orig: 640, 480
+  offset: 223, 150
+  index: 4
+normalParticleDyingAnimation
+  rotate: false
+  xy: 320, 756
+  size: 288, 288
+  orig: 640, 480
+  offset: 182, 105
+  index: 7
+normalParticleDyingAnimation
+  rotate: false
+  xy: 2, 2
+  size: 410, 406
+  orig: 640, 480
+  offset: 114, 39
+  index: 12
