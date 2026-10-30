@@ -1,0 +1,150 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/menu/cosmetics.gd" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/BebasNeue.otf" id="2"]
+[ext_resource type="Texture2D" path="res://assets/atlases/regions/playbutton.tres" id="3"]
+
+[sub_resource type="LabelSettings" id="title"]
+font = ExtResource("2")
+font_size = 110
+font_color = Color(1, 1, 1, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="desc"]
+font = ExtResource("2")
+font_size = 40
+font_color = Color(1, 1, 1, 0.75)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="heading"]
+font = ExtResource("2")
+font_size = 64
+font_color = Color(1, 1, 1, 0.9)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="panel"]
+bg_color = Color(0.02, 0.02, 0.04, 0.72)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.12)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+
+[node name="Cosmetics" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Heading" type="Label" parent="UI/Root"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 1080.0
+offset_bottom = 140.0
+text = "COSMETICS"
+label_settings = SubResource("heading")
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 50.0
+offset_right = 220.0
+offset_bottom = 130.0
+text = "< BACK"
+flat = true
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 44
+
+[node name="Panel" type="Panel" parent="UI/Root"]
+layout_mode = 0
+offset_top = 1080.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+theme_override_styles/panel = SubResource("panel")
+
+[node name="ThemeTitle" type="Label" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 1100.0
+offset_right = 1080.0
+offset_bottom = 1230.0
+text = "NEON"
+label_settings = SubResource("title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThemeDesc" type="Label" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 1230.0
+offset_right = 1000.0
+offset_bottom = 1340.0
+text = "description"
+label_settings = SubResource("desc")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TryRow" type="HBoxContainer" parent="UI/Root"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 1370.0
+offset_right = 1000.0
+offset_bottom = 1470.0
+theme_override_constants/separation = 24
+
+[node name="DashButton" type="Button" parent="UI/Root/TryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TRY DASH"
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 40
+
+[node name="BurnButton" type="Button" parent="UI/Root/TryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TRY INVINCIBLE"
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 40
+
+[node name="KillButton" type="Button" parent="UI/Root/TryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TRY KILL"
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 40
+
+[node name="Tabs" type="HBoxContainer" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 1510.0
+offset_right = 1000.0
+offset_bottom = 1600.0
+theme_override_constants/separation = 24
+
+[node name="PlayButton" type="TextureButton" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 473.0
+offset_top = 1660.0
+offset_right = 607.0
+offset_bottom = 1812.0
+modulate = Color(1.6, 0.5, 0.45, 1)
+texture_normal = ExtResource("3")
